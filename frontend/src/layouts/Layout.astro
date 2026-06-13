@@ -1,0 +1,95 @@
+---
+import Navbar from '../components/Navbar.tsx';
+import Chatbot from '../components/Chatbot.tsx';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+  canonicalURL?: string;
+}
+
+const {
+  title = "LaunchWithAryan AI | Bespoke AI Automations & High-End Websites",
+  description = "A premium luxury technology company crafting high-performance websites, customized AI chatbots, workflow automations, and digital tools for forward-thinking enterprises.",
+  ogImage = "/images/og-image.jpg", // We will create/have an OG image, or point to standard layout
+  canonicalURL = Astro.url.href
+} = Astro.props as Props;
+
+// Schema Markup
+const schemaMarkup = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "LaunchWithAryan AI",
+  "url": "https://launchwitharyan.ai",
+  "image": ogImage,
+  "description": description,
+  "address": {
+    "@type": "PostalAddress",
+    "addressCountry": "India"
+  },
+  "serviceType": [
+    "AI Automation Services",
+    "Premium Web Development",
+    "AI Conversational Chatbots",
+    "Search Engine Optimization Engines",
+    "Digital Business Optimization Solutions"
+  ],
+  "priceRange": "$$$$"
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    
+    {/* Primary Meta Tags */}
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+
+    {/* Open Graph / Facebook */}
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+
+    {/* Twitter */}
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={ogImage} />
+
+    {/* Robots and Sitemap */}
+    <meta name="robots" content="index, follow" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    {/* Structured JSON-LD Data */}
+    <script type="application/ld+json" is:raw set:html={JSON.stringify(schemaMarkup)} />
+  </head>
+  <body class="premium-gradient-bg min-h-screen text-gray-100 antialiased selection:bg-primary selection:text-white flex flex-col justify-between">
+    
+    {/* Background Decorative Blur Gradients */}
+    <div class="fixed top-0 left-1/4 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[150px] -z-50 pointer-events-none animate-pulse-slow"></div>
+    <div class="fixed bottom-0 right-1/4 w-[400px] h-[400px] bg-accent-purple/5 rounded-full blur-[120px] -z-50 pointer-events-none"></div>
+    
+    <Navbar client:load />
+    <Chatbot client:only="react" />
+
+    <main class="flex-grow pt-28">
+      <slot />
+    </main>
+
+    <Footer />
+
+  </body>
+</html>

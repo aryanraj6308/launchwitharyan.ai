@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.env
+.venv/
+venv/
+env/
+*.egg-info/
+.Python
+*.pyc
+*.db
+*.sqlite3
+dist/
+build/
+
+# Node / Frontend
+node_modules/
+.cache/
+dist/
+.astro/
+*.tsbuildinfo
+
+# Environment files
+.env
+.env.local
+.env.production
+.env.development
+
+# IDE
+.vscode/
+.idea/
+*.suo
+*.user
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Build Outputs
+frontend/dist/
+backend/*.db

@@ -1,0 +1,30 @@
+---
+import Layout from '../layouts/Layout.astro';
+import DashboardLayout from '../components/DashboardLayout.tsx';
+---
+
+<Layout title="Client Console Dashboard | LaunchWithAryan AI">
+  
+  <section class="relative overflow-hidden py-16 lg:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      
+      {/* Page Header */}
+      <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs text-gray-300 backdrop-blur-md">
+          <span>Secure Console</span>
+        </div>
+        <h1 class="text-4xl sm:text-5xl font-display font-bold text-white tracking-tight">
+          Your Workspace <span class="gradient-text">Dashboard</span>
+        </h1>
+        <p class="text-gray-400 font-sans leading-relaxed text-base">
+          Configure API connections, manage your downloadable templates, and check token rate telemetry.
+        </p>
+      </div>
+
+      {/* Dashboard container */}
+      <DashboardLayout client:only="react" />
+
+    </div>
+  </section>
+
+</Layout>

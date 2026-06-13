@@ -1,0 +1,178 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { Calendar, User, ArrowLeft, Clock } from 'lucide-react';
+
+export function getStaticPaths() {
+  return [
+    {
+      params: { slug: "local-llm-ollama-guide" },
+      props: {
+        title: "Optimizing Local LLM Infrastructure: Ollama vs Cloud API Solutions",
+        category: "AI Infrastructure",
+        date: "June 12, 2026",
+        author: "Aryan Sharma",
+        readTime: "6 min read",
+        content: `
+          <p>Deploying Large Language Models (LLMs) to cloud servers has long been the default for development. However, enterprise workflows demand high query volumes, strict data privacy, and minimal latency. This article reviews why local hosting configurations utilizing <strong>Ollama</strong> (running quantized engines like Llama-3 8B or Mistral 7B) have emerged as robust alternatives to commercial web endpoints.</p>
+          
+          <h3>Why Run Local Architectures?</h3>
+          <p>Running local instances provides three crucial operational benefits:</p>
+          <ul>
+            <li><strong>Zero Data Leakage:</strong> All telemetry and prompts stay inside your host cluster firewall. This is paramount for legal, banking, and health integrations.</li>
+            <li><strong>Predictable Costs:</strong> Unlike OpenAI or Anthropic API structures that bill per input/output token, local machines have fixed hardware/electricity overhead.</li>
+            <li><strong>High-Speed Ingestion:</strong> By removing web hops, local connections running over localhost port 11434 achieve highly optimized Time-to-First-Token (TTFT).</li>
+          </ul>
+
+          <h3>FastAPI Setup Example</h3>
+          <p>Connecting a local Ollama model to our Python backend can be configured with simple HTTP request structures:</p>
+          <pre><code>import httpx
+
+async def get_ollama_reply(prompt: str) -> str:
+    url = "http://localhost:11434/api/generate"
+    payload = {
+        "model": "llama3",
+        "prompt": prompt,
+        "stream": False
+    }
+    async with httpx.AsyncClient() as client:
+        res = await client.post(url, json=payload, timeout=30.0)
+        return res.json().get("response", "")
+</code></pre>
+        `
+      }
+    },
+    {
+      params: { slug: "astro-gsap-luxury-web" },
+      props: {
+        title: "Crafting Premium Luxury Web Interfaces with Astro & GSAP Scroller",
+        category: "Web Engineering",
+        date: "June 08, 2026",
+        author: "Aryan Sharma",
+        readTime: "8 min read",
+        content: `
+          <p>Luxury tech platforms like Apple, Stripe, and Linear stand out due to their subtle, premium micro-animations. In this post, we explain how to coordinate Astro static routing with GSAP scroll scripts to create responsive transitions.</p>
+          
+          <h3>CSS Variables & Glassmorphism Basics</h3>
+          <p>The foundation of a luxury interface starts with layout parameters. Instead of using generic colors, we establish deep blacks combined with custom borders:</p>
+          <pre><code>.glassmorphism {
+  background: rgba(10, 10, 12, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}</code></pre>
+
+          <h3>GSAP ScrollTrigger Implementations</h3>
+          <p>To animate components as they enter the viewport, we utilize GSAP ScrollTrigger. This ensures that card elements float upwards smoothly without layout shifts:</p>
+          <pre><code>import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
+
+gsap.from('.feature-card', {
+  scrollTrigger: {
+    trigger: '.feature-grid',
+    start: 'top 80%',
+  },
+  opacity: 0,
+  y: 30,
+  stagger: 0.15,
+  duration: 0.8
+});</code></pre>
+        `
+      }
+    },
+    {
+      params: { slug: "postgres-vector-embedding-search" },
+      props: {
+        title: "Step-by-Step Guide to Deploying Vector Search in Postgres via PGVector",
+        category: "Database RAG",
+        date: "May 28, 2026",
+        author: "Aryan Sharma",
+        readTime: "10 min read",
+        content: `
+          <p>Retrieval-Augmented Generation (RAG) bridges the gap between static LLMs and dynamic business databases. In this walkthrough, we configure PGVector inside Supabase to handle search matching queries.</p>
+          
+          <h3>Activating the Vector Extension</h3>
+          <p>First, execute the SQL command to enable vector support in your PostgreSQL database cluster:</p>
+          <pre><code>CREATE EXTENSION IF NOT EXISTS vector;</code></pre>
+
+          <h3>Defining the Embeddings Table</h3>
+          <p>We create a table to store document chunks and their associated float vectors (using a dimension of 1536, standard for OpenAI embeddings):</p>
+          <pre><code>CREATE TABLE document_embeddings (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  content text NOT NULL,
+  embedding vector(1536)
+);</code></pre>
+
+          <h3>Querying Match Similarities</h3>
+          <p>To find the most relevant chunks, we query document similarities using the cosine distance operator (&lt;=&gt;):</p>
+          <pre><code>CREATE OR REPLACE FUNCTION match_documents (
+  query_embedding vector(1536),
+  match_threshold float,
+  match_count int
+)
+RETURNS TABLE (
+  id uuid,
+  content text,
+  similarity float
+)
+LANGUAGE sql STABLE
+AS $$
+  SELECT
+    id,
+    content,
+    1 - (embedding <=> query_embedding) AS similarity
+  FROM document_embeddings
+  WHERE 1 - (embedding <=> query_embedding) > match_threshold
+  ORDER BY similarity DESC
+  LIMIT match_count;
+$$;</code></pre>
+        `
+      }
+    }
+  ];
+}
+
+const { title, category, date, author, readTime, content } = Astro.props;
+---
+
+<Layout title={`${title} | LaunchWithAryan AI Blog`}>
+  
+  <article class="py-16 sm:py-24 relative">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      
+      {/* Back Button */}
+      <a href="/blog" class="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors mb-12">
+        <ArrowLeft class="w-4 h-4" />
+        Back to Insights
+      </a>
+
+      {/* Post Header */}
+      <header class="space-y-6 mb-12 border-b border-white/5 pb-10">
+        <span class="px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-semibold text-accent-cyan uppercase tracking-wider">
+          {category}
+        </span>
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-white tracking-tight leading-tight">
+          {title}
+        </h1>
+
+        <div class="flex flex-wrap items-center gap-6 text-sm text-gray-500 font-sans">
+          <span class="flex items-center gap-1.5"><Calendar class="w-4 h-4" /> {date}</span>
+          <span class="flex items-center gap-1.5"><Clock class="w-4 h-4" /> {readTime}</span>
+          <span class="flex items-center gap-1.5">By {author}</span>
+        </div>
+      </header>
+
+      {/* Post Content */}
+      <div class="prose prose-invert prose-blue max-w-none font-sans text-gray-300 leading-relaxed space-y-6 
+        prose-headings:font-display prose-headings:font-bold prose-headings:text-white
+        prose-h3:text-2xl prose-h3:mt-8
+        prose-ul:list-disc prose-ul:pl-6 prose-ul:space-y-2
+        prose-pre:glassmorphism prose-pre:p-5 prose-pre:rounded-2xl prose-pre:border prose-pre:border-white/5 prose-pre:overflow-x-auto
+        prose-code:font-mono prose-code:text-xs prose-code:text-primary-light" 
+        set:html={content} 
+      />
+
+    </div>
+  </article>
+
+</Layout>

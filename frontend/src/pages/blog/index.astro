@@ -1,0 +1,90 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { ArrowRight, Calendar, User } from 'lucide-react';
+
+const posts = [
+  {
+    slug: "local-llm-ollama-guide",
+    title: "Optimizing Local LLM Infrastructure: Ollama vs Cloud API Solutions",
+    excerpt: "Discover how self-hosting small language models like Llama-3 locally can decrease operational API overhead by up to 80% while retaining data security.",
+    date: "June 12, 2026",
+    author: "Aryan Sharma",
+    category: "AI Infrastructure",
+    readTime: "6 min read"
+  },
+  {
+    slug: "astro-gsap-luxury-web",
+    title: "Crafting Premium Luxury Web Interfaces with Astro & GSAP Scroller",
+    excerpt: "Learn the exact viewport tracking code, CSS layouts, and performance scripts used to create smooth, high-fidelity browser transitions.",
+    date: "June 08, 2026",
+    author: "Aryan Sharma",
+    category: "Web Engineering",
+    readTime: "8 min read"
+  },
+  {
+    slug: "postgres-vector-embedding-search",
+    title: "Step-by-Step Guide to Deploying Vector Search in Postgres via PGVector",
+    excerpt: "A technical dive into schema indexes, distance algorithms, and SQL querying methods to support conversational chatbot memory.",
+    date: "May 28, 2026",
+    author: "Aryan Sharma",
+    category: "Database RAG",
+    readTime: "10 min read"
+  }
+];
+---
+
+<Layout title="SEO & AI Technology Blog | LaunchWithAryan AI">
+  
+  <section class="relative overflow-hidden py-16 lg:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      
+      {/* Page Header */}
+      <div class="text-center max-w-3xl mx-auto mb-20 space-y-4">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs text-gray-300 backdrop-blur-md">
+          <span>Insights & Guides</span>
+        </div>
+        <h1 class="text-4xl sm:text-5xl font-display font-bold text-white tracking-tight">
+          Technology & <span class="gradient-text">AI Architectures</span>
+        </h1>
+        <p class="text-gray-400 font-sans leading-relaxed text-base">
+          Read detailed developer reviews, optimization strategies, and tutorials on self-hosting models and deploying vector caches.
+        </p>
+      </div>
+
+      {/* Posts Grid */}
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+        {posts.map((post) => (
+          <article class="glassmorphism rounded-3xl border border-white/5 hover:border-white/10 flex flex-col justify-between overflow-hidden hover:shadow-2xl hover:shadow-primary/5 transition-all duration-300 group">
+            
+            <div class="p-6 sm:p-8 space-y-5">
+              <div class="flex items-center justify-between text-xs text-gray-500 font-sans">
+                <span class="px-2.5 py-1 rounded-full bg-white/5 text-accent-cyan font-semibold">{post.category}</span>
+                <span>{post.readTime}</span>
+              </div>
+
+              <h2 class="text-xl font-display font-bold text-white group-hover:text-primary transition-colors leading-tight">
+                <a href={`/blog/${post.slug}`}>{post.title}</a>
+              </h2>
+
+              <p class="text-gray-400 text-sm leading-relaxed font-sans line-clamp-3">
+                {post.excerpt}
+              </p>
+            </div>
+
+            <div class="p-6 sm:p-8 border-t border-white/5 bg-white/2 flex items-center justify-between text-xs text-gray-500 font-sans">
+              <div class="flex items-center gap-4">
+                <span class="flex items-center gap-1.5"><Calendar class="w-3.5 h-3.5" /> {post.date}</span>
+              </div>
+              <a href={`/blog/${post.slug}`} class="inline-flex items-center gap-1 font-semibold text-primary hover:text-white transition-colors group">
+                Read Post <ArrowRight class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+              </a>
+            </div>
+
+          </article>
+        ))}
+      </div>
+
+    </div>
+  </section>
+
+</Layout>

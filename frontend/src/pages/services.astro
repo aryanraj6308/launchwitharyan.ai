@@ -1,0 +1,152 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Bot, Code, LineChart, Cpu, Shield, ArrowRight } from 'lucide-react';
+
+const services = [
+  {
+    icon: Bot,
+    title: "AI Workflows & Automation",
+    subtitle: "Eliminate repetitive tasks and save hundreds of employee hours.",
+    features: [
+      "Secure custom LLM fine-tuning",
+      "Dynamic prompt engineering pipelines",
+      "API connections to Slack, Notion, Gmail, and CRMs",
+      "Multi-agent collaborative systems"
+    ],
+    tech: "LangChain, Llama-3, Python, FastAPI"
+  },
+  {
+    icon: Code,
+    title: "Premium Bespoke Websites",
+    subtitle: "High-end corporate storefronts designed to command premium pricing.",
+    features: [
+      "Light/dark mode premium glassmorphism",
+      "Optimized Core Web Vitals (95+ Lighthouse Score)",
+      "Three.js/WebGL interactive animations",
+      "Astro + React edge-rendered architectures"
+    ],
+    tech: "Astro, React, Tailwind, Framer Motion"
+  },
+  {
+    icon: Shield,
+    title: "Conversational AI Chatbots",
+    subtitle: "24/7 client support and immediate lead qualification systems.",
+    features: [
+      "Custom vector database integration (RAG)",
+      "Context-aware memory for continuous dialogues",
+      "Secure payment processing via Stripe/Razorpay inline",
+      "Auto-handoff trigger to human representatives"
+    ],
+    tech: "Supabase PGVector, OpenAI API, Ollama"
+  },
+  {
+    icon: LineChart,
+    title: "Programmatic SEO Automation",
+    subtitle: "Generate hundreds of landing pages with high commercial intent automatically.",
+    features: [
+      "Dynamic JSON-LD Schema markup generator",
+      "Automated XML sitemaps and indexing submissions",
+      "Keyword mapping optimization engine",
+      "Speed optimized static deployments to Vercel/Cloudflare"
+    ],
+    tech: "Node.js, Astro Static Routing, Google Index API"
+  },
+  {
+    icon: Cpu,
+    title: "Enterprise Business Workflows",
+    subtitle: "Integrate database storage with custom interfaces for operations dashboards.",
+    features: [
+      "Supabase real-time sync systems",
+      "Custom analytics widgets & reporting views",
+      "Robust OAuth2 authentication & user controls",
+      "Webhook trigger frameworks & queue logging"
+    ],
+    tech: "PostgreSQL, FastAPI, Supabase, JWT"
+  }
+];
+---
+
+<Layout title="AI Services & Solutions | LaunchWithAryan AI">
+  
+  <section class="relative overflow-hidden py-16 lg:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      
+      {/* Page Header */}
+      <div class="text-center max-w-3xl mx-auto mb-20 space-y-4">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs text-gray-300 backdrop-blur-md">
+          <span>Enterprise Engineering</span>
+        </div>
+        <h1 class="text-4xl sm:text-5xl font-display font-bold text-white tracking-tight">
+          Services Designed For <span class="gradient-text">Hyper-Scale</span>
+        </h1>
+        <p class="text-gray-400 font-sans leading-relaxed text-base">
+          We combine local LLM hosting, premium web frontends, secure backend integrations, and automated pipelines to optimize your bottom line.
+        </p>
+      </div>
+
+      {/* Services Grid */}
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-20">
+        {services.map((service) => {
+          const Icon = service.icon;
+          return (
+            <div class="glassmorphism p-8 sm:p-10 rounded-3xl border border-white/5 flex flex-col justify-between space-y-8 hover:border-white/10 transition-all duration-300">
+              <div class="space-y-6">
+                {/* Header */}
+                <div class="flex items-center gap-4">
+                  <div class="w-12 h-12 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary">
+                    <Icon class="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h2 class="text-xl font-display font-semibold text-white">{service.title}</h2>
+                    <p class="text-xs text-gray-500 font-medium tracking-wide uppercase font-sans mt-0.5">{service.tech}</p>
+                  </div>
+                </div>
+
+                <p class="text-gray-400 text-sm leading-relaxed font-sans">{service.subtitle}</p>
+
+                {/* Features List */}
+                <ul class="space-y-3 pt-2">
+                  {service.features.map((feat) => (
+                    <li class="flex items-start gap-2 text-sm text-gray-300 font-sans">
+                      <span class="text-primary mt-1 font-bold">✓</span>
+                      <span>{feat}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Action Button */}
+              <div class="pt-6 border-t border-white/5 flex items-center justify-between">
+                <span class="text-xs text-gray-500 font-mono">Premium Tier Solution</span>
+                <a
+                  href="/contact"
+                  class="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:text-white transition-colors group"
+                >
+                  Configure Service
+                  <ArrowRight class="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </a>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Custom Consulting Banner */}
+      <div class="glassmorphism p-8 sm:p-12 rounded-3xl border border-primary/10 bg-radial-gradient(circle,rgba(0,98,255,0.05),transparent) text-center space-y-6 max-w-4xl mx-auto">
+        <h3 class="text-2xl font-display font-bold text-white">Need a Bespoke RAG or Custom Fine-Tuning Setup?</h3>
+        <p class="text-gray-400 font-sans text-sm max-w-2xl mx-auto leading-relaxed">
+          We architect standalone offline AI clusters using local hardware or highly secure private cloud setups, ensuring zero intellectual property leakage.
+        </p>
+        <a
+          href="/contact"
+          class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-primary hover:bg-primary-dark font-sans text-sm font-medium text-white transition-all duration-300"
+        >
+          Book Technical Review
+          <ArrowRight class="w-4 h-4" />
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+</Layout>
