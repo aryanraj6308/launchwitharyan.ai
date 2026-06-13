@@ -28,6 +28,11 @@ dist/
 .env.production
 .env.development
 
+# Test logs
+*-output.txt
+test_*.ps1
+test_output.html
+
 # IDE
 .vscode/
 .idea/
