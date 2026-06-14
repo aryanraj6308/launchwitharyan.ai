@@ -7,7 +7,8 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://launchwitharyan.ai',
+  site: 'https://aryanraj6308.github.io',
+  base: '/launchwitharyan.ai',
   integrations: [
     react(),
     sitemap(),
