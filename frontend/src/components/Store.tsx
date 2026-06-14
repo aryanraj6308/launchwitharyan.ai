@@ -22,7 +22,7 @@ const productsData: Product[] = [
     description: 'A premium, custom-optimized landing page blueprint with GSAP scroll scripts, dark mode variables, and built-in lead forms.',
     features: ['100/100 Core Web Vitals', 'Tailwind CSS v4 config', 'Clean TypeScript support', 'Framer Motion animations'],
     specs: 'Astro 5.0 + React 18',
-    paymentLink: ''
+    paymentLink: 'https://rzp.io/rzp/AGENuVaz'
   },
   {
     id: 'rag-boilerplate',
