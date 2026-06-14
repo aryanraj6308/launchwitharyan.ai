@@ -1,0 +1,763 @@
+[
+  {
+    "id": "kwr-01",
+    "category": "keyword-research",
+    "title": "Topic Cluster Discovery",
+    "prompt": "You are an SEO keyword research specialist with 12 years of experience. Your task is to generate a comprehensive topic cluster for the seed keyword \"{seed_keyword}\" in the {industry} industry. Generate: 1. Pillar Topic: One broad topic that serves as the cornerstone (intent: informational, search volume: 5K-50K/mo) 2. 10 Cluster Topics: Related subtopics with search intent labels (informational/commercial/transactional/navigational) 3. Long-tail opportunities: 15 specific long-tail keywords with estimated search volume ranges 4. Question-based keywords: 10 \"People Also Ask\" style questions 5. Seasonal trends: Identify any seasonal spikes for the top 5 keywords. Format each keyword with: keyword | intent | estimated volume range | difficulty (Low/Medium/High) | SERP feature opportunity. Use SEMrush-style terminology for difficulty assessment. Prioritize keywords where the domain authority of top 10 results is below 60.",
+    "variables": [
+      "seed_keyword",
+      "industry"
+    ],
+    "model_hint": "Claude-3 Opus",
+    "temperature": 0.3,
+    "max_tokens": 2000
+  },
+  {
+    "id": "kwr-02",
+    "category": "keyword-research",
+    "title": "Keyword Gap Analysis",
+    "prompt": "You are a competitive SEO analyst. Analyze the keyword gap between {primary_domain} and its top 3 competitors: {competitor_1}, {competitor_2}, {competitor_3} in the {industry} vertical. For each competitor: Identify 10 keywords they rank for that {primary_domain} does not. Classify each by intent: Commercial Investigation, Informational, Transactional. Estimate the traffic value (Low/Medium/High) based on CPC data. Flag keywords where {primary_domain} could realistically rank (#6-#10 positions within 90 days). Output as a comparison table: Keyword | Competitor Ranking | Intent | Traffic Value | Opportunity Score (1-10) | Quick Win (Yes/No). Focus on keywords with commercial intent (buyer intent modifiers: \"best\", \"review\", \"vs\", \"pricing\", \"alternative\", \"for\", \"cost\", \"software\", \"tool\", \"service\", \"platform\"). Include a strategic summary recommending which 5 keywords to target first and why.",
+    "variables": [
+      "primary_domain",
+      "competitor_1",
+      "competitor_2",
+      "competitor_3",
+      "industry"
+    ],
+    "model_hint": "Claude-3 Opus",
+    "temperature": 0.3,
+    "max_tokens": 2000
+  },
+  {
+    "id": "kwr-03",
+    "category": "keyword-research",
+    "title": "Search Intent Classification",
+    "prompt": "You are a search intent classifier trained on Google's Quality Rater Guidelines. Classify each of the following keywords for {topic} by search intent subtype. Keywords: {keyword_list}. For each keyword, determine: 1. Intent category: Informational / Navigational / Commercial / Transactional 2. Intent subtype: (e.g., Informational -> \"How-to\", \"What-is\", \"Guide\", \"List\", \"Comparison\", \"Definition\") 3. Content format match: Blog post / Product page / Category page / Landing page / Video / Tool 4. Buying stage: Awareness / Consideration / Decision 5. SERP feature probability: Featured Snippet 0-100% / People Also Ask / Video carousel / Image pack 6. Recommended word count range: based on top 3 current rankings. Output as a CSV-ready table. At the end, provide a content strategy recommendation: which 3 keywords to create content for first, in what format, and why.",
+    "variables": [
+      "topic",
+      "keyword_list"
+    ],
+    "model_hint": "GPT-4 Turbo",
+    "temperature": 0.3,
+    "max_tokens": 2000
+  },
+  {
+    "id": "kwr-04",
+    "category": "keyword-research",
+    "title": "LSI & Semantic Keyword Expansion",
+    "prompt": "You are a semantic SEO specialist. Given the primary keyword \"{primary_keyword}\" and the URL \"{target_url}\", generate a comprehensive set of semantically related terms using latent semantic indexing (LSI) and entity-based SEO principles. Generate: 1. Core entities: 10 key entities (people, places, concepts, tools, brands) related to the topic 2. LSI keywords: 20 semantically related keywords grouped by theme (3-4 themes) 3. Co-occurring terms: 15 terms that commonly appear alongside {primary_keyword} in top-ranking content 4. Natural language variations: 10 question-based and conversational variations optimized for voice search 5. Entity relationship map: How the core entities connect to each other. For each term include: term | relationship strength (Strong/Moderate/Weak) | inclusion priority (Essential/Recommended/Optional) | suggested section in article.",
+    "variables": [
+      "primary_keyword",
+      "target_url"
+    ],
+    "model_hint": "Gemini 1.5 Pro",
+    "temperature": 0.3,
+    "max_tokens": 2000
+  },
+  {
+    "id": "kwr-05",
+    "category": "keyword-research",
+    "title": "Content Inventory & Keyword Mapping",
+    "prompt": "You are a content strategist performing a content audit for {domain}. Below is the current content inventory: {content_list}. For each piece of content, analyze: 1. Primary keyword targeted - was it correct based on current rankings? 2. Keyword cannibalization risk - identify any pages targeting the same or very similar keywords 3. Gap opportunities - keywords with search volume >500/mo that have no dedicated content 4. Content consolidation recommendations - which 2-3 thin content pages should be merged 5. Freshness opportunities - which pages could gain 30%+ traffic with an update. Output: Content URL | Current Keyword | Recommended New Keyword | Action (Optimize/Merge/Redirect/Keep) | Priority (P1-P4) | Expected Traffic Lift %. Include a summary with the top 10 keyword opportunities with the highest gap-to-effort ratio.",
+    "variables": [
+      "domain",
+      "content_list"
+    ],
+    "model_hint": "GPT-4 Turbo",
+    "temperature": 0.3,
+    "max_tokens": 2000
+  },
+  {
+    "id": "kwr-06",
+    "category": "keyword-research",
+    "title": "Buyer Intent Keyword Clustering",
+    "prompt": "You are a conversion-focused SEO strategist. Cluster keywords for {product_or_service} by buyer intent level to build a keyword-to-content funnel. Initial keyword set: {keyword_csv}. Cluster into: 1. TOFU (Top of Funnel) - Awareness: Problem-aware, solution-unaware keywords 2. MOFU (Middle of Funnel) - Consideration: Solution-aware, brand-unaware keywords 3. BOFU (Bottom of Funnel) - Decision: Purchase-intent keywords 4. Retention: Post-purchase keywords. For each cluster provide: 5-10 keyword examples, Content format recommendation, CTA strategy for that stage, Estimated conversion probability (Low/Medium/High), Recommended internal linking target. Output as a visual funnel diagram followed by the detailed table.",
+    "variables": [
+      "product_or_service",
+      "keyword_csv"
+    ],
+    "model_hint": "Claude-3 Opus",
+    "temperature": 0.3,
+    "max_tokens": 2000
+  },
+  {
+    "id": "kwr-07",
+    "category": "keyword-research",
+    "title": "YouTube Keyword Research for Blog Embeds",
+    "prompt": "You are a video SEO specialist. Identify YouTube keyword opportunities that complement a blog content strategy for {blog_topic}. The goal is to create short embedded videos that increase dwell time and reduce bounce rate. For each subtopic: {subtopic_list}: 1. Find 5 YouTube-specific keywords (higher watch time, lower competition) 2. Suggest a video title optimized for both YouTube SEO and embedded click-through 3. Recommended video length (60s/3min/5min/10min) based on keyword 4. Thumbnail text hook suggestion (max 5 words) 5. Key timestamps/chapters for the video. Additionally, identify 5 keywords where a video embedding could increase time-on-page by 30%+.",
+    "variables": [
+      "blog_topic",
+      "subtopic_list"
+    ],
+    "model_hint": "Gemini 1.5 Pro",
+    "temperature": 0.3,
+    "max_tokens": 2000
+  },
+  {
+    "id": "kwr-08",
+    "category": "keyword-research",
+    "title": "Zero-Click Keyword Opportunities",
+    "prompt": "You are a featured snippet optimization specialist. Analyze the following keyword set for {topic}: {keyword_list}. For each keyword: 1. Determine the current SERP feature (Featured Snippet / People Also Ask / Knowledge Panel / None) 2. If a Featured Snippet exists: extract content, identify type (Paragraph/List/Table/Video), count words 3. If no snippet exists: estimate snippet potential (0-100%) and recommend the optimal content format 4. Identify the trigger question Google is answering 5. Provide a \"snippet-winning\" content template. Flag keywords where the snippet is poorly written, outdated, or from a low-authority domain. Output priority-sorted: Keyword | Current Snippet | Opportunity Score | Recommended Action | Expected CTR Lift.",
+    "variables": [
+      "topic",
+      "keyword_list"
+    ],
+    "model_hint": "GPT-4 Turbo",
+    "temperature": 0.3,
+    "max_tokens": 2000
+  },
+  {
+    "id": "kwr-09",
+    "category": "keyword-research",
+    "title": "International & Multi-Language Keyword Expansion",
+    "prompt": "You are an international SEO strategist. Expand the keyword set for {primary_keyword} across the following target markets: {market_list}. For each market: 1. Translate and localize 10 keywords (not literal translation - culturally adapted) 2. Identify search volume differences compared to the source market 3. Flag any keywords with different search intent in the target market vs source 4. Suggest hreflang tag strategy for each keyword cluster 5. Identify local competitors ranking for those terms 6. Note cultural nuances, taboos, or legal restrictions. Output as: Market | Localized Keyword | Translated Back | Intent (Local) | Volume Delta | Competitor | Cultural Note.",
+    "variables": [
+      "primary_keyword",
+      "market_list"
+    ],
+    "model_hint": "Gemini 1.5 Pro",
+    "temperature": 0.3,
+    "max_tokens": 2000
+  },
+  {
+    "id": "kwr-10",
+    "category": "keyword-research",
+    "title": "Programmatic SEO Keyword Matrix",
+    "prompt": "You are a programmatic SEO architect. Design a keyword matrix for a {content_type} website in the {industry} niche. The website follows a {combinatorial_pattern} pattern. Generate: 1. Dimension 1 values: {dimension_1_values} 2. Dimension 2 values: {dimension_2_values} 3. Combined keyword matrix with search intent labels 4. Template mapping per combination 5. Unique content requirements vs dynamic sections 6. Canonical strategy for near-duplicates 7. Estimated total pages 8. Tier system: Tier 1 (high volume) / Tier 2 (medium) / Tier 3 (long tail, auto-generate). Output as a JSON-compatible structure with traffic projections for Tier 1 pages at months 1, 3, 6, 12.",
+    "variables": [
+      "content_type",
+      "industry",
+      "combinatorial_pattern",
+      "dimension_1_values",
+      "dimension_2_values"
+    ],
+    "model_hint": "GPT-4 Turbo",
+    "temperature": 0.3,
+    "max_tokens": 2000
+  },
+  {
+    "id": "bpo-01",
+    "category": "blog-outline",
+    "title": "Comprehensive Blog Outline Generator",
+    "prompt": "You are a senior content strategist who creates outlines that consistently rank in Google's top 3 positions. Create a detailed, rank-ready outline for the keyword \"{target_keyword}\" targeting {target_audience}. The outline must include: 1. Proposed Title: Click-optimized title (max 60 chars) using {target_keyword} naturally 2. Meta Description Preview: 150-160 characters 3. URL Slug: SEO-friendly slug suggestion 4. Introduction Hook: 3 opening angle options (statistic, question, story) 5. H2 Sections: 5-7 main sections with keyword-optimized headings 6. H3 Subsections: 2-3 per H2 covering subtopics in logical order 7. Key Points Per Section: 3-5 bullet points 8. Internal Linking Opportunities: 3-5 existing articles to link to 9. External Authority Links: 2-3 high-DA references for E-E-A-T 10. Visual/Media Requirements per section 11. Word Count Target with per-section breakdown.",
+    "variables": [
+      "target_keyword",
+      "target_audience"
+    ],
+    "model_hint": "Claude-3 Sonnet",
+    "temperature": 0.5,
+    "max_tokens": 3000
+  },
+  {
+    "id": "bpo-02",
+    "category": "blog-outline",
+    "title": "Skyscraper Technique Outline",
+    "prompt": "You are a content strategist executing the Skyscraper Technique. Given the top-ranking article \"{top_ranking_url}\" for keyword \"{target_keyword}\", create a significantly better outline. Step 1 - Analyze the incumbent: title, angle, H2/H3 structure, content gaps, weaknesses, ranking factors. Step 2 - Design the superior outline: retain strong sections, add 3-5 new H2s filling gaps, expand thin subsections, add 2 comparison tables, include 3 expert insights, add Key Takeaway boxes. Step 3 - Differentiation: 5 unique angles not covered, 3 data points or original research, enhanced formatting recommendations. Output the full outline with a \"Why This Will Outrank The Original\" summary.",
+    "variables": [
+      "top_ranking_url",
+      "target_keyword"
+    ],
+    "model_hint": "Claude-3 Opus",
+    "temperature": 0.5,
+    "max_tokens": 3000
+  },
+  {
+    "id": "bpo-03",
+    "category": "blog-outline",
+    "title": "List Post Outline Generator",
+    "prompt": "You are a listicle content specialist. Create a high-CTR list post outline for \"{topic}\" targeting {audience}. Title options: 1. Number-based: \"X {Adjective} {Topic} [Benefit]\" 2. How-to list: \"X Ways to {Achieve Goal} with {Topic}\" 3. Curated list: \"X Best {Topic} [Year]\". Include: Introduction with hook, 15-25 list items (50-100 words each), Item format (name | why it matters | how to use it | pro tip), Visual per item, Comparison metrics, Conclusion with top 3 picks and CTA, Bonus section: \"What We Didn't Include\". Add Expert Pick callout boxes and 5 PAA Q&A sections for featured snippet targeting.",
+    "variables": [
+      "topic",
+      "audience"
+    ],
+    "model_hint": "Claude-3 Sonnet",
+    "temperature": 0.5,
+    "max_tokens": 3000
+  },
+  {
+    "id": "bpo-04",
+    "category": "blog-outline",
+    "title": "How-To Guide Outline",
+    "prompt": "You are a tutorial content specialist. Design a step-by-step how-to guide outline for \"{task}\" targeting {skill_level} readers. Structure: 1. Title: \"How to {Task}: A Step-by-Step Guide\" 2. TL;DR summary 3. Prerequisites checklist 4. Method 1 - {Approach Name}: Steps 1-10 with code/config snippets 5. Method 2 - {Alternative Approach}: Steps 1-8 6. Troubleshooting: 5-7 common errors with solutions 7. Best Practices: 5 pro tips 8. Next Steps: 3 follow-up tasks 9. Related Resources: 3-5 internal links. For each step include: step number, action verb, expected outcome, time estimate, common mistake. Include a Check Your Work verification point every 3-5 steps.",
+    "variables": [
+      "task",
+      "skill_level"
+    ],
+    "model_hint": "GPT-4 Turbo",
+    "temperature": 0.5,
+    "max_tokens": 3000
+  },
+  {
+    "id": "bpo-05",
+    "category": "blog-outline",
+    "title": "Comparison Post Outline",
+    "prompt": "You are a comparison content strategist. Create an outline for \"{product_A} vs {product_B} - Which is Better in {year}?\" targeting purchasers in the {industry} space. Structure: 1. Title options (3 variations) 2. Quick Verdict 3. At a Glance Table 4. Product Overviews 5. Feature-by-Feature Comparison (8-10 criteria with Winner tags): Pricing, Ease of Use, Features, Integrations, Support, Scalability, Security, Reviews 6. Pricing Breakdown 7. Who Should Choose Each 8. Alternatives 9. Final Verdict with Decision Matrix 10. FAQ. Include a running score tally and 3 screenshots per product.",
+    "variables": [
+      "product_A",
+      "product_B",
+      "year",
+      "industry"
+    ],
+    "model_hint": "Claude-3 Sonnet",
+    "temperature": 0.5,
+    "max_tokens": 3000
+  },
+  {
+    "id": "bpo-06",
+    "category": "blog-outline",
+    "title": "Pillar Page Outline",
+    "prompt": "You are a topical authority architect. Design a pillar page outline for \"{core_topic}\" that establishes domain authority. Pillar outline: 1. Title: \"The Ultimate Guide to {Core_Topic}\" 2. Introduction 3. Chapter 1 - Foundations: core concepts, definitions, history 4. Chapter 2 - {Subtopic_A} Deep Dive: link to cluster article, summary, key stats 5. Chapter 3 - {Subtopic_B} Deep Dive 6. Chapter 4 - {Subtopic_C} Deep Dive 7. Chapter 5 - {Subtopic_D} Deep Dive 8. Chapter 6 - Advanced Topics 9. Chapter 7 - Tools & Resources 10. Chapter 8 - FAQs (15-20 questions) 11. Conclusion. For each chapter list: target keyword cluster, link to cluster post, word count, visual requirements. Include content refresh schedule.",
+    "variables": [
+      "core_topic",
+      "Subtopic_A",
+      "Subtopic_B",
+      "Subtopic_C",
+      "Subtopic_D"
+    ],
+    "model_hint": "Claude-3 Opus",
+    "temperature": 0.5,
+    "max_tokens": 3000
+  },
+  {
+    "id": "bpo-07",
+    "category": "blog-outline",
+    "title": "Newsjack / Trending Topic Outline",
+    "prompt": "You are a newsjacking content strategist. Create a rapid-response blog outline for the trending topic \"{trending_topic}\" publishable within 24 hours. Strategy: 1. Timeliness angle 2. News angle options: \"What {Event} Means for {Industry}\", \"Experts Weigh In\", \"How {Event} Changes {Aspect}\" 3. Outline: news summary, impact analysis, expert opinions, historical context, predictions, actionable takeaways 4. SEO quick wins: target keyword, long-tail angle, featured snippet opportunity 5. Backlink strategy: 5 sites likely to link with outreach angle. Include a UGC prompt to generate comments and engagement signals.",
+    "variables": [
+      "trending_topic",
+      "Event",
+      "Industry",
+      "target_audience"
+    ],
+    "model_hint": "GPT-4 Turbo",
+    "temperature": 0.5,
+    "max_tokens": 3000
+  },
+  {
+    "id": "bpo-08",
+    "category": "blog-outline",
+    "title": "Beginner's Guide Outline",
+    "prompt": "You are a beginner-friendly content specialist. Create an outline for \"{complex_topic}\" aimed at absolute beginners. Reader profile: {target_audience_pain_points}. Outline: 1. Title: \"{Complex_Topic} for Beginners\" 2. What Is {Complex_Topic}? Simple analogy-based explanation 3. Why Should You Care? Real-world benefits 4. Key Concepts in Plain English: 5-7 terms with analogies 5. How It Works: 5-step simplified process 6. Common Misconceptions: 5 myths debunked 7. Getting Started: First 3 actions 8. Tools & Resources (Non-Technical) 9. Glossary: 20 key terms 10. Next Steps: 3 intermediate guides. Format: no sentence longer than 20 words, analogies in every section, Key Vocabulary boxes, comprehension checkpoints. Reading level: 8th grade max.",
+    "variables": [
+      "complex_topic",
+      "target_audience_pain_points"
+    ],
+    "model_hint": "Claude-3 Sonnet",
+    "temperature": 0.5,
+    "max_tokens": 3000
+  },
+  {
+    "id": "bpo-09",
+    "category": "blog-outline",
+    "title": "Thought Leadership / Opinion Piece Outline",
+    "prompt": "You are a thought leadership content strategist. Create a provocative opinion piece outline on \"{controversial_topic}\" in the {industry} space. Framework: 1. Provocative Title challenging a common belief 2. Opening Hook: bold statement or counter-intuitive statistic 3. The Conventional Wisdom summarized fairly 4. The Problem: 3-5 arguments why it's wrong/incomplete 5. Evidence: data, case studies, expert opinions 6. Nuance Acknowledgment: when the conventional view IS correct 7. The Alternative Framework 8. Implementation: 3 steps 9. CTA: invite debate. Tone: confident but not arrogant. Include 5 mini-case studies and 3 open-ended questions.",
+    "variables": [
+      "controversial_topic",
+      "industry"
+    ],
+    "model_hint": "Claude-3 Opus",
+    "temperature": 0.5,
+    "max_tokens": 3000
+  },
+  {
+    "id": "bpo-10",
+    "category": "blog-outline",
+    "title": "Roundup Post Outline",
+    "prompt": "You are a roundup content curator. Create an expert roundup outline for \"{topic}\" featuring {number_of_experts} industry experts. Outline: 1. Title: \"{X} Experts Share Their Top {Topic} Tips\" 2. Introduction: why we asked, who we asked 3. Expert entries: name, title, company, tip/insight (100-150 words), why it matters, how to implement, bio, social link 4. Key Themes Analysis: 3-5 patterns 5. Actionable Takeaways: top 5 tips summarized 6. Expert Ranking Table 7. Methodology 8. Conclusion. Include outreach email template, question list, and promotion strategy.",
+    "variables": [
+      "topic",
+      "number_of_experts"
+    ],
+    "model_hint": "Claude-3 Sonnet",
+    "temperature": 0.5,
+    "max_tokens": 3000
+  },
+  {
+    "id": "faw-01",
+    "category": "full-article",
+    "title": "Complete SEO Blog Post",
+    "prompt": "You are an expert SEO content writer. Write a complete publication-ready blog post optimized for \"{target_keyword}\". Structure: Title optimized for CTR, Meta Description (150-160 chars), Introduction (100-150 words), Body (1500-2500 words) with sections: 1. \"{target_keyword}: What You Need to Know\" - define, context, stat 2. \"Why {target_keyword} Matters\" - relevance, benefits, example 3. \"Key Components\" - 3-5 H3 subsections with examples 4. \"How to Implement Effectively\" - 5-7 steps with Pro Tip callouts 5. \"Common Mistakes\" - 5 mistakes (format: Mistake -> Correct Approach) 6. FAQ - 5 Q&A pairs (40-60 words each). Conclusion (80-100 words) with CTA. Guidelines: active voice, max 4 sentences per paragraph, 9th-grade reading level, 3 outbound links, 2-3 internal links, keyword density 0.5-1.5%.",
+    "variables": [
+      "target_keyword",
+      "broader_context"
+    ],
+    "model_hint": "GPT-4 Turbo",
+    "temperature": 0.7,
+    "max_tokens": 4000
+  },
+  {
+    "id": "faw-02",
+    "category": "full-article",
+    "title": "Listicle Article",
+    "prompt": "You are a listicle content creator for the {industry} niche. Write a complete listicle titled \"{title}\" targeting \"{target_keyword}\". Requirements: {number_of_items} items, 80-120 words per item, 1500-2500 total words. For each item: bolded title, strong opening, 2-4 sentence body, pro tip, visual suggestion. Structure: Introduction (100-150 words), numbered list items, At a Glance table after item 5, Conclusion with top 3 picks and CTA, 2 bonus items. Include 1 expert quote, 3 \"Related\" internal link callouts.",
+    "variables": [
+      "industry",
+      "title",
+      "target_keyword",
+      "number_of_items",
+      "topic"
+    ],
+    "model_hint": "Claude-3 Sonnet",
+    "temperature": 0.7,
+    "max_tokens": 4000
+  },
+  {
+    "id": "faw-03",
+    "category": "full-article",
+    "title": "Complete How-To Guide",
+    "prompt": "You are a technical tutorial writer. Write a complete how-to guide for \"{task}\" using {tools_or_platforms}. Target: {skill_level} readers. Title: \"How to {Task}: A Complete Step-by-Step Guide\". Introduction (150-200 words): what reader will accomplish, prerequisites, time estimate, difficulty. Steps (8-15): each with Step header, Why (1 sentence), Action (exact instructions), Code block, Expected result, Screenshot note, Troubleshooting tip. Additional: Alternative Method, Pro Tips (5), What's Next (3 tasks), Troubleshooting Table. Include Warning, Tip, and Note callout boxes. End with downloadable checklist.",
+    "variables": [
+      "task",
+      "tools_or_platforms",
+      "skill_level"
+    ],
+    "model_hint": "GPT-4 Turbo",
+    "temperature": 0.7,
+    "max_tokens": 4000
+  },
+  {
+    "id": "faw-04",
+    "category": "full-article",
+    "title": "Comparison Article",
+    "prompt": "You are a product comparison writer. Write a complete comparison article between {product_A} vs {product_B}. Title: \"{Product_A} vs {Product_B}: Which One Is Right for You?\". Structure: 1. Introduction (120-150 words) 2. Quick Verdict 3. Comparison Table (pricing, best for, rating, differentiator) 4. What Is {Product_A}? overview, features, pros/cons, ICP 5. What Is {Product_B}? same format 6. Feature-by-Feature (6-8 criteria with winner badge) 7. Pricing Breakdown 8. Use Case Scenarios 9. User Reviews Summary 10. Alternatives (2-3) 11. FAQ (5 questions) 12. Final Verdict. Tone: objective, data-driven. Include specific pricing figures.",
+    "variables": [
+      "product_A",
+      "product_B",
+      "year"
+    ],
+    "model_hint": "GPT-4 Turbo",
+    "temperature": 0.7,
+    "max_tokens": 4000
+  },
+  {
+    "id": "faw-05",
+    "category": "full-article",
+    "title": "Pillar Page",
+    "prompt": "You are a topical authority content writer. Write a comprehensive pillar page for \"{core_topic}\" serving as a topic cluster hub. Word count: 3000-5000 words. Target keyword: \"{core_topic}\". Supporting LSI: {lsi_keywords}. Structure: Title + Meta Description, Table of Contents, TL;DR (5 bullets), Introduction (300-400 words), What Is {Core_Topic}? (400-500 words), Why {Core_Topic} Matters (300-400 words with stats), Key Components (600-800 words, 5-7 H3 components), How to Implement (500-600 words, phased), Related Subtopics with cluster links, Expert Insights (3 quotes), FAQs (10 questions), Conclusion. Use formal-informative tone. Include [Image: description] every 500 words.",
+    "variables": [
+      "core_topic",
+      "lsi_keywords",
+      "industry"
+    ],
+    "model_hint": "GPT-4 Turbo",
+    "temperature": 0.7,
+    "max_tokens": 8000
+  },
+  {
+    "id": "faw-06",
+    "category": "full-article",
+    "title": "Ultimate Guide (Long-Form)",
+    "prompt": "You are a premium long-form content writer. Write an ultimate guide on \"{grand_topic}\" targeting \"{target_keyword}\". Word count: 5000-8000 words. Chapters: 1. Introduction - state of {grand_topic} in {year} 2. The Fundamentals - history, 10 key terms glossary, misconceptions 3-5. Deep Dives on {Subtopic_A}, {Subtopic_B}, {Subtopic_C} (1000-1200 words each with case study and data table) 6. Advanced Strategies - 5 techniques 7. Tools & Resources - 15-20 tools with pricing comparison 8. Case Studies - 3 real-world examples 9. The Future - 5 predictions 10. FAQs - 20 questions. Appendix: 30-term glossary, further reading. Include pull quotes every 500 words.",
+    "variables": [
+      "grand_topic",
+      "target_keyword",
+      "year",
+      "Subtopic_A",
+      "Subtopic_B",
+      "Subtopic_C"
+    ],
+    "model_hint": "GPT-4 Turbo",
+    "temperature": 0.7,
+    "max_tokens": 8000
+  },
+  {
+    "id": "faw-07",
+    "category": "full-article",
+    "title": "Problem-Solution Article",
+    "prompt": "You are a solution-oriented content writer. Write a problem-solution article addressing \"{common_problem}\" for {target_audience}. Title: \"How to Fix {Common_Problem}\". Structure: 1. Introduction (vivid problem description) 2. Root Cause Analysis (3-5 causes) 3. Cost of Ignoring (quantified impact) 4. Solution Overview 5. Step-by-Step Solution (5-8 steps) 6. Alternative Solutions (2-3 with pros/cons) 7. Prevention 8. Success Metrics 9. When to Call a Professional 10. FAQs (5) 11. Conclusion. Tone: empathetic but authoritative. Include 2-3 screenshots. Add Quick Fix callout box.",
+    "variables": [
+      "common_problem",
+      "target_audience"
+    ],
+    "model_hint": "Claude-3 Sonnet",
+    "temperature": 0.7,
+    "max_tokens": 4000
+  },
+  {
+    "id": "faw-08",
+    "category": "full-article",
+    "title": "Data-Driven / Research Article",
+    "prompt": "You are a data journalism content writer. Write a research-backed article on \"{research_topic}\" using data from {data_sources}. Structure: 1. Executive Summary (5 key findings in bullets) 2. Methodology 3-7. Findings 1-5 (each with data viz description, analysis, implication) 8. Data Deep Dive 9. Expert Commentary (3 experts) 10. Actionable Takeaways 11. Limitations 12. Full Dataset link. Format: bold statistics, [Chart: description], pull quotes, citations. Reading level: 10th grade. Include \"Data Stories\" section with 3 mini case studies.",
+    "variables": [
+      "research_topic",
+      "data_sources"
+    ],
+    "model_hint": "GPT-4 Turbo",
+    "temperature": 0.7,
+    "max_tokens": 4000
+  },
+  {
+    "id": "faw-09",
+    "category": "full-article",
+    "title": "Beginner's Guide (Complete)",
+    "prompt": "You are a beginner-focused educator. Write a complete beginner's guide on \"{complex_topic}\" for absolute beginners in {industry}. Title: \"{Complex_Topic} for Beginners: The Definitive Guide\". Introduction (200 words): who this is for, what they'll learn. Chapter 1: What Is It? (analogy, simple definition, IS vs IS NOT table). Chapter 2: Core Concepts (7 terms, each: definition -> analogy -> example). Chapter 3: How It Works (5-step process with flow diagram). Chapter 4: Getting Started (prerequisites, first 3 actions). Chapter 5: Common Beginner Mistakes (7). Chapter 6: Real-World Examples (3). Chapter 7: Tools & Resources (5 tools, 3 communities). Conclusion with 3 next steps. Reading level: 7th grade. Include \"You Try It\" exercises.",
+    "variables": [
+      "complex_topic",
+      "industry"
+    ],
+    "model_hint": "Claude-3 Sonnet",
+    "temperature": 0.7,
+    "max_tokens": 4000
+  },
+  {
+    "id": "faw-10",
+    "category": "full-article",
+    "title": "Expert Roundup Article",
+    "prompt": "You are a roundup content writer. Compile an expert roundup article on \"{topic}\" featuring {number_of_experts} experts. Title: \"{Number} Experts Share Their Best {Topic} Tips\". Introduction: why we conducted this, questions asked, who participated. For each expert: name, title, company, response (150-250 words in first-person), key takeaway. Synthesis: Top 5 Most Actionable Tips, Common Themes (3-5), Divergent Opinions, Expert Ranking by Difficulty (beginner/intermediate/advanced). Formatting: Favorite Quote pullout, headshot placeholder, At a Glance table, Quick Start checklist. Conclusion: thank experts, top 3 insights, invite comments.",
+    "variables": [
+      "topic",
+      "number_of_experts"
+    ],
+    "model_hint": "Claude-3 Sonnet",
+    "temperature": 0.7,
+    "max_tokens": 4000
+  },
+  {
+    "id": "mdt-01",
+    "category": "meta-titles",
+    "title": "Title Tag Optimizer",
+    "prompt": "You are an SEO title tag specialist. Generate 10 optimized title tags for the page targeting \"{target_keyword}\" on \"{domain}\". Constraints: max 60 chars, keyword in first 50 chars, include power word/number, value proposition, differentiate from competitors. For each: title tag, pixel width (<=580px), CTR estimate, competitor differentiation, emotional trigger. Include: current meta diagnosis, A/B testing recommendation, brand placement strategy, title tag formula. Output as comparison table with winner marked.",
+    "variables": [
+      "target_keyword",
+      "domain"
+    ],
+    "model_hint": "GPT-4 Turbo",
+    "temperature": 0.2,
+    "max_tokens": 500
+  },
+  {
+    "id": "mdt-02",
+    "category": "meta-titles",
+    "title": "Meta Description Writer",
+    "prompt": "You are a meta description copywriter. Write 5 compelling meta descriptions for a page targeting \"{target_keyword}\". Specs: max 160 chars, include keyword, include CTA (Learn/Discover/Find/Get/Start/Try/See), emotional trigger, differentiate from top 3. For each: text, character count, primary angle, CTR potential, SERP feature compatibility. Provide: 3 power words per description, A/B testing framework, common mistakes in {industry} meta descriptions.",
+    "variables": [
+      "target_keyword",
+      "industry"
+    ],
+    "model_hint": "GPT-4 Turbo",
+    "temperature": 0.2,
+    "max_tokens": 500
+  },
+  {
+    "id": "mdt-03",
+    "category": "meta-titles",
+    "title": "Schema-Enhanced Meta Generation",
+    "prompt": "You are a structured data SEO specialist. Generate meta tags with schema markup for a webpage targeting \"{target_keyword}\" with content type \"{content_type}\" (Article/Product/Recipe/FAQPage/HowTo/VideoObject). Generate: 1. Title tag (<=60 chars) 2. Meta description (<=160 chars with CTA) 3. Open Graph tags (og:title, og:description, og:image, og:url, og:type, og:site_name) 4. Twitter Card tags 5. JSON-LD structured data with @type, headline/name, description, author, publisher, dates, image, content_type_specific_fields. Output ready-to-copy HTML and JSON-LD. Include validation checklist.",
+    "variables": [
+      "target_keyword",
+      "content_type"
+    ],
+    "model_hint": "GPT-4 Turbo",
+    "temperature": 0.2,
+    "max_tokens": 500
+  },
+  {
+    "id": "mdt-04",
+    "category": "meta-titles",
+    "title": "PAA-Inspired Meta Description",
+    "prompt": "You are a People Also Ask optimization specialist. Create meta descriptions that increase the likelihood of triggering PAA boxes for {keyword_cluster}. For each of 5 keywords: 1. Convert to question format 2. Write a 40-60 word mini-answer for PAA extraction 3. Write the full meta description (150-160 chars) incorporating the mini-answer. PAA rules: direct answers, 40-60 words, 2-3 related entities, list format where appropriate. Output: Keyword -> PAA Question -> Mini-Answer -> Full Meta Description -> PAA Trigger Probability.",
+    "variables": [
+      "keyword_cluster"
+    ],
+    "model_hint": "GPT-4 Turbo",
+    "temperature": 0.2,
+    "max_tokens": 500
+  },
+  {
+    "id": "mdt-05",
+    "category": "meta-titles",
+    "title": "E-E-A-T Meta & Title Strategy",
+    "prompt": "You are an E-E-A-T SEO specialist. Generate meta tags for a YMYL page on \"{topic}\" for \"{domain}\". 1. Title strategy: author credential inclusion, authority signaling, 3 variants. 2. Meta description: credential trust signals, medical/financial disclaimer, 3 variants. 3. Author schema: JSON-LD with credentials, affiliation, sameAs. 4. Publisher schema. 5. Trust signals: review date, sources cited, author bio placement. 6. Competitive E-E-A-T gap analysis vs top 3. Output as priority implementation checklist (P1-P3) with schema blocks.",
+    "variables": [
+      "topic",
+      "domain"
+    ],
+    "model_hint": "Claude-3 Opus",
+    "temperature": 0.2,
+    "max_tokens": 500
+  },
+  {
+    "id": "cor-01",
+    "category": "content-optimization",
+    "title": "NLP Content Optimization",
+    "prompt": "You are an NLP-powered content optimizer. Analyze and optimize the following article for \"{target_keyword}\". Article: {article_text}. Perform: 1. Keyword usage analysis (density target 0.5-1.5%, LSI check, over-optimization flags) 2. Readability audit (Flesch-Kincaid, sentence/paragraph length, passive voice count, transition density) 3. Structural optimization (H2/H3 alignment, section balance, internal/external link gaps) 4. Rewrite recommendations with before/after for each issue 5. First 100 words analysis for featured snippet potential. Output prioritized optimization checklist with effort (L/M/H) and impact (L/M/H).",
+    "variables": [
+      "target_keyword",
+      "article_text",
+      "lsi_keywords"
+    ],
+    "model_hint": "GPT-4 Turbo",
+    "temperature": 0.4,
+    "max_tokens": 4000
+  },
+  {
+    "id": "cor-02",
+    "category": "content-optimization",
+    "title": "Content Refresh & Update",
+    "prompt": "You are a content freshness specialist. Analyze this article published on \"{publish_date}\" targeting \"{target_keyword}\". Article: {article_text}. Refresh plan: 1. Staleness audit (outdated stats with replacements, expired links, outdated references, competitor changes) 2. Expansion opportunities (2-3 new H2s, new data, new tools/products, user comment questions) 3. Update execution plan (sections to rewrite, update stats only, keep as-is, new sections, word count change) 4. Post-update checklist (date, slug, 301s, internal links, GSC resubmission, social promotion). Provide full rewritten introduction and one complete new section.",
+    "variables": [
+      "publish_date",
+      "target_keyword",
+      "article_text"
+    ],
+    "model_hint": "GPT-4 Turbo",
+    "temperature": 0.4,
+    "max_tokens": 4000
+  },
+  {
+    "id": "cor-03",
+    "category": "content-optimization",
+    "title": "Content Consolidation (Merge Thin Pages)",
+    "prompt": "You are a content consolidation strategist. Analyze {number_of_pages} thin content pages: {page_list}. For each: URL, word count, traffic, keyword targeting, overlap %. Consolidation plan: 1. Merge candidate pairs 2. Canonical page selection 3. New merged outline 4. Redirect mapping 5. Content enrichment 6. Traffic impact projection per keyword. Output a 301 redirect map table and the full outline of the consolidated page.",
+    "variables": [
+      "number_of_pages",
+      "page_list"
+    ],
+    "model_hint": "GPT-4 Turbo",
+    "temperature": 0.4,
+    "max_tokens": 4000
+  },
+  {
+    "id": "cor-04",
+    "category": "content-optimization",
+    "title": "Readability & UX Rewrite",
+    "prompt": "You are a UX-focused content editor. Rewrite the following article for maximum readability. Original: {article_text}. Target keyword: {target_keyword}. Target audience: {audience_description}. Current reading level: {current_level} (target: 8th grade). Guidelines: simplify sentences (max 20 words), replace jargon, active voice, max 4 sentences per paragraph, add transitions, convert paragraphs to bullets, add bold takeaways. Output: before/after comparison for first 500 words, full rewritten article, readability score delta, SEO preservation check, 3 UX metrics predicted to improve.",
+    "variables": [
+      "article_text",
+      "target_keyword",
+      "audience_description",
+      "current_level"
+    ],
+    "model_hint": "Claude-3 Sonnet",
+    "temperature": 0.4,
+    "max_tokens": 4000
+  },
+  {
+    "id": "cor-05",
+    "category": "content-optimization",
+    "title": "Internal Link Optimization Rewrite",
+    "prompt": "You are an internal linking SEO specialist. Optimize the following article by adding strategic internal links. Article: {article_text}. Domain: {domain}. Perform: 1. Internal link gap analysis (pillar/cluster/money page opportunities, unlinked mentions, orphaned pages) 2. Anchor text optimization (current audit, recommended anchors, diversify over-optimized) 3. Linking density (target 3-5 per 1000 words) 4. Silo structure compliance check 5. Rewrite article with new links marked [NEW] and changed anchors marked [CHANGED]. Output full rewritten article with link annotations.",
+    "variables": [
+      "article_text",
+      "domain"
+    ],
+    "model_hint": "GPT-4 Turbo",
+    "temperature": 0.4,
+    "max_tokens": 4000
+  },
+  {
+    "id": "cor-06",
+    "category": "content-optimization",
+    "title": "Title & H1 Alignment Fix",
+    "prompt": "You are an on-page SEO auditor. Analyze and fix title tag and H1 alignment for: {page_url}. Current title: {current_title}. Current H1: {current_h1}. Target keyword: {target_keyword}. Diagnose: Title-H1 mismatch, keyword alignment, length violations, brand placement, punctuation. Fix: 3 title options, 3 H1 options, 2 meta description options, H2-H3 hierarchy check. Output corrected HTML head section with benchmark score (before/after out of 10).",
+    "variables": [
+      "page_url",
+      "current_title",
+      "current_h1",
+      "target_keyword"
+    ],
+    "model_hint": "GPT-4 Turbo",
+    "temperature": 0.4,
+    "max_tokens": 500
+  },
+  {
+    "id": "cor-07",
+    "category": "content-optimization",
+    "title": "Outdated Content Warning & Update",
+    "prompt": "You are a content freshness auditor. This article published on \"{publish_date}\" targeting \"{target_keyword}\" needs updating. Article: {article_text}. Issues: outdated stats, references, broken links, new developments. Update: 1. Replace each outdated stat (old -> new with source) 2. Update references 3. Fix/replace broken links 4. Add new section covering {new_development} 5. Remove deprecated section 6. Updated metadata. Output full updated article with [UPDATED], [NEW], [REMOVED] markers. Include changelog.",
+    "variables": [
+      "publish_date",
+      "target_keyword",
+      "article_text",
+      "new_development"
+    ],
+    "model_hint": "GPT-4 Turbo",
+    "temperature": 0.4,
+    "max_tokens": 4000
+  },
+  {
+    "id": "cor-08",
+    "category": "content-optimization",
+    "title": "Mobile-Friendly Content Restructure",
+    "prompt": "You are a mobile UX content specialist. Restructure this article for mobile-first indexing. Original: {article_text}. Requirements: 1. Above-the-fold optimization (<150 words, TL;DR immediately visible) 2. Paragraph compression (max 3 sentences, max 50 words) 3. List conversion (1 list per 300 words) 4. Table responsive design (complex -> stacked key-value) 5. Media placement (images after first 100 words, lazy-load videos) 6. CTAs (min 48x48px tap targets, 1 CTA per 500 words). Output full mobile-optimized article with Mobile Score before/after.",
+    "variables": [
+      "article_text"
+    ],
+    "model_hint": "Claude-3 Sonnet",
+    "temperature": 0.4,
+    "max_tokens": 4000
+  },
+  {
+    "id": "cor-09",
+    "category": "content-optimization",
+    "title": "Featured Snippet Optimization",
+    "prompt": "You are a featured snippet optimization specialist. Rewrite this section to target the featured snippet for \"{target_keyword}\". Original section: {target_section}. Current snippet status: {snippet_status}. Steps: 1. Analyze top 3 snippets, match format 2. Paragraph snippet: direct answer, 40-60 words, keyword in first 10, bold key terms 3. List snippet: numbered for steps/ways, bullet for attributes, 3-8 items 4. Table snippet: max 4 columns, header row 5. Rewrite first 150 words, add Quick Answer callout box. Output: original vs optimized, snippet type recommendation, JSON-LD, Snippet Win Probability before/after.",
+    "variables": [
+      "target_keyword",
+      "target_section",
+      "snippet_status"
+    ],
+    "model_hint": "GPT-4 Turbo",
+    "temperature": 0.4,
+    "max_tokens": 2500
+  },
+  {
+    "id": "cor-10",
+    "category": "content-optimization",
+    "title": "Sentiment & Tone Rewrite",
+    "prompt": "You are a brand voice editor. Rewrite this article to match {brand_voice}. Target tone: {tone}. Reading level: {target_grade}. Sentence style: {sentence_style}. Vocabulary: {vocab_level}. Pronouns: {pronoun_pref}. Humor level (0-10): {humor_level}. Original: {article_text}. Process: 1. Tone diagnosis 2. Vocabulary substitution 3. Sentence restructuring 4. Pronoun alignment 5. Emotional triggers 6. Brand term insertion. Output full rewritten article with Brand Voice Compliance Score (0-100%) for original vs rewritten. Include 10 style guide rules extracted from rewrite.",
+    "variables": [
+      "article_text",
+      "brand_voice",
+      "tone",
+      "target_grade"
+    ],
+    "model_hint": "Claude-3 Sonnet",
+    "temperature": 0.4,
+    "max_tokens": 4000
+  },
+  {
+    "id": "faq-01",
+    "category": "faq-schema",
+    "title": "FAQ Schema Generator",
+    "prompt": "You are a structured data specialist. Generate a complete FAQ schema with 10 Q&As about \"{topic}\" for \"{target_keyword}\". Requirements: 1. Each Q&A: naturally occurring question, 40-80 word answer, keyword in at least 5 answers, 3 answers with bullet/numbered lists 2. JSON-LD: schema.org/FAQPage, mainEntity array, Question + AcceptedAnswer types 3. HTML: visible FAQ with accordion structure, H2/H3 hierarchy, schema embedded. Provide FAQ Placement Strategy, 3 bonus excluded questions, testing instructions, quarterly update cadence.",
+    "variables": [
+      "topic",
+      "target_keyword"
+    ],
+    "model_hint": "GPT-4 Turbo",
+    "temperature": 0.3,
+    "max_tokens": 2500
+  },
+  {
+    "id": "faq-02",
+    "category": "faq-schema",
+    "title": "HowTo Schema Generator",
+    "prompt": "You are a HowTo structured data specialist. Generate HowTo schema for \"{task_name}\" targeting \"{target_keyword}\". Steps: {steps_description}. Generate: 1. JSON-LD HowTo schema with @type, name, description, totalTime (ISO 8601), supply, tool, step array (HowToStep with position, name, text, image, url, itemListElement) 2. Each step: position, name (3-8 words), description (30-60 words), imperative mood, image recommendation 3. HowToSupply and HowToTool lists 4. Visible content matching schema exactly. Output full JSON-LD, visible HTML, validation checklist.",
+    "variables": [
+      "task_name",
+      "target_keyword",
+      "steps_description"
+    ],
+    "model_hint": "GPT-4 Turbo",
+    "temperature": 0.3,
+    "max_tokens": 2500
+  },
+  {
+    "id": "faq-03",
+    "category": "faq-schema",
+    "title": "Product Schema Generator",
+    "prompt": "You are an e-commerce structured data specialist. Generate Product schema for \"{product_name}\" by {brand_name}. Product details: {product_description}, price {price} {currency}, availability {availability}, SKU {sku}. Generate: 1. JSON-LD Product schema with @type, name, description, sku, mpn, brand, manufacturer, offers (priceCurrency, price, availability, url), review, aggregateRating 2. Review schema with ratingValue, author, reviewBody 3. BreadcrumbList schema 4. Optimization tips: price format, availability vocabulary, image requirements. Output full JSON-LD with required vs recommended field annotations.",
+    "variables": [
+      "product_name",
+      "brand_name",
+      "product_description",
+      "price",
+      "currency",
+      "availability",
+      "sku"
+    ],
+    "model_hint": "GPT-4 Turbo",
+    "temperature": 0.3,
+    "max_tokens": 2500
+  },
+  {
+    "id": "faq-04",
+    "category": "faq-schema",
+    "title": "BreadcrumbList & Site Navigation Schema",
+    "prompt": "You are a site navigation schema specialist. Generate BreadcrumbList and SiteNavigationElement schema for \"{domain}\" with URL structure: {url_structure}. 1. JSON-LD BreadcrumbList with itemListElement array of ListItem objects (position, name, item URL) 2. Generate breadcrumbs for pages: {page_list} 3. SiteNavigationElement schema (name, url, description per nav item) 4. Implementation: HTML placement (<nav aria-label=\"Breadcrumb\">), JSON-LD in head/body, CMS dynamic generation, pagination handling, trailing slash/protocol consistency. Output full JSON-LD and HTML structure.",
+    "variables": [
+      "domain",
+      "url_structure",
+      "page_list"
+    ],
+    "model_hint": "GPT-4 Turbo",
+    "temperature": 0.3,
+    "max_tokens": 2500
+  },
+  {
+    "id": "faq-05",
+    "category": "faq-schema",
+    "title": "VideoObject & Article Schema Combo",
+    "prompt": "You are a rich media schema specialist. Generate combined VideoObject and Article schema for URL \"{url}\" about \"{topic}\". Article: headline \"{headline}\", published {date_published}, author {author_name}. Video: URL {video_url}, thumbnail {thumbnail_url}, title {video_title}, duration {duration} (ISO 8601). Generate: 1. Article schema (@type: Article) 2. VideoObject schema 3. Combined page schema with @id references 4. Clip schema for chapters. Requirements: both schemas coexist, VideoObject references Article as mainEntityOfPage, matching publisher identity, accessible thumbnail. Output complete JSON-LD, HTML meta tags, rich result preview.",
+    "variables": [
+      "url",
+      "topic",
+      "headline",
+      "date_published",
+      "author_name",
+      "video_url",
+      "thumbnail_url",
+      "video_title",
+      "duration"
+    ],
+    "model_hint": "GPT-4 Turbo",
+    "temperature": 0.3,
+    "max_tokens": 2500
+  },
+  {
+    "id": "ils-01",
+    "category": "internal-linking",
+    "title": "Internal Link Strategy Document",
+    "prompt": "You are an internal linking architect. Create a comprehensive internal linking strategy for \"{domain}\" with pages: {page_list}. 1. Current link audit (total links, avg per page, orphaned pages, overlinked pages) 2. Silo structure design (primary silos, secondary, cross-silo rules, max depth) 3. Link distribution rules per tier (T1: homepage/pillar, T2: cluster, T3: blog posts) 4. Anchor text guidelines (exact match max 20%, partial 40%, branded 20%, generic 10%) 5. Priority linking opportunities with relevance scores 6. Implementation roadmap (Phase 1-4 by week). Output as spreadsheet-ready table: Source URL | Target URL | Anchor Text | Link Type | Priority | Status.",
+    "variables": [
+      "domain",
+      "page_list"
+    ],
+    "model_hint": "Claude-3 Opus",
+    "temperature": 0.4,
+    "max_tokens": 2000
+  },
+  {
+    "id": "ils-02",
+    "category": "internal-linking",
+    "title": "Topic Silo Content Mapping",
+    "prompt": "You are a topical authority architect. Design a content silo structure for \"{core_topic}\" on {domain}. 1. Pillar page URL 2. Cluster articles (15-20): each with URL slug, target keyword, intent, word count, pillar section it feeds, link to/from pillar 3. Supporting content (glossaries, comparisons, case studies) 4. Linking topology diagram (text-based) with density rules 5. Content creation order (Phase 1-4) 6. Authority signals: min 3 inbound links per cluster, relevance scores. Output full silo map as nested outline with link annotations. Include Topical Authority Projection at months 3, 6, 12.",
+    "variables": [
+      "core_topic",
+      "domain"
+    ],
+    "model_hint": "Claude-3 Opus",
+    "temperature": 0.4,
+    "max_tokens": 2000
+  },
+  {
+    "id": "ils-03",
+    "category": "internal-linking",
+    "title": "Contextual In-Article Link Insertion",
+    "prompt": "You are an internal link placement specialist. Insert strategic internal links into this article. Article: {article_text}. Target pages: {target_pages_with_anchors}. For each: 1. Find natural insertion points (related concept discussed, comparison, learn more moment) 2. For each proposed link: exact anchor text (3-7 words), surrounding context (2 sentences before/after), relevance score (1-10), expected CTR, position, mutual relevance explanation. Rules: unique anchors per page, max 1 link per 200 words, intro and conclusion links preferred, no duplicate target pages. Output article with [LINK: target, anchor] markers plus link map table.",
+    "variables": [
+      "article_text",
+      "target_pages_with_anchors"
+    ],
+    "model_hint": "GPT-4 Turbo",
+    "temperature": 0.4,
+    "max_tokens": 2000
+  },
+  {
+    "id": "ils-04",
+    "category": "internal-linking",
+    "title": "Link Equity Distribution Plan",
+    "prompt": "You are a PageRank distribution strategist. Analyze link equity distribution for {domain}. Pages: {page_list}. 1. Current equity map (homepage/pillar/money page links, orphan pages) 2. Link equity waste (non-indexable pages, footer links, unnecessary nofollow, excessive linking) 3. Redistribution plan (pages to add to nav/footer, pages needing 3+ inbound links, trim excessive outbound) 4. Deep-link strategy (target: 60% deep, 30% mid, 10% top-level) 5. Architecture changes (breadcrumbs, Related Posts, TOC jump links). Output implementation checklist with link equity score before/after.",
+    "variables": [
+      "domain",
+      "page_list"
+    ],
+    "model_hint": "GPT-4 Turbo",
+    "temperature": 0.4,
+    "max_tokens": 2000
+  },
+  {
+    "id": "ils-05",
+    "category": "internal-linking",
+    "title": "Pillar-Cluster Linking Matrix",
+    "prompt": "You are a pillar-cluster linking specialist. Create a linking matrix between pillar \"{pillar_url}\" and clusters: {cluster_urls}. For each cluster: 1. Cluster keyword 2. Pillar section match 3. Link FROM pillar TO cluster (exact sentence, anchor text, placement) 4. Link FROM cluster TO pillar (exact sentence, anchor text, ideally in first 200 words) 5. Cross-cluster links. Output as matrix: Cluster URL | Pillar Section | Pillar->Cluster Anchor | Cluster->Pillar Anchor | Cross-links | Link Density Post-Opt. Include coverage metrics: % clusters linked from pillar (target 100%), % sections with cluster link (80%+), avg links per cluster (5+).",
+    "variables": [
+      "pillar_url",
+      "cluster_urls"
+    ],
+    "model_hint": "GPT-4 Turbo",
+    "temperature": 0.4,
+    "max_tokens": 2000
+  }
+]

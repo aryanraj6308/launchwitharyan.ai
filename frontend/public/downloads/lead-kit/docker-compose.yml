@@ -1,0 +1,57 @@
+version: "3.9"
+
+services:
+  webhook:
+    build:
+      context: ./python-webhook
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+    depends_on:
+      - redis
+    restart: unless-stopped
+    volumes:
+      - ./integrations:/app/integrations
+      - ./python-webhook:/app
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  worker:
+    build:
+      context: ./python-webhook
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+    depends_on:
+      - redis
+    restart: unless-stopped
+    command: ["rq", "worker", "--url", "redis://redis:6379/0", "lead-queue"]
+    volumes:
+      - ./integrations:/app/integrations
+      - ./python-webhook:/app
+
+volumes:
+  redis_data:

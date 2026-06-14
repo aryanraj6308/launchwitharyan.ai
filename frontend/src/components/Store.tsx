@@ -18,7 +18,7 @@ const productsData: Product[] = [
     id: 'infinite-agent-web',
     title: 'Infinite Agent Astro Template',
     category: 'Templates',
-    price: 49,
+    price: 999,
     description: 'A premium, custom-optimized landing page blueprint with GSAP scroll scripts, dark mode variables, and built-in lead forms.',
     features: ['100/100 Core Web Vitals', 'Tailwind CSS v4 config', 'Clean TypeScript support', 'Framer Motion animations'],
     specs: 'Astro 5.0 + React 18',
@@ -28,7 +28,7 @@ const productsData: Product[] = [
     id: 'rag-boilerplate',
     title: 'RAG Conversational Boilerplate',
     category: 'Automations',
-    price: 79,
+    price: 1499,
     description: 'A production-ready database orchestration template. Connects local vector schemas directly to OpenAI or local models.',
     features: ['Supabase PGVector schema', 'FastAPI backend connection', 'Dynamic prompt logs UI', 'Rate-limiting middleware'],
     specs: 'Python FastAPI + PostgreSQL',
@@ -38,7 +38,7 @@ const productsData: Product[] = [
     id: 'seo-prompt-pack',
     title: 'Commercial Intent Prompt Pack',
     category: 'Prompts',
-    price: 19,
+    price: 299,
     description: 'A list of 50+ tested, enterprise-grade system prompts for writing highly structured SEO blog posts that convert users.',
     features: ['Zero hallucination guardrails', 'Markdown outline structuring', 'JSON metadata exports', 'Optimized for GPT-4 / Claude-3'],
     specs: 'Text / JSON configurations',
@@ -48,7 +48,7 @@ const productsData: Product[] = [
     id: 'lead-pipeline',
     title: 'Lead Ingestion Automation Kit',
     category: 'Automations',
-    price: 39,
+    price: 699,
     description: 'Clean automated serverless integration script to instantly pipe lead forms to Google Sheets, Notion databases, and Slack channels.',
     features: ['Detailed error log alerts', 'Duplicate deduplication filtering', 'Multi-app delivery triggers', 'Fast validation schemas'],
     specs: 'Node.js / Python Webhook',
@@ -169,7 +169,7 @@ export default function Store() {
 
   const simulateCheckout = async (product: Product) => {
     const confirmBuy = window.confirm(
-      `[Offline Sandbox Mode]\n\nProduct: ${product.title}\nPrice: $${product.price}\n\nWould you like to simulate a successful payment and unlock this digital file?`
+      `[Offline Sandbox Mode]\n\nProduct: ${product.title}\nPrice: ₹${product.price}\n\nWould you like to simulate a successful payment and unlock this digital file?`
     );
     if (confirmBuy) {
       savePurchase(product);
@@ -233,7 +233,7 @@ export default function Store() {
                   <Sparkles className="w-3 h-3" />
                   {prod.category}
                 </span>
-                <span className="text-lg font-grotesk font-bold text-primary">${prod.price}</span>
+                <span className="text-lg font-grotesk font-bold text-primary">₹{prod.price}</span>
               </div>
 
               <div>

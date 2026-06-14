@@ -32,14 +32,11 @@ DOWNLOAD_BASE = os.path.join(os.path.dirname(__file__), "..", "..", "..", "front
 
 # Product catalog (in production this would live in DB)
 PRODUCTS = {
-    "infinite-agent-web": {"name": "Infinite Agent Astro Template", "price_usd": 49},
-    "rag-boilerplate": {"name": "RAG Conversational Boilerplate", "price_usd": 79},
-    "seo-prompt-pack": {"name": "Commercial Intent Prompt Pack", "price_usd": 19},
-    "lead-pipeline": {"name": "Lead Ingestion Automation Kit", "price_usd": 39},
+    "infinite-agent-web": {"name": "Infinite Agent Astro Template", "price_inr": 999},
+    "rag-boilerplate": {"name": "RAG Conversational Boilerplate", "price_inr": 1499},
+    "seo-prompt-pack": {"name": "Commercial Intent Prompt Pack", "price_inr": 299},
+    "lead-pipeline": {"name": "Lead Ingestion Automation Kit", "price_inr": 699},
 }
-
-USD_TO_INR = 85  # Approximate conversion rate
-
 
 @router.post("/create-order", response_model=CreateOrderResponse)
 @limiter.limit("10/minute")
@@ -54,8 +51,7 @@ async def create_order(
         raise HTTPException(status_code=404, detail="Product not found.")
 
     # Amount in paise (INR * 100)
-    amount_inr = int(order_request.amount * USD_TO_INR)
-    amount_paise = amount_inr * 100
+    amount_paise = int(order_request.amount * 100)
 
     try:
         import razorpay
@@ -205,7 +201,7 @@ async def confirm_purchase(
     new_order = Order(
         product_id=payload.product_id,
         product_name=product["name"],
-        amount=product["price_usd"],
+        amount=product["price_inr"],
         user_id=payload.session_id,
         status="paid",
     )

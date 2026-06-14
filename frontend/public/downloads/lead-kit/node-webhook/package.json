@@ -1,0 +1,21 @@
+{
+  "name": "lead-ingestion-webhook",
+  "version": "1.0.0",
+  "description": "Serverless lead ingestion webhook handler compatible with Vercel and AWS Lambda",
+  "main": "serverless.js",
+  "scripts": {
+    "start": "node -e \"const http=require('http'); const handler=require('./serverless').handler; const server=http.createServer((req,res)=>{ if(req.method==='POST'){ let b=''; req.on('data',c=>b+=c); req.on('end',()=>{ handler({httpMethod:'POST',body:b,headers:req.headers},{callbackWaitsForEmptyEventLoop:()=>{}}).then(r=>{res.writeHead(r.statusCode,{'Content-Type':'application/json'});res.end(r.body)})})}}); server.listen(3000,()=>console.log('Webhook listening on :3000'))\"",
+    "test": "node -e \"const assert=require('assert'); const h=require('./serverless').handler; (async()=>{let r=await h({httpMethod:'GET'});assert(r.statusCode===405);r=await h({httpMethod:'POST',body:'bad'});assert(r.statusCode===400);r=await h({httpMethod:'POST',body:JSON.stringify({name:'',email:'bad'})});assert(r.statusCode===422);r=await h({httpMethod:'POST',body:JSON.stringify({name:'Test User',email:'test@example.com'})});assert(r.statusCode===200);console.log('All tests passed')})()\""
+  },
+  "dependencies": {
+    "axios": "^1.7.9",
+    "nodemailer": "^6.9.16",
+    "googleapis": "^144.0.0",
+    "@notionhq/client": "^2.2.15",
+    "slack-web-api": "^0.2.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "license": "MIT"
+}
