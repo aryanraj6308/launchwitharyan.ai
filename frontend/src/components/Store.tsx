@@ -42,7 +42,7 @@ const productsData: Product[] = [
     description: 'A list of 50+ tested, enterprise-grade system prompts for writing highly structured SEO blog posts that convert users.',
     features: ['Zero hallucination guardrails', 'Markdown outline structuring', 'JSON metadata exports', 'Optimized for GPT-4 / Claude-3'],
     specs: 'Text / JSON configurations',
-    paymentLink: ''
+    paymentLink: 'https://rzp.io/rzp/AmIkpdx'
   },
   {
     id: 'lead-pipeline',
