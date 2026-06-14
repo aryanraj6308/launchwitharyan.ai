@@ -10,6 +10,7 @@ interface Product {
   description: string;
   features: string[];
   specs: string;
+  paymentLink: string;
 }
 
 const productsData: Product[] = [
@@ -20,7 +21,8 @@ const productsData: Product[] = [
     price: 49,
     description: 'A premium, custom-optimized landing page blueprint with GSAP scroll scripts, dark mode variables, and built-in lead forms.',
     features: ['100/100 Core Web Vitals', 'Tailwind CSS v4 config', 'Clean TypeScript support', 'Framer Motion animations'],
-    specs: 'Astro 5.0 + React 18'
+    specs: 'Astro 5.0 + React 18',
+    paymentLink: ''
   },
   {
     id: 'rag-boilerplate',
@@ -29,7 +31,8 @@ const productsData: Product[] = [
     price: 79,
     description: 'A production-ready database orchestration template. Connects local vector schemas directly to OpenAI or local models.',
     features: ['Supabase PGVector schema', 'FastAPI backend connection', 'Dynamic prompt logs UI', 'Rate-limiting middleware'],
-    specs: 'Python FastAPI + PostgreSQL'
+    specs: 'Python FastAPI + PostgreSQL',
+    paymentLink: ''
   },
   {
     id: 'seo-prompt-pack',
@@ -38,7 +41,8 @@ const productsData: Product[] = [
     price: 19,
     description: 'A list of 50+ tested, enterprise-grade system prompts for writing highly structured SEO blog posts that convert users.',
     features: ['Zero hallucination guardrails', 'Markdown outline structuring', 'JSON metadata exports', 'Optimized for GPT-4 / Claude-3'],
-    specs: 'Text / JSON configurations'
+    specs: 'Text / JSON configurations',
+    paymentLink: ''
   },
   {
     id: 'lead-pipeline',
@@ -47,7 +51,8 @@ const productsData: Product[] = [
     price: 39,
     description: 'Clean automated serverless integration script to instantly pipe lead forms to Google Sheets, Notion databases, and Slack channels.',
     features: ['Detailed error log alerts', 'Duplicate deduplication filtering', 'Multi-app delivery triggers', 'Fast validation schemas'],
-    specs: 'Node.js / Python Webhook'
+    specs: 'Node.js / Python Webhook',
+    paymentLink: ''
   }
 ];
 
@@ -119,6 +124,19 @@ export default function Store() {
   useEffect(() => {
     setMounted(true);
     setSessionId(getSessionId());
+
+    const pending = localStorage.getItem('pending_purchase');
+    if (pending) {
+      try {
+        const { product_id, session_id } = JSON.parse(pending);
+        const product = productsData.find((p) => p.id === product_id);
+        if (product) {
+          savePurchase(product);
+          confirmPurchaseWithBackend(product_id, session_id);
+        }
+      } catch { /* ignore */ }
+      localStorage.removeItem('pending_purchase');
+    }
   }, []);
 
   useEffect(() => {
@@ -134,81 +152,19 @@ export default function Store() {
     return matchesCategory && matchesSearch;
   });
 
-  const loadRazorpay = () => {
-    return new Promise((resolve) => {
-      const script = document.createElement('script');
-      script.src = 'https://checkout.razorpay.com/v1/checkout.js';
-      script.onload = () => resolve(true);
-      script.onerror = () => resolve(false);
-      document.body.appendChild(script);
-    });
-  };
-
   const handleCheckout = async (product: Product) => {
     setIsLoading(true);
     setCheckoutProduct(product);
 
-    const isSdkLoaded = await loadRazorpay();
-    if (!isSdkLoaded) {
-      alert('Razorpay SDK failed to load. Are you connected to the internet?');
+    if (product.paymentLink) {
+      localStorage.setItem('pending_purchase', JSON.stringify({ product_id: product.id, session_id: sessionId }));
+      window.open(product.paymentLink, '_blank');
       setIsLoading(false);
+      setCheckoutProduct(null);
       return;
     }
 
-    try {
-      const response = await fetch(apiUrl('/api/payments/create-order'), {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ product_id: product.id, amount: product.price }),
-      });
-
-      if (response.ok) {
-        const orderData = await response.json();
-        const options = {
-          key: orderData.key_id,
-          amount: orderData.amount,
-          currency: orderData.currency,
-          name: "LaunchWithAryan AI",
-          description: `Purchase of ${product.title}`,
-          image: "https://launchwitharyan.ai/favicon.svg",
-          order_id: orderData.order_id,
-          handler: function (response: any) {
-            fetch(apiUrl('/api/payments/verify-payment'), {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                razorpay_order_id: response.razorpay_order_id,
-                razorpay_payment_id: response.razorpay_payment_id,
-                razorpay_signature: response.razorpay_signature,
-              }),
-            })
-              .then((res) => res.json())
-              .then(async (data) => {
-                if (data.status === 'success') {
-                  savePurchase(product);
-                  setPurchasedItems((prev) => [...prev, product.id]);
-                  await confirmPurchaseWithBackend(product.id, sessionId);
-                  alert('Thank you! Your purchase is complete. You can download the item from the dashboard.');
-                  window.location.href = '/dashboard';
-                } else {
-                  alert('Payment verification failed. Please contact support.');
-                }
-              });
-          },
-          prefill: { name: "Premium Buyer", email: "buyer@example.com", contact: "9999999999" },
-          theme: { color: "#d4a843" },
-        };
-
-        const rzp = new (window as any).Razorpay(options);
-        rzp.open();
-      } else {
-        simulateCheckout(product);
-      }
-    } catch {
-      simulateCheckout(product);
-    } finally {
-      setIsLoading(false);
-    }
+    simulateCheckout(product);
   };
 
   const simulateCheckout = async (product: Product) => {
@@ -219,9 +175,10 @@ export default function Store() {
       savePurchase(product);
       setPurchasedItems((prev) => [...prev, product.id]);
       await confirmPurchaseWithBackend(product.id, sessionId);
-      alert(`[Demo Mode Success] "${product.title}" has been successfully added to your dashboard profile! Redirecting to Dashboard...`);
-      window.location.href = '/dashboard';
+      alert(`[Demo Mode Success] "${product.title}" has been successfully added to your dashboard! You can now download it.`);
     }
+    setIsLoading(false);
+    setCheckoutProduct(null);
   };
 
   return (
