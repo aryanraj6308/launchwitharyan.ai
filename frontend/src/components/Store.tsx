@@ -52,7 +52,7 @@ const productsData: Product[] = [
     description: 'Clean automated serverless integration script to instantly pipe lead forms to Google Sheets, Notion databases, and Slack channels.',
     features: ['Detailed error log alerts', 'Duplicate deduplication filtering', 'Multi-app delivery triggers', 'Fast validation schemas'],
     specs: 'Node.js / Python Webhook',
-    paymentLink: ''
+    paymentLink: 'https://rzp.io/rzp/7Kn2XSNj'
   }
 ];
 
