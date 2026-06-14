@@ -53,32 +53,32 @@ export default function Navbar() {
 
   return (
     <nav
-      class={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled ? 'py-3 bg-theme-primary/85 backdrop-blur-xl border-b border-default' : 'py-5 bg-transparent'
       }`}
       role="navigation"
       aria-label="Main navigation"
     >
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-center">
-          <a href="/" class="flex items-center gap-3 shrink-0" aria-label="Home">
-            <img src="/logo.svg" alt="Home" class="h-8 w-auto" loading="eager" decoding="async" />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center">
+          <a href="/" className="flex items-center gap-3 shrink-0" aria-label="Home">
+            <img src="/logo.svg" alt="Home" className="h-8 w-auto" loading="eager" decoding="async" />
           </a>
 
-          <div class="hidden md:flex items-center gap-1">
+          <div className="hidden md:flex items-center gap-1">
             {navItems.map((item) => (
               <a
                 key={item.name}
                 href={item.href}
-                class="px-3 py-2 text-sm font-medium text-secondary hover:text-primary rounded-lg hover:bg-raised transition-colors duration-150"
+                className="px-3 py-2 text-sm font-medium text-secondary hover:text-primary rounded-lg hover:bg-raised transition-colors duration-150"
               >
                 {item.name}
               </a>
             ))}
           </div>
 
-          <div class="hidden md:flex items-center gap-2">
-            <div class="flex items-center gap-1 bg-raised border border-default rounded-lg p-0.5">
+          <div className="hidden md:flex items-center gap-2">
+            <div className="flex items-center gap-1 bg-raised border border-default rounded-lg p-0.5">
               {[{ c: 'INR' as const, l: '₹ INR' }, { c: 'USD' as const, l: '$ USD' }].map((cur) => (
                 <button
                   key={cur.c}
@@ -89,7 +89,7 @@ export default function Navbar() {
                       window.dispatchEvent(new Event('currencyChange'));
                     } catch {}
                   }}
-                  class={`px-2 py-1 rounded-md text-[11px] font-medium transition-all cursor-pointer ${
+                  className={`px-2 py-1 rounded-md text-[11px] font-medium transition-all cursor-pointer ${
                     currency === cur.c ? 'bg-gold text-darkbg' : 'text-muted hover:text-primary'
                   }`}
                 >
@@ -99,64 +99,64 @@ export default function Navbar() {
             </div>
             <button
               onClick={toggleTheme}
-              class="p-2 rounded-lg text-secondary hover:text-primary hover:bg-raised transition-colors duration-150"
+              className="p-2 rounded-lg text-secondary hover:text-primary hover:bg-raised transition-colors duration-150"
               aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
             >
-              {theme === 'dark' ? <Sun class="w-4 h-4" /> : <Moon class="w-4 h-4" />}
+              {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
             </button>
-            <a href="/login" class="btn-secondary text-sm gap-1.5">
-              <LogIn class="w-3.5 h-3.5" /> Login
+            <a href="/login" className="btn-secondary text-sm gap-1.5">
+              <LogIn className="w-3.5 h-3.5" /> Login
             </a>
-            <a href="/contact" class="btn-primary text-sm ml-1">
+            <a href="/contact" className="btn-primary text-sm ml-1">
               Start Project
             </a>
           </div>
 
-          <div class="md:hidden flex items-center gap-1">
+          <div className="md:hidden flex items-center gap-1">
             <button
               onClick={toggleTheme}
-              class="p-2 text-secondary hover:text-primary transition-colors duration-150"
+              className="p-2 text-secondary hover:text-primary transition-colors duration-150"
               aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
             >
-              {theme === 'dark' ? <Sun class="w-5 h-5" /> : <Moon class="w-5 h-5" />}
+              {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
             </button>
             <button
               onClick={() => setIsOpen(!isOpen)}
-              class="p-2 text-secondary hover:text-primary transition-colors duration-150"
+              className="p-2 text-secondary hover:text-primary transition-colors duration-150"
               aria-label={isOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={isOpen}
             >
-              {isOpen ? <X class="w-5 h-5" /> : <Menu class="w-5 h-5" />}
+              {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
         </div>
       </div>
 
       <div
-        class={`md:hidden fixed inset-x-0 top-0 bottom-0 z-[-1] transition-all duration-300 ${
+        className={`md:hidden fixed inset-x-0 top-0 bottom-0 z-[-1] transition-all duration-300 ${
           isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
         onClick={() => setIsOpen(false)}
       >
         <div
-          class={`absolute top-full left-0 right-0 bg-theme-primary border-b border-default transition-all duration-300 origin-top ${
+          className={`absolute top-full left-0 right-0 bg-theme-primary border-b border-default transition-all duration-300 origin-top ${
             isOpen ? 'max-h-[80vh] py-4 opacity-100' : 'max-h-0 py-0 opacity-0'
           }`}
           onClick={(e) => e.stopPropagation()}
         >
-          <div class="px-4 space-y-0.5">
+          <div className="px-4 space-y-0.5">
             {navItems.map((item) => (
               <a
                 key={item.name}
                 href={item.href}
                 onClick={() => setIsOpen(false)}
-                class="block text-sm font-medium text-secondary hover:text-primary py-2.5 px-3 rounded-lg hover:bg-raised transition-colors duration-150"
+                className="block text-sm font-medium text-secondary hover:text-primary py-2.5 px-3 rounded-lg hover:bg-raised transition-colors duration-150"
               >
                 {item.name}
               </a>
             ))}
-            <div class="pt-3 px-3">
-              <a href="/contact" onClick={() => setIsOpen(false)} class="btn-primary w-full justify-center text-sm">
+            <div className="pt-3 px-3">
+              <a href="/contact" onClick={() => setIsOpen(false)} className="btn-primary w-full justify-center text-sm">
                 Start Project
               </a>
             </div>
