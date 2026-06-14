@@ -103,4 +103,4 @@ Copy `backend/.env.example` to `backend/.env` and configure:
 
 ---
 
-Built with ❤️ by **Aryan Sharma** — LaunchWithAryan.AI
+Built with ❤️ by **Aryan Raj** — LaunchWithAryan.AI
