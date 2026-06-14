@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Moon, Sun } from 'lucide-react';
+import { Menu, X, Moon, Sun, LogIn } from 'lucide-react';
 
 interface NavItem { name: string; href: string; }
 
@@ -19,6 +19,7 @@ export default function Navbar() {
     if (typeof window === 'undefined') return 'dark';
     return localStorage.getItem('theme') || 'dark';
   });
+  const [currency, setCurrencyState] = useState<'INR' | 'USD'>('INR');
 
   useEffect(() => {
     const stored = localStorage.getItem('theme');
@@ -27,6 +28,8 @@ export default function Navbar() {
       const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
       document.documentElement.setAttribute('data-theme', prefersLight ? 'light' : 'dark');
     }
+    const cur = localStorage.getItem('preferred_currency');
+    if (cur === 'INR' || cur === 'USD') setCurrencyState(cur);
   }, []);
 
   const toggleTheme = () => {
@@ -75,6 +78,25 @@ export default function Navbar() {
           </div>
 
           <div class="hidden md:flex items-center gap-2">
+            <div class="flex items-center gap-1 bg-raised border border-default rounded-lg p-0.5">
+              {[{ c: 'INR' as const, l: '₹ INR' }, { c: 'USD' as const, l: '$ USD' }].map((cur) => (
+                <button
+                  key={cur.c}
+                  onClick={() => {
+                    try {
+                      localStorage.setItem('preferred_currency', cur.c);
+                      setCurrencyState(cur.c);
+                      window.dispatchEvent(new Event('currencyChange'));
+                    } catch {}
+                  }}
+                  class={`px-2 py-1 rounded-md text-[11px] font-medium transition-all cursor-pointer ${
+                    currency === cur.c ? 'bg-gold text-darkbg' : 'text-muted hover:text-primary'
+                  }`}
+                >
+                  {cur.l}
+                </button>
+              ))}
+            </div>
             <button
               onClick={toggleTheme}
               class="p-2 rounded-lg text-secondary hover:text-primary hover:bg-raised transition-colors duration-150"
@@ -82,7 +104,10 @@ export default function Navbar() {
             >
               {theme === 'dark' ? <Sun class="w-4 h-4" /> : <Moon class="w-4 h-4" />}
             </button>
-            <a href="/contact" class="btn-primary text-sm ml-2">
+            <a href="/login" class="btn-secondary text-sm gap-1.5">
+              <LogIn class="w-3.5 h-3.5" /> Login
+            </a>
+            <a href="/contact" class="btn-primary text-sm ml-1">
               Start Project
             </a>
           </div>

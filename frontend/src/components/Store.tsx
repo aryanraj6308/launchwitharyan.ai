@@ -112,6 +112,14 @@ const confirmPurchaseWithBackend = async (productId: string, sessionId: string):
   }
 };
 
+const INR_TO_USD = 0.012;
+
+function formatPrice(priceInr: number): string {
+  const cur = typeof window !== 'undefined' ? localStorage.getItem('preferred_currency') : 'INR';
+  if (cur === 'USD') return `$${(priceInr * INR_TO_USD).toFixed(2)}`;
+  return `₹${priceInr}`;
+}
+
 export default function Store() {
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -120,6 +128,7 @@ export default function Store() {
   const [purchasedItems, setPurchasedItems] = useState<string[]>([]);
   const [sessionId, setSessionId] = useState<string>('');
   const [mounted, setMounted] = useState(false);
+  const [, forceUpdate] = useState(0);
 
   useEffect(() => {
     setMounted(true);
@@ -137,6 +146,12 @@ export default function Store() {
       } catch { /* ignore */ }
       localStorage.removeItem('pending_purchase');
     }
+  }, []);
+
+  useEffect(() => {
+    const handler = () => forceUpdate((n) => n + 1);
+    window.addEventListener('currencyChange', handler);
+    return () => window.removeEventListener('currencyChange', handler);
   }, []);
 
   useEffect(() => {
@@ -169,7 +184,7 @@ export default function Store() {
 
   const simulateCheckout = async (product: Product) => {
     const confirmBuy = window.confirm(
-      `[Offline Sandbox Mode]\n\nProduct: ${product.title}\nPrice: ₹${product.price}\n\nWould you like to simulate a successful payment and unlock this digital file?`
+      `[Offline Sandbox Mode]\n\nProduct: ${product.title}\nPrice: ${formatPrice(product.price)}\n\nWould you like to simulate a successful payment and unlock this digital file?`
     );
     if (confirmBuy) {
       savePurchase(product);
@@ -233,7 +248,7 @@ export default function Store() {
                   <Sparkles className="w-3 h-3" />
                   {prod.category}
                 </span>
-                <span className="text-lg font-grotesk font-bold text-primary">₹{prod.price}</span>
+                <span className="text-lg font-grotesk font-bold text-primary">{formatPrice(prod.price)}</span>
               </div>
 
               <div>
