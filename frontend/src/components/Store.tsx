@@ -32,7 +32,7 @@ const productsData: Product[] = [
     description: 'A production-ready database orchestration template. Connects local vector schemas directly to OpenAI or local models.',
     features: ['Supabase PGVector schema', 'FastAPI backend connection', 'Dynamic prompt logs UI', 'Rate-limiting middleware'],
     specs: 'Python FastAPI + PostgreSQL',
-    paymentLink: ''
+    paymentLink: 'https://rzp.io/rzp/KAlFHQ6'
   },
   {
     id: 'seo-prompt-pack',
