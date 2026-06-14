@@ -1,0 +1,237 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ServiceHero from '../../components/ServiceHero.tsx';
+import { Bot, Workflow, Database, Mail, HeadphonesIcon, BarChart3, Server, Zap, ArrowRight, CheckCircle, Clock, TrendingUp, Users, DollarSign } from 'lucide-react';
+
+const features = [
+  { icon: Bot, title: "AI Agents", desc: "Autonomous AI agents that handle lead qualification, data entry, scheduling, and follow-ups 24/7 without human supervision." },
+  { icon: Workflow, title: "Workflow Automation", desc: "Connect your tools into seamless automated workflows. Trigger actions across platforms based on real-time events." },
+  { icon: Database, title: "CRM Integration", desc: "Sync contacts, deals, and activities automatically. Keep your CRM updated without manual data entry." },
+  { icon: Mail, title: "Email Automation", desc: "Smart email sequences that adapt to recipient behavior. Personalized outreach at scale with AI copywriting." },
+  { icon: HeadphonesIcon, title: "Support Automation", desc: "AI-powered ticket triage, auto-responses, and escalation routing. Resolve 70% of queries without human touch." },
+  { icon: BarChart3, title: "Reporting Dashboard", desc: "Real-time analytics on automation performance, cost savings, response times, and pipeline impact." },
+  { icon: Server, title: "Lead Qualification", desc: "AI scores and categorizes leads based on intent signals, engagement data, and buyer persona matching." },
+  { icon: Zap, title: "Smart Analytics", desc: "Actionable insights from your automation data. Identify bottlenecks, optimize flows, and measure ROI." },
+];
+
+const process = [
+  { step: "01", title: "Discovery Audit", desc: "We map your current workflows, identify bottlenecks, and find the highest-ROI automation opportunities." },
+  { step: "02", title: "Architecture Design", desc: "Blueprint the AI agent system, tool integrations, data flow, and failover protocols." },
+  { step: "03", title: "Agent Development", desc: "Build and train custom AI agents with your data. Connect CRMs, email, Slack, and APIs." },
+  { step: "04", title: "Testing & Tuning", desc: "Rigorously test every workflow. Tune accuracy, response times, and edge cases." },
+  { step: "05", title: "Deploy & Monitor", desc: "Launch into production with 24/7 monitoring, alerts, and continuous optimization." },
+];
+
+const benefits = [
+  { icon: Clock, value: "10x", label: "Faster Workflows", desc: "Automate repetitive tasks that used to take hours — now done in minutes." },
+  { icon: DollarSign, value: "60%", label: "Cost Reduction", desc: "Slash operational costs by automating manual processes across your team." },
+  { icon: TrendingUp, value: "85%", label: "Lead Response Speed", desc: "AI qualifies and responds to leads within seconds, not hours." },
+  { icon: Users, value: "70%", label: "Ticket Automation", desc: "Support tickets resolved without human intervention, freeing your team." },
+];
+
+const integrations = [
+  { name: "WhatsApp", icon: "💬" }, { name: "Slack", icon: "🔔" }, { name: "Gmail", icon: "📧" },
+  { name: "HubSpot", icon: "📊" }, { name: "Zapier", icon: "⚡" }, { name: "REST APIs", icon: "🔗" },
+  { name: "Salesforce", icon: "📈" }, { name: "Notion", icon: "📝" },
+];
+
+const faqs = [
+  { q: "What types of workflows can you automate?", a: "Anything repetitive — lead qualification, email sequences, CRM updates, invoice processing, support ticket triage, reporting, and data sync between tools." },
+  { q: "How long does it take to set up an automation?", a: "Most single-workflow automations are live within 2 weeks. Complex multi-agent systems take 3-5 weeks depending on integration depth." },
+  { q: "Do I need technical knowledge to manage it?", a: "No. You get a dashboard to monitor performance. We handle all setup, maintenance, and tuning. Think of it as a managed AI operations team." },
+  { q: "What platforms do you integrate with?", a: "We connect with 50+ tools including HubSpot, Salesforce, Slack, Gmail, WhatsApp, Zapier, Notion, Stripe, Shopify, and custom REST/SOAP APIs." },
+  { q: "Is my data secure?", a: "Yes. All data is encrypted in transit and at rest. We implement 7-layer security including SSTI/SQLi/LPDOS protection, JWT verification, and HMAC-signed webhooks." },
+  { q: "What's the ROI timeline?", a: "Most clients see full ROI within 60-90 days. Typical monthly savings range from $5,000 to $25,000 depending on automation scope." },
+];
+---
+
+<Layout title="AI Automation Workflows | LaunchWithAryan AI"
+  description="Build AI systems that automate lead generation, customer support, CRM updates, reporting, and complex workflows. Save 10x time with enterprise-grade AI automation.">
+
+  <ServiceHero title="Automate Your Business." highlight="Scale Without Chaos."
+    desc="Build AI systems that automate lead generation, customer support, CRM updates, reporting, and repetitive operations. Save 10x time with enterprise-grade reliability."
+    badge="AI Automation Service">
+
+    <div class="relative w-full h-[320px] sm:h-[400px] lg:h-[460px] flex items-center justify-center">
+      <div class="absolute w-72 h-72 rounded-full blur-[100px] opacity-20 glow-hero-primary pointer-events-none" />
+      <div class="absolute w-48 h-48 rounded-full blur-[80px] opacity-15 top-[15%] right-[10%] glow-hero-teal pointer-events-none" />
+      <svg viewBox="0 0 400 400" class="w-full h-full max-w-[420px]">
+        <defs>
+          <linearGradient id="ag" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#d4a843" /><stop offset="100%" stop-color="#b89038" />
+          </linearGradient>
+          <linearGradient id="at" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#14b8a6" /><stop offset="100%" stop-color="#0d9488" />
+          </linearGradient>
+        </defs>
+        <circle cx="200" cy="200" r="140" fill="none" stroke="url(#ag)" stroke-width="2" opacity="0.2" stroke-dasharray="6 10">
+          <animateTransform attributeName="transform" type="rotate" from="0 200 200" to="360 200 200" dur="50s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="200" cy="200" r="100" fill="none" stroke="url(#at)" stroke-width="1.5" opacity="0.15" stroke-dasharray="4 8">
+          <animateTransform attributeName="transform" type="rotate" from="30 200 200" to="390 200 200" dur="40s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="200" cy="200" r="30" fill="url(#ag)" opacity="0.15"/>
+        <circle cx="200" cy="200" r="12" fill="url(#ag)" opacity="0.8"/>
+        <g opacity="0.4">
+          {[120,160,200,240,280].map((x,i)=>(
+            <circle key={i} cx={x} cy={[100,300,80,320,150][i]} r={3+i%2} fill="url(#ag)">
+              <animate attributeName="opacity" values={["0.2","0.6","0.2"][i%3]} dur={`${2+i*0.5}s`} repeatCount="indefinite"/>
+            </circle>
+          ))}
+        </g>
+        <line x1="200" y1="200" x2="120" y2="100" stroke="url(#ag)" stroke-width="1" stroke-dasharray="4 4" opacity="0.2">
+          <animate attributeName="stroke-dashoffset" from="0" to="-40" dur="2s" repeatCount="indefinite"/>
+        </line>
+        <line x1="200" y1="200" x2="280" y2="100" stroke="url(#ag)" stroke-width="1" stroke-dasharray="4 4" opacity="0.2">
+          <animate attributeName="stroke-dashoffset" from="0" to="-40" dur="2.5s" repeatCount="indefinite"/>
+        </line>
+        <line x1="200" y1="200" x2="120" y2="320" stroke="url(#at)" stroke-width="1" stroke-dasharray="4 4" opacity="0.2">
+          <animate attributeName="stroke-dashoffset" from="0" to="-40" dur="3s" repeatCount="indefinite"/>
+        </line>
+        <line x1="200" y1="200" x2="280" y2="320" stroke="url(#at)" stroke-width="1" stroke-dasharray="4 4" opacity="0.2">
+          <animate attributeName="stroke-dashoffset" from="0" to="-40" dur="3.5s" repeatCount="indefinite"/>
+        </line>
+        <rect x="85" y="65" width="70" height="28" rx="14" fill="var(--bg-glass)" stroke="url(#ag)" stroke-width="0.5" opacity="0.8"/>
+        <text x="120" y="83" text-anchor="middle" fill="var(--text-primary)" font-size="11" font-family="Inter,sans-serif" font-weight="600">Lead Gen</text>
+        <rect x="245" y="65" width="70" height="28" rx="14" fill="var(--bg-glass)" stroke="url(#ag)" stroke-width="0.5" opacity="0.8"/>
+        <text x="280" y="83" text-anchor="middle" fill="var(--text-primary)" font-size="11" font-family="Inter,sans-serif" font-weight="600">CRM</text>
+        <rect x="75" y="300" width="90" height="28" rx="14" fill="var(--bg-glass)" stroke="url(#at)" stroke-width="0.5" opacity="0.8"/>
+        <text x="120" y="318" text-anchor="middle" fill="var(--text-primary)" font-size="11" font-family="Inter,sans-serif" font-weight="600">Email</text>
+        <rect x="235" y="300" width="90" height="28" rx="14" fill="var(--bg-glass)" stroke="url(#at)" stroke-width="0.5" opacity="0.8"/>
+        <text x="280" y="318" text-anchor="middle" fill="var(--text-primary)" font-size="11" font-family="Inter,sans-serif" font-weight="600">Analytics</text>
+      </svg>
+    </div>
+  </ServiceHero>
+
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
+    <div class="text-center mb-16 space-y-4">
+      <span class="inline-block text-xs font-sans font-medium tracking-[0.2em] uppercase text-gold">What We Do</span>
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-grotesk font-bold tracking-tight text-theme-primary">
+        AI <span class="gradient-gold">Workflow Automation</span>
+      </h2>
+      <p class="text-lg font-sans text-theme-secondary max-w-2xl mx-auto">
+        We design, build, and deploy custom AI agents that connect your tools, automate your operations, and scale your business.
+      </p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="glass rounded-2xl p-6 lg:p-8 card-hover"><h3 class="font-grotesk font-semibold text-lg text-theme-primary mb-2">🔍 Audit</h3><p class="text-sm font-sans text-theme-secondary">We analyze your current workflows to find every manual process that can be automated.</p></div>
+      <div class="glass rounded-2xl p-6 lg:p-8 card-hover"><h3 class="font-grotesk font-semibold text-lg text-theme-primary mb-2">🔧 Build</h3><p class="text-sm font-sans text-theme-secondary">Custom AI agents are developed and trained on your specific business data and processes.</p></div>
+      <div class="glass rounded-2xl p-6 lg:p-8 card-hover"><h3 class="font-grotesk font-semibold text-lg text-theme-primary mb-2">🔗 Integrate</h3><p class="text-sm font-sans text-theme-secondary">Seamless connection with your existing tools — CRM, email, Slack, WhatsApp, and more.</p></div>
+      <div class="glass rounded-2xl p-6 lg:p-8 card-hover"><h3 class="font-grotesk font-semibold text-lg text-theme-primary mb-2">📊 Optimize</h3><p class="text-sm font-sans text-theme-secondary">Continuous monitoring and tuning to maximize performance and ROI.</p></div>
+    </div>
+  </section>
+
+  <section class="relative overflow-hidden py-24 lg:py-32">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 space-y-4">
+        <span class="inline-block text-xs font-sans font-medium tracking-[0.2em] uppercase text-gold">Features</span>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-grotesk font-bold tracking-tight text-theme-primary">
+          Everything You Need to <span class="gradient-gold">Automate</span>
+        </h2>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {features.map((f, i) => (
+          <div key={i} class="glass rounded-2xl p-6 lg:p-8 card-hover">
+            <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-gold to-gold-dim flex items-center justify-center mb-5 shadow-lg">
+              <f.icon class="w-5 h-5 text-darkbg" />
+            </div>
+            <h3 class="font-grotesk font-semibold text-lg text-theme-primary mb-3">{f.title}</h3>
+            <p class="text-sm font-sans text-theme-secondary leading-relaxed">{f.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
+    <div class="text-center mb-16 space-y-4">
+      <span class="inline-block text-xs font-sans font-medium tracking-[0.2em] uppercase text-gold">How It Works</span>
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-grotesk font-bold tracking-tight text-theme-primary">
+        From Discovery to <span class="gradient-gold">Deployment</span>
+      </h2>
+      <p class="text-lg font-sans text-theme-secondary max-w-2xl mx-auto">A proven 5-step process to automate your business.</p>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 relative max-w-5xl mx-auto">
+      <div class="hidden lg:block absolute top-8 left-[10%] right-[10%] h-[1px] bg-gradient-to-r from-gold/40 via-gold/20 to-transparent" aria-hidden="true" />
+      {process.map((p, i) => (
+        <div key={i} class="text-center relative z-10">
+          <div class="w-14 h-14 rounded-full bg-gold/10 border border-gold/20 flex items-center justify-center mx-auto mb-4">
+            <span class="font-grotesk font-bold text-base text-gold">{p.step}</span>
+          </div>
+          <h3 class="font-grotesk font-semibold text-base text-theme-primary mb-2">{p.title}</h3>
+          <p class="text-xs font-sans text-theme-muted leading-relaxed">{p.desc}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
+    <div class="text-center mb-16 space-y-4">
+      <span class="inline-block text-xs font-sans font-medium tracking-[0.2em] uppercase text-gold">Impact</span>
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-grotesk font-bold tracking-tight text-theme-primary">
+        Real Business <span class="gradient-gold">Results</span>
+      </h2>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {benefits.map((b, i) => (
+        <div key={i} class="glass rounded-2xl p-8 text-center card-hover">
+          <b.icon class="w-8 h-8 text-gold mx-auto mb-4" />
+          <div class="text-3xl lg:text-4xl font-grotesk font-bold gradient-gold mb-1">{b.value}</div>
+          <div class="text-sm font-sans font-semibold text-theme-primary mb-2">{b.label}</div>
+          <p class="text-xs font-sans text-theme-muted">{b.desc}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
+    <div class="text-center mb-16 space-y-4">
+      <span class="inline-block text-xs font-sans font-medium tracking-[0.2em] uppercase text-gold">Integrations</span>
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-grotesk font-bold tracking-tight text-theme-primary">
+        Works With Your <span class="gradient-gold">Stack</span>
+      </h2>
+    </div>
+    <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-4 max-w-4xl mx-auto">
+      {integrations.map((i) => (
+        <div key={i.name} class="glass rounded-xl p-4 text-center card-hover">
+          <div class="text-2xl mb-1">{i.icon}</div>
+          <div class="text-xs font-sans text-theme-muted">{i.name}</div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32" id="faq">
+    <div class="text-center mb-16 space-y-4">
+      <span class="inline-block text-xs font-sans font-medium tracking-[0.2em] uppercase text-gold">FAQ</span>
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-grotesk font-bold tracking-tight text-theme-primary">
+        Questions? <span class="gradient-gold">Answered.</span>
+      </h2>
+    </div>
+    <div class="max-w-3xl mx-auto space-y-3">
+      {faqs.map((faq, i) => (
+        <details class="faq-card" key={i}>
+          <summary>{faq.q}</summary>
+          <div class="faq-answer">{faq.a}</div>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
+    <div class="glass rounded-3xl p-10 lg:p-16 text-center border-theme relative overflow-hidden">
+      <div class="absolute inset-0 pointer-events-none bg-gradient-to-br from-gold/5 via-transparent to-teal/5" aria-hidden="true" />
+      <div class="relative z-10 space-y-6">
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-grotesk font-bold tracking-tight text-theme-primary">
+          Ready to <span class="gradient-gold">Automate</span> Your Business?
+        </h2>
+        <p class="text-lg font-sans text-theme-secondary max-w-xl mx-auto">
+          Let's map out your automation roadmap. Free consultation with our AI team.
+        </p>
+        <a href="/contact" class="btn-primary inline-flex">
+          Book Free Call <ArrowRight class="w-4 h-4" />
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

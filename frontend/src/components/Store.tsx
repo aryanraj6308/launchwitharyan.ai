@@ -169,19 +169,19 @@ export default function Store() {
   return (
     <div className="font-sans space-y-12">
       {/* Filters & Search */}
-      <div className="flex flex-col md:flex-row gap-4 justify-between items-center bg-white/2 p-4 rounded-2xl border border-white/5 backdrop-blur-md">
+      <div className="flex flex-col md:flex-row gap-4 justify-between items-center bg-elevated p-4 rounded-2xl border border-subtle backdrop-blur-md">
         
         {/* Category Filters */}
         <div className="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0">
-          <Filter className="w-4 h-4 text-gray-500 mr-2 flex-shrink-0" />
+          <Filter className="w-4 h-4 text-theme-muted mr-2 flex-shrink-0" />
           {['All', 'Templates', 'Prompts', 'Automations'].map((cat) => (
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
               className={`px-4 py-2 rounded-full text-xs font-semibold cursor-pointer transition-colors duration-300 ${
                 selectedCategory === cat
-                  ? 'bg-primary text-white'
-                  : 'bg-white/5 text-gray-400 hover:text-white hover:bg-white/10'
+                  ? 'bg-primary text-theme-primary'
+                  : 'bg-elevated text-theme-muted hover:text-theme-primary hover:bg-hover'
               }`}
             >
               {cat}
@@ -191,13 +191,13 @@ export default function Store() {
 
         {/* Search Input */}
         <div className="relative w-full md:w-80">
-          <Search className="absolute left-3.5 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500" />
+          <Search className="absolute left-3.5 top-1/2 transform -translate-y-1/2 w-4 h-4 text-theme-muted" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search templates, prompt packs..."
-            className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-primary/50 text-sm transition-colors"
+            className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-elevated border border-subtle text-theme-primary placeholder:text-placeholder focus:outline-none focus:border-primary/50 text-sm transition-colors"
           />
         </div>
       </div>
@@ -207,7 +207,7 @@ export default function Store() {
         {filteredProducts.map((prod) => (
           <div
             key={prod.id}
-            className="glassmorphism p-6 sm:p-8 rounded-3xl border border-white/5 flex flex-col justify-between space-y-6 hover:border-white/10 hover:shadow-2xl hover:shadow-primary/5 transition-all duration-300 relative overflow-hidden group"
+            className="glassmorphism p-6 sm:p-8 rounded-3xl border border-subtle flex flex-col justify-between space-y-6 hover:border-subtle hover:shadow-2xl hover:shadow-primary/5 transition-all duration-300 relative overflow-hidden group"
           >
             {/* Background glowing shape */}
             <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-2xl pointer-events-none group-hover:bg-primary/10 transition-colors"></div>
@@ -215,25 +215,25 @@ export default function Store() {
             <div className="space-y-4">
               {/* Category tag & price */}
               <div className="flex justify-between items-center">
-                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-semibold text-accent-cyan uppercase tracking-wider">
+                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-elevated border border-subtle text-[10px] font-semibold text-gold uppercase tracking-wider">
                   <Sparkles className="w-3 h-3" />
                   {prod.category}
                 </span>
-                <span className="text-xl font-bold text-white font-display">${prod.price}</span>
+                <span className="text-xl font-bold text-theme-primary font-grotesk">${prod.price}</span>
               </div>
 
               {/* Title & Tech Specs */}
               <div>
-                <h3 className="text-xl font-display font-semibold text-white tracking-tight">{prod.title}</h3>
-                <span className="text-[11px] text-gray-500 font-mono block mt-1">{prod.specs}</span>
+                <h3 className="text-xl font-grotesk font-semibold text-theme-primary tracking-tight">{prod.title}</h3>
+                <span className="text-[11px] text-theme-muted font-mono block mt-1">{prod.specs}</span>
               </div>
 
-              <p className="text-gray-400 text-sm leading-relaxed font-sans">{prod.description}</p>
+              <p className="text-theme-muted text-sm leading-relaxed font-sans">{prod.description}</p>
 
               {/* Features bullets */}
               <div className="space-y-2.5 pt-2">
                 {prod.features.map((feat, i) => (
-                  <div key={i} className="flex items-center gap-2 text-xs text-gray-300 font-sans">
+                  <div key={i} className="flex items-center gap-2 text-xs text-theme-secondary font-sans">
                     <Check className="w-3.5 h-3.5 text-primary flex-shrink-0" />
                     <span>{feat}</span>
                   </div>
@@ -245,7 +245,7 @@ export default function Store() {
             <button
               onClick={() => handleCheckout(prod)}
               disabled={isLoading && checkoutProduct?.id === prod.id}
-              className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-primary hover:bg-primary-dark font-sans text-sm font-semibold text-white transition-all duration-300 hover:shadow-lg hover:shadow-primary/25 cursor-pointer disabled:opacity-50"
+              className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-primary hover:bg-primary-dark font-sans text-sm font-semibold text-theme-primary transition-all duration-300 hover:shadow-lg hover:shadow-primary/25 cursor-pointer disabled:opacity-50"
             >
               <ShoppingBag className="w-4 h-4" />
               {isLoading && checkoutProduct?.id === prod.id ? 'Processing Purchase...' : 'Buy Now'}
@@ -255,14 +255,14 @@ export default function Store() {
 
         {filteredProducts.length === 0 && (
           <div className="col-span-full py-16 text-center space-y-4">
-            <AlertCircle className="w-10 h-10 text-gray-600 mx-auto" />
-            <p className="text-gray-400 font-sans text-sm">No premium products match your query criteria.</p>
+            <AlertCircle className="w-10 h-10 text-theme-muted mx-auto" />
+            <p className="text-theme-muted font-sans text-sm">No premium products match your query criteria.</p>
           </div>
         )}
       </div>
 
       {/* Trust elements */}
-      <div className="pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-6 text-xs text-gray-500">
+      <div className="pt-8 border-t border-subtle flex flex-col sm:flex-row items-center justify-between gap-6 text-xs text-theme-muted">
         <div className="flex items-center gap-2">
           <ShieldCheck className="w-4 h-4 text-green-500" />
           <span>Secure transaction checkouts via Razorpay API.</span>

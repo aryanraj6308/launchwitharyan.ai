@@ -30,6 +30,7 @@ dist/
 
 # Test logs
 *-output.txt
+uv_*.txt
 test_*.ps1
 test_output.html
 

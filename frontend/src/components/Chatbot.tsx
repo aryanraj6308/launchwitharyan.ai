@@ -103,7 +103,7 @@ export default function Chatbot() {
       {/* Floating Toggle Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-14 h-14 rounded-full bg-gradient-to-tr from-primary to-accent-purple flex items-center justify-center text-white shadow-xl shadow-primary/30 hover:scale-105 transition-transform duration-300 cursor-pointer"
+        className="w-14 h-14 rounded-full bg-gradient-to-tr from-primary to-teal flex items-center justify-center text-theme-primary shadow-xl shadow-primary/30 hover:scale-105 transition-transform duration-300 cursor-pointer"
         aria-label="Ask Aryan AI Assistant"
       >
         {isOpen ? <X className="w-6 h-6" /> : <MessageSquare className="w-6 h-6" />}
@@ -111,24 +111,24 @@ export default function Chatbot() {
 
       {/* Chat Window */}
       {isOpen && (
-        <div className="absolute bottom-18 right-0 w-[350px] sm:w-[400px] h-[500px] glassmorphism rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-white/10 animate-fade-in animate-slide-up">
+        <div className="absolute bottom-18 right-0 w-[350px] sm:w-[400px] h-[500px] glassmorphism rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-subtle animate-fade-in animate-slide-up">
           {/* Header */}
-          <div className="px-5 py-4 border-b border-white/5 bg-white/5 flex items-center justify-between">
+          <div className="px-5 py-4 border-b border-subtle bg-elevated flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 rounded-lg bg-primary/20 flex items-center justify-center border border-primary/30">
                 <Sparkles className="w-5 h-5 text-primary" />
               </div>
               <div>
-                <h4 className="font-display font-semibold text-white text-sm">Aryan AI Assistant</h4>
+                <h4 className="font-grotesk font-semibold text-theme-primary text-sm">Aryan AI Assistant</h4>
                 <div className="flex items-center gap-1.5">
                   <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-                  <span className="text-[10px] text-gray-400">Ready to consult</span>
+                  <span className="text-[10px] text-theme-muted">Ready to consult</span>
                 </div>
               </div>
             </div>
             <button
               onClick={() => setIsOpen(false)}
-              className="text-gray-400 hover:text-white transition-colors"
+              className="text-theme-muted hover:text-theme-primary transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
@@ -146,8 +146,8 @@ export default function Chatbot() {
                 <div
                   className={`w-7 h-7 rounded-full flex items-center justify-center text-xs flex-shrink-0 ${
                     msg.sender === 'user'
-                      ? 'bg-primary text-white'
-                      : 'bg-white/10 text-accent-cyan border border-white/5'
+                      ? 'bg-primary text-theme-primary'
+                      : 'bg-hover text-gold border border-subtle'
                   }`}
                 >
                   {msg.sender === 'user' ? <User className="w-4 h-4" /> : <Bot className="w-4 h-4" />}
@@ -155,8 +155,8 @@ export default function Chatbot() {
                 <div
                   className={`rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
                     msg.sender === 'user'
-                      ? 'bg-primary text-white rounded-tr-none'
-                      : 'bg-white/5 border border-white/5 text-gray-200 rounded-tl-none'
+                      ? 'bg-primary text-theme-primary rounded-tr-none'
+                      : 'bg-elevated border border-subtle text-theme-secondary rounded-tl-none'
                   }`}
                 >
                   {msg.text}
@@ -166,13 +166,13 @@ export default function Chatbot() {
 
             {isTyping && (
               <div className="flex gap-3 max-w-[85%]">
-                <div className="w-7 h-7 rounded-full bg-white/10 text-accent-cyan border border-white/5 flex items-center justify-center">
+                <div className="w-7 h-7 rounded-full bg-hover text-gold border border-subtle flex items-center justify-center">
                   <Bot className="w-4 h-4" />
                 </div>
-                <div className="rounded-2xl px-4 py-2.5 bg-white/5 border border-white/5 text-gray-400 rounded-tl-none text-sm flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 bg-gray-500 rounded-full animate-bounce"></span>
-                  <span className="w-1.5 h-1.5 bg-gray-500 rounded-full animate-bounce delay-150"></span>
-                  <span className="w-1.5 h-1.5 bg-gray-500 rounded-full animate-bounce delay-300"></span>
+                <div className="rounded-2xl px-4 py-2.5 bg-elevated border border-subtle text-theme-muted rounded-tl-none text-sm flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 bg-theme-muted rounded-full animate-bounce"></span>
+                  <span className="w-1.5 h-1.5 bg-theme-muted rounded-full animate-bounce delay-150"></span>
+                  <span className="w-1.5 h-1.5 bg-theme-muted rounded-full animate-bounce delay-300"></span>
                 </div>
               </div>
             )}
@@ -186,7 +186,7 @@ export default function Chatbot() {
                 <button
                   key={i}
                   onClick={() => sendMessage(sug)}
-                  className="text-[11px] text-gray-300 hover:text-white bg-white/5 hover:bg-white/10 border border-white/5 hover:border-white/10 px-3 py-1.5 rounded-full transition-all duration-300 cursor-pointer"
+                  className="text-[11px] text-theme-secondary hover:text-theme-primary bg-elevated hover:bg-hover border border-subtle hover:border-subtle px-3 py-1.5 rounded-full transition-all duration-300 cursor-pointer"
                 >
                   {sug}
                 </button>
@@ -195,7 +195,7 @@ export default function Chatbot() {
           )}
 
           {/* Input Panel */}
-          <div className="p-4 border-t border-white/5 bg-white/2">
+          <div className="p-4 border-t border-subtle bg-elevated">
             <div className="flex gap-2">
               <input
                 type="text"
@@ -203,11 +203,11 @@ export default function Chatbot() {
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={handleKeyPress}
                 placeholder="Ask a question..."
-                className="flex-1 px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-primary/50 text-sm transition-colors"
+                className="flex-1 px-4 py-2.5 rounded-xl bg-elevated border border-subtle text-theme-primary placeholder:text-placeholder focus:outline-none focus:border-primary/50 text-sm transition-colors"
               />
               <button
                 onClick={() => sendMessage(input)}
-                className="p-2.5 rounded-xl bg-primary hover:bg-primary-dark text-white flex items-center justify-center transition-all duration-300 cursor-pointer"
+                className="p-2.5 rounded-xl bg-primary hover:bg-primary-dark text-theme-primary flex items-center justify-center transition-all duration-300 cursor-pointer"
                 aria-label="Send"
               >
                 <Send className="w-4 h-4" />

@@ -93,7 +93,6 @@ async def verify_payment(
     db: Session = Depends(get_db),
 ):
     """Verify Razorpay payment signature and mark order as paid."""
-    # Construct the expected signature
     body = f"{payload.razorpay_order_id}|{payload.razorpay_payment_id}"
     expected_signature = hmac.new(
         settings.RAZORPAY_KEY_SECRET.encode("utf-8"),
@@ -102,7 +101,6 @@ async def verify_payment(
     ).hexdigest()
 
     if expected_signature != payload.razorpay_signature:
-        # Mark order as failed
         order = db.query(Order).filter(
             Order.razorpay_order_id == payload.razorpay_order_id
         ).first()
@@ -111,7 +109,6 @@ async def verify_payment(
             db.commit()
         raise HTTPException(status_code=400, detail="Payment signature verification failed.")
 
-    # Mark order as paid
     order = db.query(Order).filter(
         Order.razorpay_order_id == payload.razorpay_order_id
     ).first()

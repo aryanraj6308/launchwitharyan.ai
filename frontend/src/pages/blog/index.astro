@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { ArrowRight, Calendar, User } from 'lucide-react';
+import { ArrowRight, Calendar } from 'lucide-react';
 
 const posts = [
   {
@@ -34,48 +34,46 @@ const posts = [
 ---
 
 <Layout title="SEO & AI Technology Blog | LaunchWithAryan AI">
-  
+
   <section class="relative overflow-hidden py-16 lg:py-24">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-      
-      {/* Page Header */}
+
       <div class="text-center max-w-3xl mx-auto mb-20 space-y-4">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs text-gray-300 backdrop-blur-md">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full glass text-xs text-theme-muted">
           <span>Insights & Guides</span>
         </div>
-        <h1 class="text-4xl sm:text-5xl font-display font-bold text-white tracking-tight">
-          Technology & <span class="gradient-text">AI Architectures</span>
+        <h1 class="text-4xl sm:text-5xl font-grotesk font-bold text-theme-primary tracking-tight">
+          Technology & <span class="gradient-gold">AI Architectures</span>
         </h1>
-        <p class="text-gray-400 font-sans leading-relaxed text-base">
+        <p class="text-theme-secondary font-sans leading-relaxed text-base">
           Read detailed developer reviews, optimization strategies, and tutorials on self-hosting models and deploying vector caches.
         </p>
       </div>
 
-      {/* Posts Grid */}
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
         {posts.map((post) => (
-          <article class="glassmorphism rounded-3xl border border-white/5 hover:border-white/10 flex flex-col justify-between overflow-hidden hover:shadow-2xl hover:shadow-primary/5 transition-all duration-300 group">
-            
+          <article class="glass rounded-3xl border border-theme card-hover flex flex-col justify-between overflow-hidden transition-all duration-300 group">
+
             <div class="p-6 sm:p-8 space-y-5">
-              <div class="flex items-center justify-between text-xs text-gray-500 font-sans">
-                <span class="px-2.5 py-1 rounded-full bg-white/5 text-accent-cyan font-semibold">{post.category}</span>
+              <div class="flex items-center justify-between text-xs text-theme-muted font-sans">
+                <span class="px-2.5 py-1 rounded-full bg-elevated text-gold font-semibold">{post.category}</span>
                 <span>{post.readTime}</span>
               </div>
 
-              <h2 class="text-xl font-display font-bold text-white group-hover:text-primary transition-colors leading-tight">
+              <h2 class="text-xl font-grotesk font-bold text-theme-primary group-hover:text-gold transition-colors leading-tight">
                 <a href={`/blog/${post.slug}`}>{post.title}</a>
               </h2>
 
-              <p class="text-gray-400 text-sm leading-relaxed font-sans line-clamp-3">
+              <p class="text-theme-secondary text-sm leading-relaxed font-sans line-clamp-3">
                 {post.excerpt}
               </p>
             </div>
 
-            <div class="p-6 sm:p-8 border-t border-white/5 bg-white/2 flex items-center justify-between text-xs text-gray-500 font-sans">
+            <div class="p-6 sm:p-8 border-t border-subtle bg-elevated flex items-center justify-between text-xs text-theme-muted font-sans">
               <div class="flex items-center gap-4">
                 <span class="flex items-center gap-1.5"><Calendar class="w-3.5 h-3.5" /> {post.date}</span>
               </div>
-              <a href={`/blog/${post.slug}`} class="inline-flex items-center gap-1 font-semibold text-primary hover:text-white transition-colors group">
+              <a href={`/blog/${post.slug}`} class="inline-flex items-center gap-1 font-semibold text-gold hover:text-gold-light transition-colors group">
                 Read Post <ArrowRight class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
               </a>
             </div>

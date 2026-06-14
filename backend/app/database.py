@@ -93,6 +93,6 @@ def create_tables():
     """Create all database tables safely."""
     try:
         Base.metadata.create_all(bind=engine)
-        print("✅ Database tables created/verified.")
+        print("[OK] Database tables created/verified.")
     except Exception as e:
-        print(f"⚠️  Database not reachable: {e}. Running in offline mode.")
+        print(f"[WARN] Database not reachable: {e}. Running in offline mode.")

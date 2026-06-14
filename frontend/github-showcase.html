@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LaunchWithAryan AI — Premium AI & Web Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0a0a0b; --bg2: #131316; --text: #fafafa; --text2: #d4d4d8; --text3: #a1a1aa;
+      --gold: #d4a843; --gold-dim: #b89038; --gold-light: #eed18a; --teal: #14b8a6;
+      --border: rgba(255,255,255,0.06); --glass: rgba(19,19,22,0.85);
+      --shadow: 0 4px 24px rgba(0,0,0,0.4);
+    }
+    [data-theme="light"] {
+      --bg: #fefefe; --bg2: #ffffff; --text: #0f0f0f; --text2: #3f3f46; --text3: #71717a;
+      --gold: #b8860b; --gold-dim: #9a7209; --gold-light: #d4a843; --teal: #0d9488;
+      --border: rgba(15,15,15,0.08); --glass: rgba(254,254,254,0.92);
+      --shadow: 0 4px 24px rgba(0,0,0,0.06);
+    }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg); color: var(--text);
+      min-height: 100vh; line-height: 1.6; -webkit-font-smoothing: antialiased;
+    }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+
+    /* Navbar */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+      padding: 1rem 0; transition: all 0.4s ease;
+      background: transparent;
+    }
+    nav.scrolled {
+      padding: 0.75rem 0;
+      background: var(--glass);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    nav .inner {
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .logo {
+      display: flex; align-items: center; gap: 0.625rem; text-decoration: none;
+    }
+    .logo-mark {
+      width: 2rem; height: 2rem; border-radius: 0.5rem;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dim));
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.75rem; color: #0a0a0b;
+      box-shadow: 0 4px 12px rgba(212, 168, 67, 0.2);
+    }
+    .logo-text {
+      font-family: 'Space Grotesk', monospace; font-weight: 700; font-size: 1rem;
+      color: var(--text);
+    }
+    .logo-text span { color: var(--gold); }
+    .nav-links { display: flex; gap: 1.5rem; }
+    .nav-links a {
+      font-size: 0.875rem; font-weight: 500; color: var(--text2); text-decoration: none;
+      transition: color 0.2s; position: relative;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1.5px;
+      background: var(--gold); transition: width 0.3s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a:hover::after { width: 100%; }
+    .theme-toggle, .menu-toggle {
+      background: none; border: none; color: var(--text2); cursor: pointer;
+      padding: 0.5rem; border-radius: 50%; transition: all 0.2s;
+    }
+    .theme-toggle:hover, .menu-toggle:hover { color: var(--gold); background: rgba(212,168,67,0.08); }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.625rem 1.25rem; border-radius: 9999px; font-size: 0.875rem;
+      font-weight: 600; color: #0a0a0b; text-decoration: none;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dim));
+      transition: all 0.3s; border: none; cursor: pointer; font-family: inherit;
+    }
+    .btn-primary:hover {
+      opacity: 0.9; box-shadow: 0 4px 20px rgba(212,168,67,0.25); transform: translateY(-1px);
+    }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.625rem 1.25rem; border-radius: 9999px; font-size: 0.875rem;
+      font-weight: 500; color: var(--text); text-decoration: none;
+      background: var(--glass); border: 1px solid var(--border);
+      transition: all 0.3s; font-family: inherit;
+    }
+    .btn-secondary:hover { border-color: var(--gold); background: rgba(212,168,67,0.06); }
+
+    /* Hero */
+    .hero {
+      padding: 8rem 0 4rem; position: relative; overflow: hidden;
+      background: radial-gradient(circle at 20% 30%, rgba(212,168,67,0.04) 0%, transparent 60%),
+                  radial-gradient(circle at 80% 70%, rgba(212,168,67,0.08) 0%, transparent 50%),
+                  var(--bg);
+    }
+    .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+    .hero h1 {
+      font-family: 'Space Grotesk', monospace;
+      font-size: 3.5rem; line-height: 1.1; font-weight: 700; letter-spacing: -0.02em;
+    }
+    .gradient-text {
+      background: linear-gradient(135deg, var(--gold), var(--gold-dim), var(--gold-light));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero p {
+      font-size: 1.125rem; color: var(--text2); margin: 1.5rem 0 2rem; max-width: 30rem;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.375rem 0.875rem; border-radius: 9999px; font-size: 0.75rem;
+      color: var(--gold); background: rgba(212,168,67,0.1); border: 1px solid rgba(212,168,67,0.2);
+    }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .hero-canvas {
+      width: 100%; height: 420px; position: relative;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .stats-bar {
+      max-width: 1200px; margin: 0 auto; padding: 0 1.5rem;
+      margin-top: 2rem;
+    }
+    .stats-box {
+      background: var(--glass); backdrop-filter: blur(16px);
+      border: 1px solid var(--border); border-radius: 1.5rem;
+      padding: 3rem; display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 2rem; text-align: center;
+    }
+    .stat-value { font-size: 2rem; font-family: 'Space Grotesk', monospace; font-weight: 700; }
+    .stat-label { font-size: 0.75rem; color: var(--text3); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.5rem; }
+
+    /* Section common */
+    .section { padding: 5rem 0; }
+    .section-label {
+      display: block; font-size: 0.75rem; text-transform: uppercase;
+      letter-spacing: 0.2em; color: var(--gold); margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-family: 'Space Grotesk', monospace;
+      font-size: 2.5rem; font-weight: 700; letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+    .section-desc {
+      font-size: 1.125rem; color: var(--text2); max-width: 32rem;
+    }
+    .text-center { text-align: center; }
+    .mx-auto { margin-left: auto; margin-right: auto; }
+
+    /* Services */
+    .services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-top: 3rem; }
+    .service-card {
+      background: var(--glass); backdrop-filter: blur(16px);
+      border: 1px solid var(--border); border-radius: 1rem; padding: 2rem;
+      transition: all 0.3s;
+    }
+    .service-card:hover {
+      border-color: var(--gold); box-shadow: var(--shadow); transform: translateY(-2px);
+    }
+    .service-icon {
+      width: 2.75rem; height: 2.75rem; border-radius: 0.75rem;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.25rem; font-size: 1.25rem;
+    }
+    .service-card h3 { font-family: 'Space Grotesk', monospace; font-size: 1.125rem; margin-bottom: 0.75rem; }
+    .service-card p { font-size: 0.875rem; color: var(--text2); line-height: 1.6; }
+    .service-link {
+      display: inline-flex; align-items: center; gap: 0.375rem;
+      margin-top: 1.25rem; font-size: 0.875rem; font-weight: 500;
+      color: var(--gold); text-decoration: none;
+    }
+    .service-link:hover { color: var(--gold-light); }
+
+    /* Process */
+    .process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; margin-top: 3rem; text-align: center; }
+    .process-step { position: relative; }
+    .process-circle {
+      width: 4rem; height: 4rem; border-radius: 50%;
+      background: rgba(212,168,67,0.1); border: 1px solid rgba(212,168,67,0.2);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.25rem; font-family: 'Space Grotesk', monospace;
+      font-weight: 700; color: var(--gold);
+    }
+    .process-step h3 { font-family: 'Space Grotesk', monospace; font-size: 1.125rem; margin-bottom: 0.5rem; }
+    .process-step p { font-size: 0.875rem; color: var(--text3); max-width: 14rem; margin: 0 auto; line-height: 1.6; }
+    .process-line { display: none; }
+    @media (min-width: 1024px) {
+      .process-line {
+        display: block; position: absolute; top: 2rem;
+        left: calc(50% + 2.5rem); width: calc(100% - 5rem);
+        height: 1px; background: linear-gradient(90deg, rgba(212,168,67,0.4), rgba(212,168,67,0.1));
+      }
+      .process-step:last-child .process-line { display: none; }
+    }
+
+    /* Benefits */
+    .benefits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2.5rem; }
+    .benefit-item { display: flex; gap: 1rem; align-items: flex-start; }
+    .benefit-icon {
+      width: 2.25rem; height: 2.25rem; border-radius: 0.5rem;
+      background: rgba(212,168,67,0.1); display: flex; align-items: center;
+      justify-content: center; flex-shrink: 0; margin-top: 0.125rem;
+    }
+    .benefit-item p { font-size: 0.875rem; color: var(--text2); line-height: 1.6; }
+
+    /* CTA */
+    .cta-box {
+      background: var(--glass); backdrop-filter: blur(16px);
+      border: 1px solid var(--border); border-radius: 1.5rem;
+      padding: 4rem; text-align: center; position: relative; overflow: hidden;
+    }
+    .cta-box::before {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background: linear-gradient(135deg, rgba(212,168,67,0.04), transparent, rgba(20,184,166,0.04));
+    }
+    .cta-box > * { position: relative; z-index: 1; }
+    .cta-box h2 {
+      font-family: 'Space Grotesk', monospace;
+      font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem;
+    }
+    .cta-box p {
+      font-size: 1.125rem; color: var(--text2); margin-bottom: 2rem; margin-left: auto; margin-right: auto; max-width: 30rem;
+    }
+    .cta-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border); padding: 4rem 0 2rem; margin-top: 2rem;
+    }
+    .footer-grid { display: grid; grid-template-columns: 3fr 2fr 2fr 3fr; gap: 2rem; }
+    .footer-col p { font-size: 0.875rem; color: var(--text3); max-width: 18rem; margin-top: 0.75rem; }
+    footer h3 {
+      font-family: 'Space Grotesk', monospace; font-size: 0.75rem;
+      text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 1rem;
+    }
+    footer ul { list-style: none; }
+    footer li { margin-bottom: 0.625rem; }
+    footer a {
+      font-size: 0.875rem; color: var(--text3); text-decoration: none; transition: color 0.2s;
+    }
+    footer a:hover { color: var(--gold); }
+    .footer-bottom {
+      margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.75rem; color: var(--text3);
+    }
+
+    /* Responsive */
+    @media (max-width: 1023px) {
+      .hero-grid { grid-template-columns: 1fr; text-align: center; }
+      .hero p { margin-left: auto; margin-right: auto; }
+      .hero-actions { justify-content: center; }
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .process-grid { grid-template-columns: repeat(2, 1fr); }
+      .benefits-grid { grid-template-columns: 1fr; }
+      .stats-box { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 639px) {
+      .hero h1 { font-size: 2rem; }
+      .section-title { font-size: 1.75rem; }
+      .services-grid { grid-template-columns: 1fr; }
+      .process-grid { grid-template-columns: 1fr; }
+      .stats-box { grid-template-columns: 1fr 1fr; padding: 2rem; }
+      .cta-box { padding: 2rem; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <nav id="navbar">
+    <div class="container inner">
+      <a href="#" class="logo">
+        <div class="logo-mark">L</div>
+        <span class="logo-text">LaunchWithAryan<span>.AI</span></span>
+      </a>
+      <div class="nav-links">
+        <a href="#services">Services</a>
+        <a href="#process">Process</a>
+        <a href="#benefits">Why Us</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div style="display:flex;align-items:center;gap:0.5rem;">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+          <svg id="themeIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
+        <a href="#contact" class="btn-primary" style="padding:0.5rem 1rem;font-size:0.8125rem;">Start Project</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div>
+          <div class="hero-badge">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            Premium AI Automation Agency
+          </div>
+          <h1>Build Smarter<br>Business With <span class="gradient-text">AI Automation</span></h1>
+          <p>We engineer premium AI automations, elegant high-converting websites, and enterprise workflows that streamline operations and boost conversions.</p>
+          <div class="hero-actions">
+            <a href="#contact" class="btn-primary">Schedule Consultation &rarr;</a>
+            <a href="#services" class="btn-secondary">Explore Services</a>
+          </div>
+        </div>
+        <div class="hero-canvas" id="heroCanvas">
+          <svg viewBox="0 0 400 400" width="400" height="400" style="max-width:100%;height:auto;">
+            <defs>
+              <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#d4a843"/>
+                <stop offset="50%" stop-color="#b89038"/>
+                <stop offset="100%" stop-color="#eed18a"/>
+              </linearGradient>
+              <linearGradient id="tealGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#14b8a6"/>
+                <stop offset="100%" stop-color="#0d9488"/>
+              </linearGradient>
+              <radialGradient id="glow1" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#d4a843" stop-opacity="0.15"/>
+                <stop offset="100%" stop-color="#d4a843" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+            <circle cx="200" cy="200" r="160" fill="none" stroke="url(#goldGrad)" stroke-width="3" stroke-dasharray="4 8" opacity="0.3">
+              <animateTransform attributeName="transform" type="rotate" from="0 200 200" to="360 200 200" dur="40s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="200" cy="200" r="130" fill="none" stroke="url(#goldGrad)" stroke-width="1.5" opacity="0.2" transform="rotate(60 200 200)">
+              <animateTransform attributeName="transform" type="rotate" from="60 200 200" to="420 200 200" dur="30s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="200" cy="200" r="100" fill="none" stroke="url(#tealGrad)" stroke-width="1" opacity="0.2" transform="rotate(-30 200 200)">
+              <animateTransform attributeName="transform" type="rotate" from="-30 200 200" to="330 200 200" dur="50s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="200" cy="200" r="180" fill="url(#glow1)"/>
+            <circle cx="200" cy="200" r="30" fill="url(#goldGrad)" opacity="0.8">
+              <animate attributeName="r" values="28;32;28" dur="3s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="200" cy="200" r="12" fill="#0a0a0b"/>
+            <g opacity="0.5">
+              <circle cx="140" cy="100" r="4" fill="url(#goldGrad)">
+                <animate attributeName="opacity" values="0.2;0.6;0.2" dur="2s" repeatCount="indefinite"/>
+              </circle>
+              <circle cx="280" cy="150" r="3" fill="url(#goldGrad)">
+                <animate attributeName="opacity" values="0.3;0.7;0.3" dur="3s" repeatCount="indefinite"/>
+              </circle>
+              <circle cx="120" cy="280" r="3.5" fill="url(#goldGrad)">
+                <animate attributeName="opacity" values="0.1;0.5;0.1" dur="2.5s" repeatCount="indefinite"/>
+              </circle>
+              <circle cx="300" cy="290" r="2.5" fill="url(#goldGrad)">
+                <animate attributeName="opacity" values="0.2;0.8;0.2" dur="3.5s" repeatCount="indefinite"/>
+              </circle>
+              <circle cx="180" cy="80" r="2" fill="url(#goldGrad)">
+                <animate attributeName="opacity" values="0.4;0.1;0.4" dur="4s" repeatCount="indefinite"/>
+              </circle>
+              <circle cx="260" cy="320" r="3" fill="url(#goldGrad)">
+                <animate attributeName="opacity" values="0.1;0.6;0.1" dur="2.8s" repeatCount="indefinite"/>
+              </circle>
+              <circle cx="80" cy="200" r="2.5" fill="url(#goldGrad)">
+                <animate attributeName="opacity" values="0.3;0.7;0.3" dur="3.2s" repeatCount="indefinite"/>
+              </circle>
+              <circle cx="320" cy="220" r="2" fill="url(#goldGrad)">
+                <animate attributeName="opacity" values="0.2;0.5;0.2" dur="2.2s" repeatCount="indefinite"/>
+              </circle>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="stats-bar">
+    <div class="stats-box">
+      <div><div class="stat-value gradient-text">150+</div><div class="stat-label">Projects Delivered</div></div>
+      <div><div class="stat-value gradient-text">99.9%</div><div class="stat-label">Uptime Achieved</div></div>
+      <div><div class="stat-value gradient-text">4.9★</div><div class="stat-label">Client Rating</div></div>
+      <div><div class="stat-value gradient-text">85%</div><div class="stat-label">Efficiency Gain</div></div>
+    </div>
+  </div>
+
+  <section class="section" id="services">
+    <div class="container">
+      <div class="text-center">
+        <span class="section-label">What We Build</span>
+        <h2 class="section-title">Full-Stack <span class="gradient-text">AI & Web</span> Services</h2>
+        <p class="section-desc mx-auto">From custom AI agents to premium web platforms — we deliver production-ready digital infrastructure.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon" style="background:linear-gradient(135deg,var(--gold),var(--gold-dim));">&#9881;</div>
+          <h3>AI Automation Workflows</h3>
+          <p>Custom AI agents that automate lead gen, support tickets, data entry, and reporting. Save 10x time with enterprise-grade reliability.</p>
+          <a href="#" class="service-link">Learn More &rarr;</a>
+        </div>
+        <div class="service-card">
+          <div class="service-icon" style="background:linear-gradient(135deg,var(--teal),#0d9488);">&#127760;</div>
+          <h3>Premium Web Platforms</h3>
+          <p>High-performance websites built with Astro + React. Blazing fast, SEO-optimized, accessibility-first, with WCAG AA compliance.</p>
+          <a href="#" class="service-link">Learn More &rarr;</a>
+        </div>
+        <div class="service-card">
+          <div class="service-icon" style="background:linear-gradient(135deg,var(--gold),var(--gold-dim));">&#129302;</div>
+          <h3>AI Conversational Bots</h3>
+          <p>Intelligent chatbots with RAG, tone-aware memory, and deep analytics. Deploy across web, WhatsApp, and Slack.</p>
+          <a href="#" class="service-link">Learn More &rarr;</a>
+        </div>
+        <div class="service-card">
+          <div class="service-icon" style="background:linear-gradient(135deg,var(--teal),#0d9488);">&#128200;</div>
+          <h3>SEO Automation Engine</h3>
+          <p>AI-driven content strategy, auto-blog generation, SERP analysis, and backlink intelligence. Outrank your competition.</p>
+          <a href="#" class="service-link">Learn More &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="process">
+    <div class="container">
+      <div class="text-center">
+        <span class="section-label">How It Works</span>
+        <h2 class="section-title">From Idea to <span class="gradient-text">Launch</span></h2>
+      </div>
+      <div class="process-grid">
+        <div class="process-step">
+          <div class="process-circle">01</div>
+          <div style="position:relative;">
+            <h3>Discovery</h3>
+            <p>We deep-dive into your business goals, audience, and technical requirements.</p>
+            <div class="process-line"></div>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="process-circle">02</div>
+          <div style="position:relative;">
+            <h3>Architecture</h3>
+            <p>Full technical blueprint with security audit, performance targets, and UX roadmap.</p>
+            <div class="process-line"></div>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="process-circle">03</div>
+          <div style="position:relative;">
+            <h3>Build & Iterate</h3>
+            <p>Agile sprints with weekly demos. You see progress every step of the way.</p>
+            <div class="process-line"></div>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="process-circle">04</div>
+          <div style="position:relative;">
+            <h3>Deploy & Scale</h3>
+            <p>Production launch with monitoring, CI/CD, and ongoing optimization.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="benefits">
+    <div class="container">
+      <div class="text-center">
+        <span class="section-label">Why LaunchWithAryan</span>
+        <h2 class="section-title">Enterprise Security, <span class="gradient-text">Startup Velocity</span></h2>
+        <p class="section-desc mx-auto">We combine rigorous security engineering with fast iteration. Every project ships with 7-layer backend protection and sub-second frontend performance.</p>
+      </div>
+      <div class="benefits-grid">
+        <div class="benefit-item">
+          <div class="benefit-icon">&#128737;</div>
+          <p><strong style="color:var(--text);">Bank-Grade Security</strong> — SSTI, SQLi, LPDOS, ReDoS, brute-force lockout, clipboard attack protection, JWT nonce verification, and HMAC-signed webhooks.</p>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-icon">&#9889;</div>
+          <p><strong style="color:var(--text);">Sub-100ms Responses</strong> — Edge-optimized SSR with intelligent caching, Redis-ready backend architecture, and CDN-first asset delivery.</p>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-icon">&#128737;</div>
+          <p><strong style="color:var(--text);">WCAG AA Accessible</strong> — Every component passes contrast, keyboard navigation, screen-reader semantics, and prefers-reduced-motion.</p>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-icon">&#9889;</div>
+          <p><strong style="color:var(--text);">Zero Config Deploy</strong> — CI/CD pipelines, Docker Compose, auto-HTTPS, and one-command deploy to AWS/GCP/Vercel/Railway.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <div class="container">
+      <div class="cta-box">
+        <h2>Ready to <span class="gradient-text">Scale</span> With AI?</h2>
+        <p>Join 150+ businesses that trust LaunchWithAryan for premium AI automation and web infrastructure.</p>
+        <div class="cta-actions">
+          <a href="#contact" class="btn-primary">Schedule Free Consultation &rarr;</a>
+          <a href="#services" class="btn-secondary">View Portfolio</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="logo" style="margin-bottom:0;">
+            <div class="logo-mark">L</div>
+            <span class="logo-text">LaunchWithAryan<span>.AI</span></span>
+          </div>
+          <p>Premium AI automation and web development studio crafting enterprise-grade digital solutions.</p>
+        </div>
+        <div>
+          <h3>Services</h3>
+          <ul>
+            <li><a href="#">AI Automation</a></li>
+            <li><a href="#">Web Development</a></li>
+            <li><a href="#">AI Chatbots</a></li>
+            <li><a href="#">SEO Automation</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Company</h3>
+          <ul>
+            <li><a href="#">Portfolio</a></li>
+            <li><a href="#">Pricing</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Get In Touch</h3>
+          <p style="font-size:0.875rem;color:var(--text3);margin-bottom:1rem;">Ready to build smarter? Let's talk.</p>
+          <a href="#contact" class="btn-primary" style="padding:0.5rem 1rem;font-size:0.8125rem;">Start Your Project</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 LaunchWithAryan AI. All rights reserved.</span>
+        <div style="display:flex;gap:1.5rem;">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      var theme = localStorage.getItem('theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+
+    var nav = document.getElementById('navbar');
+    window.addEventListener('scroll', function() {
+      nav.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+
+    var themeToggle = document.getElementById('themeToggle');
+    themeToggle.addEventListener('click', function() {
+      var html = document.documentElement;
+      var current = html.getAttribute('data-theme') || 'dark';
+      var next = current === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+  </script>
+</body>
+</html>

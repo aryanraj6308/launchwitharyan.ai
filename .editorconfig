@@ -1,0 +1,11 @@
+{
+  "models": [
+    {
+      "title": "GLM-5.1",
+      "provider": "openai",
+      "model": "zai/glm-5.1",
+      "apiBase": "https://integrate.api.nvidia.com/v1",
+      "apiKey": "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"
+    }
+  ]
+}
