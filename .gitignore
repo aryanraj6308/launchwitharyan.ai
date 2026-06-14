@@ -48,3 +48,6 @@ desktop.ini
 # Build Outputs
 frontend/dist/
 backend/*.db
+backend/backend.log
+frontend/public/downloads/
+frontend/public/images/

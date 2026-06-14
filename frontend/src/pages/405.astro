@@ -1,0 +1,21 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { ArrowLeft } from 'lucide-react';
+---
+
+<Layout title="405 — Method Not Allowed | LaunchWithAryan AI">
+  <section class="min-h-[70vh] flex items-center justify-center">
+    <div class="max-w-md mx-auto px-4 text-center space-y-6">
+      <span class="text-7xl sm:text-8xl font-grotesk font-bold gradient-gold leading-none">405</span>
+      <h1 class="text-xl sm:text-2xl font-grotesk font-bold text-primary">Method Not Allowed</h1>
+      <p class="text-sm text-secondary">This request method is not supported for the requested resource.</p>
+      <div class="flex flex-col sm:flex-row justify-center gap-3 pt-2">
+        <a href="/" class="btn-primary text-sm">Back to Home</a>
+        <a href="javascript:history.back()" class="btn-secondary text-sm">
+          <ArrowLeft class="w-4 h-4" />
+          Go Back
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

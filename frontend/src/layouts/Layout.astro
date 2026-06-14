@@ -14,7 +14,7 @@ interface Props {
 const {
   title = "LaunchWithAryan AI | Premium AI Automations & Web Platforms",
   description = "A premium luxury technology company crafting high-performance websites, AI systems, and digital tools for forward-thinking enterprises.",
-  ogImage = "/images/og-image.jpg",
+  ogImage = "/images/og-image.svg",
   canonicalURL = Astro.url.href
 } = Astro.props as Props;
 
@@ -62,6 +62,7 @@ const schemaMarkup = {
       (function() {
         var theme = localStorage.getItem('theme') || 'dark';
         document.documentElement.setAttribute('data-theme', theme);
+        document.documentElement.style.setProperty('color-scheme', theme === 'light' ? 'light' : 'dark');
       })();
     </script>
   </head>

@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { Search, ShoppingBag, Sparkles, Filter, Check, ShieldCheck, AlertCircle } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Search, ShoppingBag, Sparkles, Filter, Check, ShieldCheck, AlertCircle, Download } from 'lucide-react';
+import { apiUrl } from '../lib/api';
 
 interface Product {
   id: string;
@@ -50,11 +51,81 @@ const productsData: Product[] = [
   }
 ];
 
+interface PurchaseRecord {
+  id: string;
+  product_id: string;
+  product_name: string;
+  amount: number;
+  status: string;
+  created_at: string | null;
+}
+
+const getSessionId = (): string => {
+  if (typeof window === 'undefined') return '';
+  let sid = localStorage.getItem('purchase_session_id');
+  if (!sid) {
+    sid = crypto.randomUUID();
+    localStorage.setItem('purchase_session_id', sid);
+  }
+  return sid;
+};
+
+const loadPurchasesSafe = (): PurchaseRecord[] => {
+  if (typeof window === 'undefined') return [];
+  try {
+    const raw = localStorage.getItem('purchased_products');
+    return raw ? JSON.parse(raw) : [];
+  } catch { return []; }
+};
+
+const savePurchase = (product: Product) => {
+  const existing = loadPurchasesSafe();
+  if (!existing.find((p) => p.product_id === product.id)) {
+    existing.push({
+      id: crypto.randomUUID(),
+      product_id: product.id,
+      product_name: product.title,
+      amount: product.price,
+      status: 'paid',
+      created_at: new Date().toISOString(),
+    });
+    localStorage.setItem('purchased_products', JSON.stringify(existing));
+  }
+};
+
+const confirmPurchaseWithBackend = async (productId: string, sessionId: string): Promise<boolean> => {
+  try {
+    const response = await fetch(apiUrl('/api/payments/confirm-purchase'), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ product_id: productId, session_id: sessionId }),
+    });
+    const data = await response.json();
+    return data.status === 'success' || data.status === 'already_exists';
+  } catch {
+    return false;
+  }
+};
+
 export default function Store() {
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [checkoutProduct, setCheckoutProduct] = useState<Product | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [purchasedItems, setPurchasedItems] = useState<string[]>([]);
+  const [sessionId, setSessionId] = useState<string>('');
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    setSessionId(getSessionId());
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
+    const stored = loadPurchasesSafe();
+    setPurchasedItems(stored.map((p) => p.product_id));
+  }, [mounted]);
 
   const filteredProducts = productsData.filter((prod) => {
     const matchesCategory = selectedCategory === 'All' || prod.category === selectedCategory;
@@ -85,37 +156,26 @@ export default function Store() {
     }
 
     try {
-      // Create order in backend
-      const response = await fetch('http://localhost:8000/api/payments/create-order', {
+      const response = await fetch(apiUrl('/api/payments/create-order'), {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          product_id: product.id,
-          amount: product.price,
-        }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ product_id: product.id, amount: product.price }),
       });
 
       if (response.ok) {
         const orderData = await response.json();
-        
-        // Open Razorpay Checkout Modal
         const options = {
-          key: orderData.key_id, // Key ID from FastAPI backend
-          amount: orderData.amount, // Amount in paise
+          key: orderData.key_id,
+          amount: orderData.amount,
           currency: orderData.currency,
           name: "LaunchWithAryan AI",
           description: `Purchase of ${product.title}`,
           image: "https://launchwitharyan.ai/favicon.svg",
           order_id: orderData.order_id,
           handler: function (response: any) {
-            // Send payment verification request to backend
-            fetch('http://localhost:8000/api/payments/verify-payment', {
+            fetch(apiUrl('/api/payments/verify-payment'), {
               method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
+              headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
                 razorpay_order_id: response.razorpay_order_id,
                 razorpay_payment_id: response.razorpay_payment_id,
@@ -123,8 +183,11 @@ export default function Store() {
               }),
             })
               .then((res) => res.json())
-              .then((data) => {
+              .then(async (data) => {
                 if (data.status === 'success') {
+                  savePurchase(product);
+                  setPurchasedItems((prev) => [...prev, product.id]);
+                  await confirmPurchaseWithBackend(product.id, sessionId);
                   alert('Thank you! Your purchase is complete. You can download the item from the dashboard.');
                   window.location.href = '/dashboard';
                 } else {
@@ -132,56 +195,49 @@ export default function Store() {
                 }
               });
           },
-          prefill: {
-            name: "Premium Buyer",
-            email: "buyer@example.com",
-            contact: "9999999999",
-          },
-          theme: {
-            color: "#0062ff",
-          },
+          prefill: { name: "Premium Buyer", email: "buyer@example.com", contact: "9999999999" },
+          theme: { color: "#d4a843" },
         };
 
         const rzp = new (window as any).Razorpay(options);
         rzp.open();
       } else {
-        // Fallback simulation for offline preview
         simulateCheckout(product);
       }
-    } catch (err) {
-      // Fallback simulation for offline preview
+    } catch {
       simulateCheckout(product);
     } finally {
       setIsLoading(false);
     }
   };
 
-  const simulateCheckout = (product: Product) => {
+  const simulateCheckout = async (product: Product) => {
     const confirmBuy = window.confirm(
       `[Offline Sandbox Mode]\n\nProduct: ${product.title}\nPrice: $${product.price}\n\nWould you like to simulate a successful payment and unlock this digital file?`
     );
     if (confirmBuy) {
+      savePurchase(product);
+      setPurchasedItems((prev) => [...prev, product.id]);
+      await confirmPurchaseWithBackend(product.id, sessionId);
       alert(`[Demo Mode Success] "${product.title}" has been successfully added to your dashboard profile! Redirecting to Dashboard...`);
       window.location.href = '/dashboard';
     }
   };
 
   return (
-    <div className="font-sans space-y-12">
+    <div className="font-sans space-y-10">
       {/* Filters & Search */}
-      <div className="flex flex-col md:flex-row gap-4 justify-between items-center bg-elevated p-4 rounded-2xl border border-subtle backdrop-blur-md">
-        
-        {/* Category Filters */}
-        <div className="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0">
-          <Filter className="w-4 h-4 text-theme-muted mr-2 flex-shrink-0" />
+      <div className="flex flex-col md:flex-row gap-4 justify-between items-center bg-raised p-4 rounded-xl border border-default">
+        <div className="flex items-center gap-1.5 overflow-x-auto w-full md:w-auto pb-1 md:pb-0">
+          <Filter className="w-4 h-4 text-muted mr-1 shrink-0" />
           {['All', 'Templates', 'Prompts', 'Automations'].map((cat) => (
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`px-4 py-2 rounded-full text-xs font-semibold cursor-pointer transition-colors duration-300 ${
+              className={`px-3.5 py-1.5 rounded-lg text-xs font-medium transition-colors duration-150 cursor-pointer ${
                 selectedCategory === cat
-                  ? 'bg-primary text-theme-primary'
-                  : 'bg-elevated text-theme-muted hover:text-theme-primary hover:bg-hover'
+                  ? 'bg-gold text-darkbg'
+                  : 'text-secondary hover:text-primary hover:bg-raised'
               }`}
             >
               {cat}
@@ -189,87 +245,92 @@ export default function Store() {
           ))}
         </div>
 
-        {/* Search Input */}
-        <div className="relative w-full md:w-80">
-          <Search className="absolute left-3.5 top-1/2 transform -translate-y-1/2 w-4 h-4 text-theme-muted" />
+        <div className="relative w-full md:w-72">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search templates, prompt packs..."
-            className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-elevated border border-subtle text-theme-primary placeholder:text-placeholder focus:outline-none focus:border-primary/50 text-sm transition-colors"
+            placeholder="Search products..."
+            className="w-full pl-9 pr-3 py-2 rounded-lg text-sm"
           />
         </div>
       </div>
 
-      {/* Products Catalog */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {/* Products */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {filteredProducts.map((prod) => (
-          <div
-            key={prod.id}
-            className="glassmorphism p-6 sm:p-8 rounded-3xl border border-subtle flex flex-col justify-between space-y-6 hover:border-subtle hover:shadow-2xl hover:shadow-primary/5 transition-all duration-300 relative overflow-hidden group"
-          >
-            {/* Background glowing shape */}
-            <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-2xl pointer-events-none group-hover:bg-primary/10 transition-colors"></div>
-
+          <div key={prod.id} className="card card-hover p-6 lg:p-7 flex flex-col justify-between space-y-6">
             <div className="space-y-4">
-              {/* Category tag & price */}
+              <div className="w-full h-36 rounded-xl overflow-hidden bg-raised border border-default">
+                <img
+                  src={prod.category === 'Templates' ? '/images/store-template.svg' : prod.category === 'Prompts' ? '/images/store-prompts.svg' : '/images/store-boilerplate.svg'}
+                  alt={prod.title}
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
+              </div>
+
               <div className="flex justify-between items-center">
-                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-elevated border border-subtle text-[10px] font-semibold text-gold uppercase tracking-wider">
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-raised border border-default text-[10px] font-medium text-gold">
                   <Sparkles className="w-3 h-3" />
                   {prod.category}
                 </span>
-                <span className="text-xl font-bold text-theme-primary font-grotesk">${prod.price}</span>
+                <span className="text-lg font-grotesk font-bold text-primary">${prod.price}</span>
               </div>
 
-              {/* Title & Tech Specs */}
               <div>
-                <h3 className="text-xl font-grotesk font-semibold text-theme-primary tracking-tight">{prod.title}</h3>
-                <span className="text-[11px] text-theme-muted font-mono block mt-1">{prod.specs}</span>
+                <h3 className="font-grotesk font-semibold text-primary">{prod.title}</h3>
+                <span className="text-[11px] text-muted block mt-0.5">{prod.specs}</span>
               </div>
 
-              <p className="text-theme-muted text-sm leading-relaxed font-sans">{prod.description}</p>
+              <p className="text-sm text-secondary">{prod.description}</p>
 
-              {/* Features bullets */}
-              <div className="space-y-2.5 pt-2">
+              <div className="space-y-2">
                 {prod.features.map((feat, i) => (
-                  <div key={i} className="flex items-center gap-2 text-xs text-theme-secondary font-sans">
-                    <Check className="w-3.5 h-3.5 text-primary flex-shrink-0" />
+                  <div key={i} className="flex items-center gap-2 text-xs text-secondary">
+                    <Check className="w-3.5 h-3.5 text-gold shrink-0" />
                     <span>{feat}</span>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* Buy Action */}
-            <button
-              onClick={() => handleCheckout(prod)}
-              disabled={isLoading && checkoutProduct?.id === prod.id}
-              className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-primary hover:bg-primary-dark font-sans text-sm font-semibold text-theme-primary transition-all duration-300 hover:shadow-lg hover:shadow-primary/25 cursor-pointer disabled:opacity-50"
-            >
-              <ShoppingBag className="w-4 h-4" />
-              {isLoading && checkoutProduct?.id === prod.id ? 'Processing Purchase...' : 'Buy Now'}
-            </button>
+            {purchasedItems.includes(prod.id) ? (
+              <a
+                href={apiUrl(`/api/payments/download/${prod.id}?session_id=${encodeURIComponent(getSessionId())}`)}
+                className="w-full inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-green-600 hover:bg-green-700 text-sm font-medium text-white transition-all duration-200 cursor-pointer"
+              >
+                <Download className="w-4 h-4" />
+                Download Now
+              </a>
+            ) : (
+              <button
+                onClick={() => handleCheckout(prod)}
+                disabled={isLoading && checkoutProduct?.id === prod.id}
+                className="w-full inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-gold hover:bg-gold-dim text-darkbg text-sm font-medium transition-all duration-200 cursor-pointer disabled:opacity-50"
+              >
+                <ShoppingBag className="w-4 h-4" />
+                {isLoading && checkoutProduct?.id === prod.id ? 'Processing...' : 'Buy Now'}
+              </button>
+            )}
           </div>
         ))}
 
         {filteredProducts.length === 0 && (
-          <div className="col-span-full py-16 text-center space-y-4">
-            <AlertCircle className="w-10 h-10 text-theme-muted mx-auto" />
-            <p className="text-theme-muted font-sans text-sm">No premium products match your query criteria.</p>
+          <div className="col-span-full py-16 text-center space-y-3">
+            <AlertCircle className="w-8 h-8 text-muted mx-auto" />
+            <p className="text-sm text-muted">No premium products match your query criteria.</p>
           </div>
         )}
       </div>
 
-      {/* Trust elements */}
-      <div className="pt-8 border-t border-subtle flex flex-col sm:flex-row items-center justify-between gap-6 text-xs text-theme-muted">
+      <div className="pt-6 border-t border-default flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted">
         <div className="flex items-center gap-2">
           <ShieldCheck className="w-4 h-4 text-green-500" />
           <span>Secure transaction checkouts via Razorpay API.</span>
         </div>
-        <div>
-          <span>Instant direct download links available post-purchase.</span>
-        </div>
+        <span>Instant direct download links available post-purchase.</span>
       </div>
     </div>
   );

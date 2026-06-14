@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { MessageSquare, X, Send, Sparkles, User, Bot } from 'lucide-react';
+import { apiUrl } from '../lib/api';
 
 interface Message {
   sender: 'user' | 'bot';
@@ -19,7 +20,7 @@ export default function Chatbot() {
   const [messages, setMessages] = useState<Message[]>([
     {
       sender: 'bot',
-      text: "Welcome to LaunchWithAryan AI. I'm your interactive intelligence consultant. How can we optimize your digital business workflows today?",
+      text: "Welcome! I'm your interactive intelligence consultant. How can we optimize your digital business workflows today?",
       timestamp: new Date(),
     },
   ]);
@@ -28,174 +29,115 @@ export default function Chatbot() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Scroll to bottom of chat
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, isTyping]);
 
   const sendMessage = async (text: string) => {
     if (!text.trim()) return;
 
-    const userMsg: Message = {
-      sender: 'user',
-      text,
-      timestamp: new Date(),
-    };
-
+    const userMsg: Message = { sender: 'user', text, timestamp: new Date() };
     setMessages((prev) => [...prev, userMsg]);
     setInput('');
     setIsTyping(true);
 
     try {
-      // Send request to FastAPI backend
-      const response = await fetch('http://localhost:8000/api/ai/chat', {
+      const response = await fetch(apiUrl('/api/ai/chat'), {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: text }),
       });
 
       if (response.ok) {
         const data = await response.json();
-        const botMsg: Message = {
-          sender: 'bot',
-          text: data.reply,
-          timestamp: new Date(),
-        };
-        setMessages((prev) => [...prev, botMsg]);
+        setMessages((prev) => [...prev, { sender: 'bot', text: data.reply, timestamp: new Date() }]);
+        setIsTyping(false);
       } else {
-        // Fallback mock response in case the backend is offline
         setTimeout(() => {
-          const mockBotMsg: Message = {
-            sender: 'bot',
-            text: `[Offline Demo Mode] I received: "${text}". To link this assistant to our OpenAI or local Ollama configurations, spin up the FastAPI service on port 8000!`,
-            timestamp: new Date(),
-          };
-          setMessages((prev) => [...prev, mockBotMsg]);
+          setMessages((prev) => [...prev, { sender: 'bot', text: `[Offline Demo Mode] I received: "${text}". To link this assistant to our OpenAI or local Ollama configurations, spin up the FastAPI service on port 8000!`, timestamp: new Date() }]);
           setIsTyping(false);
         }, 1200);
-        return;
       }
-    } catch (err) {
-      // Fallback mock response in case of network errors
+    } catch {
       setTimeout(() => {
-        const mockBotMsg: Message = {
-          sender: 'bot',
-          text: `[Offline Demo Mode] I'm ready to guide you. When our FastAPI server is online on port 8000, I will talk to local Ollama or OpenAI. Let me know what automation questions you have!`,
-          timestamp: new Date(),
-        };
-        setMessages((prev) => [...prev, mockBotMsg]);
+        setMessages((prev) => [...prev, { sender: 'bot', text: `[Offline Demo Mode] I'm ready to guide you. When our FastAPI server is online on port 8000, I will talk to local Ollama or OpenAI. Let me know what automation questions you have!`, timestamp: new Date() }]);
         setIsTyping(false);
       }, 1000);
-    } finally {
-      setIsTyping(false);
     }
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
-      sendMessage(input);
-    }
+    if (e.key === 'Enter') sendMessage(input);
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 font-sans">
-      {/* Floating Toggle Button */}
+    <div className="fixed bottom-5 right-5 z-50 font-sans">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-14 h-14 rounded-full bg-gradient-to-tr from-primary to-teal flex items-center justify-center text-theme-primary shadow-xl shadow-primary/30 hover:scale-105 transition-transform duration-300 cursor-pointer"
+        className="w-12 h-12 rounded-full bg-gold flex items-center justify-center text-darkbg shadow-lg hover:shadow-xl hover:shadow-gold/20 hover:scale-105 transition-all duration-200 cursor-pointer"
         aria-label="Ask Aryan AI Assistant"
       >
-        {isOpen ? <X className="w-6 h-6" /> : <MessageSquare className="w-6 h-6" />}
+        {isOpen ? <X className="w-5 h-5" /> : <MessageSquare className="w-5 h-5" />}
       </button>
 
-      {/* Chat Window */}
       {isOpen && (
-        <div className="absolute bottom-18 right-0 w-[350px] sm:w-[400px] h-[500px] glassmorphism rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-subtle animate-fade-in animate-slide-up">
-          {/* Header */}
-          <div className="px-5 py-4 border-b border-subtle bg-elevated flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-lg bg-primary/20 flex items-center justify-center border border-primary/30">
-                <Sparkles className="w-5 h-5 text-primary" />
+        <div className="fixed bottom-16 right-4 w-[340px] sm:w-[380px] h-[480px] card rounded-2xl shadow-xl flex flex-col overflow-hidden animate-fade-in">
+          <div className="px-4 py-3.5 border-b border-default flex items-center justify-between">
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-lg bg-gold/20 flex items-center justify-center">
+                <Sparkles className="w-4 h-4 text-gold" />
               </div>
               <div>
-                <h4 className="font-grotesk font-semibold text-theme-primary text-sm">Aryan AI Assistant</h4>
+                <h4 className="font-grotesk font-semibold text-sm text-primary">Aryan AI Assistant</h4>
                 <div className="flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-                  <span className="text-[10px] text-theme-muted">Ready to consult</span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-green-500" />
+                  <span className="text-[10px] text-muted">Ready to consult</span>
                 </div>
               </div>
             </div>
-            <button
-              onClick={() => setIsOpen(false)}
-              className="text-theme-muted hover:text-theme-primary transition-colors"
-            >
-              <X className="w-5 h-5" />
+            <button onClick={() => setIsOpen(false)} className="text-muted hover:text-primary transition-colors">
+              <X className="w-4 h-4" />
             </button>
           </div>
 
-          {/* Messages */}
-          <div className="flex-1 p-5 overflow-y-auto space-y-4 no-scrollbar">
+          <div className="flex-1 p-4 overflow-y-auto space-y-3 no-scrollbar">
             {messages.map((msg, i) => (
-              <div
-                key={i}
-                className={`flex gap-3 max-w-[85%] ${
-                  msg.sender === 'user' ? 'ml-auto flex-row-reverse' : ''
-                }`}
-              >
-                <div
-                  className={`w-7 h-7 rounded-full flex items-center justify-center text-xs flex-shrink-0 ${
-                    msg.sender === 'user'
-                      ? 'bg-primary text-theme-primary'
-                      : 'bg-hover text-gold border border-subtle'
-                  }`}
-                >
-                  {msg.sender === 'user' ? <User className="w-4 h-4" /> : <Bot className="w-4 h-4" />}
+              <div key={i} className={`flex gap-2.5 max-w-[88%] ${msg.sender === 'user' ? 'ml-auto flex-row-reverse' : ''}`}>
+                <div className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 ${msg.sender === 'user' ? 'bg-gold text-darkbg' : 'bg-raised text-gold border border-default'}`}>
+                  {msg.sender === 'user' ? <User className="w-3.5 h-3.5" /> : <Bot className="w-3.5 h-3.5" />}
                 </div>
-                <div
-                  className={`rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
-                    msg.sender === 'user'
-                      ? 'bg-primary text-theme-primary rounded-tr-none'
-                      : 'bg-elevated border border-subtle text-theme-secondary rounded-tl-none'
-                  }`}
-                >
+                <div className={`rounded-xl px-3.5 py-2 text-sm leading-relaxed ${msg.sender === 'user' ? 'bg-gold text-darkbg rounded-tr-none' : 'bg-raised border border-default text-secondary rounded-tl-none'}`}>
                   {msg.text}
                 </div>
               </div>
             ))}
 
             {isTyping && (
-              <div className="flex gap-3 max-w-[85%]">
-                <div className="w-7 h-7 rounded-full bg-hover text-gold border border-subtle flex items-center justify-center">
-                  <Bot className="w-4 h-4" />
+              <div className="flex gap-2.5 max-w-[88%]">
+                <div className="w-6 h-6 rounded-full bg-raised text-gold border border-default flex items-center justify-center">
+                  <Bot className="w-3.5 h-3.5" />
                 </div>
-                <div className="rounded-2xl px-4 py-2.5 bg-elevated border border-subtle text-theme-muted rounded-tl-none text-sm flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 bg-theme-muted rounded-full animate-bounce"></span>
-                  <span className="w-1.5 h-1.5 bg-theme-muted rounded-full animate-bounce delay-150"></span>
-                  <span className="w-1.5 h-1.5 bg-theme-muted rounded-full animate-bounce delay-300"></span>
+                <div className="rounded-xl px-3.5 py-2.5 bg-raised border border-default text-muted rounded-tl-none text-sm flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 bg-muted rounded-full animate-bounce" />
+                  <span className="w-1.5 h-1.5 bg-muted rounded-full animate-bounce delay-150" />
+                  <span className="w-1.5 h-1.5 bg-muted rounded-full animate-bounce delay-300" />
                 </div>
               </div>
             )}
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Suggestions */}
           {messages.length === 1 && (
-            <div className="px-5 pb-3 flex flex-wrap gap-2">
+            <div className="px-4 pb-3 flex flex-wrap gap-1.5">
               {suggestions.map((sug, i) => (
-                <button
-                  key={i}
-                  onClick={() => sendMessage(sug)}
-                  className="text-[11px] text-theme-secondary hover:text-theme-primary bg-elevated hover:bg-hover border border-subtle hover:border-subtle px-3 py-1.5 rounded-full transition-all duration-300 cursor-pointer"
-                >
+                <button key={i} onClick={() => sendMessage(sug)}
+                  className="text-[11px] text-secondary hover:text-primary bg-raised hover:bg-hovered border border-default px-2.5 py-1 rounded-full transition-all duration-150 cursor-pointer">
                   {sug}
                 </button>
               ))}
             </div>
           )}
 
-          {/* Input Panel */}
-          <div className="p-4 border-t border-subtle bg-elevated">
+          <div className="p-3.5 border-t border-default">
             <div className="flex gap-2">
               <input
                 type="text"
@@ -203,13 +145,10 @@ export default function Chatbot() {
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={handleKeyPress}
                 placeholder="Ask a question..."
-                className="flex-1 px-4 py-2.5 rounded-xl bg-elevated border border-subtle text-theme-primary placeholder:text-placeholder focus:outline-none focus:border-primary/50 text-sm transition-colors"
+                className="flex-1 py-2 text-sm"
               />
-              <button
-                onClick={() => sendMessage(input)}
-                className="p-2.5 rounded-xl bg-primary hover:bg-primary-dark text-theme-primary flex items-center justify-center transition-all duration-300 cursor-pointer"
-                aria-label="Send"
-              >
+              <button onClick={() => sendMessage(input)}
+                className="p-2 rounded-xl bg-gold hover:bg-gold-dim text-darkbg transition-all duration-200 cursor-pointer">
                 <Send className="w-4 h-4" />
               </button>
             </div>

@@ -198,6 +198,63 @@ class VerifyPaymentResponse(BaseModel):
     message: str
 
 
+class PurchaseRecord(BaseModel):
+    id: str
+    product_id: str
+    product_name: str
+    amount: float
+    status: str
+    created_at: Optional[str] = None
+
+    class Config:
+        from_attributes = True
+
+
+class PurchaseListResponse(BaseModel):
+    purchases: list[PurchaseRecord]
+
+
+class TrackDownloadRequest(BaseModel):
+    product_id: str
+    user_id: Optional[str] = None
+
+    @field_validator("product_id")
+    @classmethod
+    def validate_pid(cls, v: str) -> str:
+        v = sanitize_strict(v)
+        v = validate_length(v, MAX_PRODUCT_ID_LEN, "product_id")
+        return v
+
+
+class TrackDownloadResponse(BaseModel):
+    status: str
+    download_count: int
+
+
+class ConfirmPurchaseRequest(BaseModel):
+    product_id: str
+    session_id: str
+
+    @field_validator("product_id")
+    @classmethod
+    def validate_pid(cls, v: str) -> str:
+        v = sanitize_strict(v)
+        v = validate_length(v, MAX_PRODUCT_ID_LEN, "product_id")
+        return v
+
+    @field_validator("session_id")
+    @classmethod
+    def validate_sid(cls, v: str) -> str:
+        v = sanitize_strict(v)
+        v = validate_length(v, MAX_SESSION_ID_LEN, "session_id")
+        return v
+
+
+class ConfirmPurchaseResponse(BaseModel):
+    status: str
+    message: str
+
+
 # ──────── AI Chat Schemas ────────
 
 class ChatRequest(BaseModel):

@@ -1,97 +1,110 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import ContactForm from '../components/ContactForm.tsx';
-import { Mail, MessageCircle, Clock, Calendar } from 'lucide-react';
+import SmartContactForm from '../components/SmartContactForm.tsx';
+import PremiumDiscoveryForm from '../components/PremiumDiscoveryForm.tsx';
+import QuickChatbotForm from '../components/QuickChatbotForm.tsx';
+import { Mail, MessageCircle, Clock, ChevronLeft } from 'lucide-react';
+
+const type = Astro.url.searchParams.get('type');
+const source = Astro.url.searchParams.get('source');
+const isPremium = type === 'premium' || source === 'growth' || source === 'enterprise';
+const isQuick = type === 'quick' || source === 'starter';
+const showHeader = !isPremium && !isQuick;
 ---
 
 <Layout title="Request Consultation | LaunchWithAryan AI">
-  
-  <section class="relative overflow-hidden py-16 lg:py-24">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-      
-      {/* Page Header */}
-      <div class="text-center max-w-3xl mx-auto mb-20 space-y-4">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-elevated border border-subtle text-xs text-theme-secondary backdrop-blur-md">
-          <span>Get in Touch</span>
-        </div>
-        <h1 class="text-4xl sm:text-5xl font-grotesk font-bold text-theme-primary tracking-tight">
-          Let's Build Something <span class="gradient-text">Exceptional</span>
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+    {isPremium && (
+      <div class="max-w-2xl mx-auto text-center mb-14">
+        <a href="/pricing" class="inline-flex items-center gap-1 text-xs text-muted hover:text-gold transition-colors mb-4">
+          <ChevronLeft class="w-3.5 h-3.5" /> Back to Pricing
+        </a>
+        <p class="text-xs font-semibold text-muted uppercase tracking-widest mb-3">Premium Discovery</p>
+        <h1 class="text-3xl sm:text-4xl font-grotesk font-bold tracking-tight text-primary">
+          Unlock Full <span class="gradient-gold">AI Automation</span>
         </h1>
-        <p class="text-theme-secondary font-sans leading-relaxed text-base">
-          Fill out our secure architecture details form below to schedule a direct technical audit with Aryan Sharma.
+        <p class="text-base text-secondary mt-3 max-w-xl mx-auto">
+          Tell us about your operations. Our architecture team will design a custom automation blueprint for your business.
         </p>
       </div>
+    )}
 
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-20">
-        {/* Contact Coordinates */}
-        <div class="lg:col-span-5 space-y-8">
-          <div class="space-y-6">
-            <h2 class="text-2xl font-grotesk font-bold text-theme-primary">Direct Channels</h2>
-            <p class="text-theme-secondary font-sans text-sm leading-relaxed">
-              Have general questions about our template store downloads or custom consulting rates? Contact us directly:
-            </p>
-          </div>
+    {isQuick && (
+      <div class="max-w-2xl mx-auto text-center mb-14">
+        <a href="/pricing" class="inline-flex items-center gap-1 text-xs text-muted hover:text-teal transition-colors mb-4">
+          <ChevronLeft class="w-3.5 h-3.5" /> Back to Pricing
+        </a>
+        <p class="text-xs font-semibold text-muted uppercase tracking-widest mb-3">Quick Quote</p>
+        <h1 class="text-3xl sm:text-4xl font-grotesk font-bold tracking-tight text-primary">
+          Get Your <span class="gradient-gold">Chatbot Quote</span>
+        </h1>
+        <p class="text-base text-secondary mt-3 max-w-xl mx-auto">
+          Tell us what you need and we'll send you pricing and delivery timeline instantly.
+        </p>
+      </div>
+    )}
 
-          <div class="space-y-4">
-            <div class="glass p-5 rounded-2xl border border-subtle flex items-center gap-4">
-              <div class="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary">
+    {showHeader && (
+      <div class="max-w-2xl mb-14">
+        <p class="text-xs font-semibold text-muted uppercase tracking-widest mb-3">Get in Touch</p>
+        <h1 class="text-3xl sm:text-4xl font-grotesk font-bold tracking-tight text-primary">
+          Let's Build Something <span class="gradient-gold">Exceptional</span>
+        </h1>
+        <p class="text-base text-secondary mt-3">Select your project type below to see the right form for you.</p>
+      </div>
+    )}
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+      {showHeader && (
+        <div class="lg:col-span-5 space-y-6">
+          <div class="space-y-5">
+            <div class="card p-5 flex items-center gap-4">
+              <div class="w-10 h-10 rounded-xl bg-raised border border-default flex items-center justify-center text-gold shrink-0">
                 <Mail class="w-5 h-5" />
               </div>
               <div>
-                <span class="text-[10px] text-theme-muted font-mono block uppercase">Client Support</span>
-                <a href="mailto:hello@launchwitharyan.ai" class="text-sm font-semibold text-theme-primary hover:text-primary transition-colors font-sans">hello@launchwitharyan.ai</a>
+                <span class="text-[10px] text-muted block uppercase tracking-wider">Client Support</span>
+                <a href="mailto:hello@launchwitharyan.ai" class="text-sm font-medium text-primary hover:text-gold transition-colors">hello@launchwitharyan.ai</a>
               </div>
             </div>
-
-            <div class="glass p-5 rounded-2xl border border-subtle flex items-center gap-4">
-              <div class="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary">
+            <div class="card p-5 flex items-center gap-4">
+              <div class="w-10 h-10 rounded-xl bg-raised border border-default flex items-center justify-center text-gold shrink-0">
                 <MessageCircle class="w-5 h-5" />
               </div>
               <div>
-                <span class="text-[10px] text-theme-muted font-mono block uppercase">Interactive Chat</span>
-                <span class="text-sm font-semibold text-theme-primary font-sans">Floating assistant at the bottom right</span>
+                <span class="text-[10px] text-muted block uppercase tracking-wider">Interactive Chat</span>
+                <span class="text-sm font-medium text-primary">Floating assistant at the bottom right</span>
               </div>
             </div>
-
-            <div class="glass p-5 rounded-2xl border border-subtle flex items-center gap-4">
-              <div class="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary">
+            <div class="card p-5 flex items-center gap-4">
+              <div class="w-10 h-10 rounded-xl bg-raised border border-default flex items-center justify-center text-gold shrink-0">
                 <Clock class="w-5 h-5" />
               </div>
               <div>
-                <span class="text-[10px] text-theme-muted font-mono block uppercase">Response window</span>
-                <span class="text-sm font-semibold text-theme-primary font-sans">Under 12 hours guaranteed</span>
+                <span class="text-[10px] text-muted block uppercase tracking-wider">Response Window</span>
+                <span class="text-sm font-medium text-primary">Under 12 hours guaranteed</span>
               </div>
             </div>
           </div>
-
-          {/* Calendly Booking Link Card */}
-          <div class="glass p-8 rounded-3xl border border-primary/10 bg-radial-gradient(circle,rgba(0,98,255,0.03),transparent) space-y-5">
-            <div class="flex items-center gap-2 text-primary">
-              <Calendar class="w-5 h-5" />
-              <span class="text-xs font-bold font-sans uppercase tracking-wider">Fast Booking</span>
-            </div>
-            <h3 class="text-lg font-grotesk font-semibold text-theme-primary">Prefer to book a Zoom call directly?</h3>
-            <p class="text-xs text-theme-secondary leading-relaxed font-sans">
-              Choose a slot on our Calendly scheduler. Skip the form queues and align directly on timelines and API requirements.
-            </p>
-            <a
-              href="https://calendly.com/launchwitharyan-ai/discovery"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex items-center justify-center w-full px-5 py-3 rounded-xl bg-elevated hover:bg-hover border border-subtle text-xs font-semibold text-theme-primary transition-all duration-300"
-            >
-              Open Calendly Scheduler
+          <div class="card p-6 border-gold/20 space-y-4">
+            <h3 class="font-grotesk font-semibold text-primary">Prefer to email us directly?</h3>
+            <p class="text-xs text-secondary">Send us an email with your project details and we'll respond within 12 hours.</p>
+            <a href="mailto:hello@launchwitharyan.ai" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl bg-gold hover:bg-gold-dim text-darkbg text-xs font-medium transition-all duration-200">
+              hello@launchwitharyan.ai
             </a>
           </div>
         </div>
+      )}
 
-        {/* Lead Capture Form */}
-        <div class="lg:col-span-7">
-          <ContactForm client:load />
-        </div>
+      <div class={showHeader ? 'lg:col-span-7' : 'lg:col-span-8 lg:col-start-3'}>
+        {isPremium ? (
+          <PremiumDiscoveryForm client:load />
+        ) : isQuick ? (
+          <QuickChatbotForm client:load />
+        ) : (
+          <SmartContactForm client:load />
+        )}
       </div>
-
     </div>
   </section>
-
 </Layout>

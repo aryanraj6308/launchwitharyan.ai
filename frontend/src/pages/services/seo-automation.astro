@@ -1,7 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import ServiceHero from '../../components/ServiceHero.tsx';
-import { Search, TrendingUp, FileText, Link2, BarChart3, Eye, PenTool, LineChart, ArrowRight, CheckCircle, Star, Globe, Zap } from 'lucide-react';
+import { Search, TrendingUp, FileText, Link2, BarChart3, Eye, PenTool, LineChart, ArrowRight } from 'lucide-react';
 
 const features = [
   { icon: Search, title: "Keyword Intelligence", desc: "AI-driven keyword research that finds high-opportunity terms your competitors missed. Cluster, prioritize, and track them automatically." },
@@ -9,7 +9,7 @@ const features = [
   { icon: TrendingUp, title: "SERP Tracking", desc: "Real-time rank tracking for all your keywords. Daily updates with Google position, local packs, featured snippets, and visibility trends." },
   { icon: Link2, title: "Backlink Monitoring", desc: "Track every backlink, lost link, and competitor move. Get alerts for new opportunities and toxic links." },
   { icon: Eye, title: "Competitor Analysis", desc: "AI monitors your competitors' content strategy, keyword targets, and backlink profile. Know their moves before they matter." },
-  { icon: Globe, title: "Technical SEO", desc: "Automated site audits, Core Web Vitals monitoring, structured data validation, and crawl optimization — all on autopilot." },
+  { icon: BarChart3, title: "Technical SEO", desc: "Automated site audits, Core Web Vitals monitoring, structured data validation, and crawl optimization — all on autopilot." },
   { icon: PenTool, title: "Content Optimization", desc: "AI suggests content improvements based on top-ranking pages. Title tags, meta descriptions, headers, and readability scores." },
   { icon: LineChart, title: "SEO Reports", desc: "Automated weekly/monthly reports with key metrics, trends, and actionable recommendations delivered to your inbox." },
 ];
@@ -24,8 +24,8 @@ const process = [
 
 const benefits = [
   { icon: BarChart3, value: "300%", label: "Organic Traffic Growth", desc: "Average traffic increase within 6 months of implementing our SEO engine." },
-  { icon: Globe, value: "850+", label: "Keywords Ranked", desc: "Average number of keywords our clients rank for in the top 10 positions." },
-  { icon: Zap, value: "10x", label: "Content Output", desc: "Generate 10x more SEO-optimized content without increasing headcount." },
+  { icon: Eye, value: "850+", label: "Keywords Ranked", desc: "Average number of keywords our clients rank for in the top 10 positions." },
+  { icon: FileText, value: "10x", label: "Content Output", desc: "Generate 10x more SEO-optimized content without increasing headcount." },
   { icon: TrendingUp, value: "40%", label: "Conversion Uplift", desc: "Better traffic quality and optimized pages drive measurable conversion gains." },
 ];
 
@@ -37,11 +37,6 @@ const faqs = [
   { q: "How long until I see results?", a: "Technical improvements show impact in 2-4 weeks. Content-driven rankings typically improve in 2-3 months. Sustained growth compounds over time." },
   { q: "What tools do you use?", a: "We use a custom AI stack built on GPT-4, vector search for content analysis, custom SERP scrapers, and integrations with Google Search Console and Analytics." },
 ];
-
-const testimonials = [
-  { quote: "Our organic traffic tripled in 5 months. The AI content engine alone saves us 40+ hours per week. Best investment we've made.", author: "David Kim", role: "Marketing Director, GrowthForce" },
-  { quote: "The competitor analysis feature is incredible. We discovered keyword opportunities our manual research completely missed.", author: "Anna Rossi", role: "SEO Lead, BrightCommerce" },
-];
 ---
 
 <Layout title="SEO Automation Engine | LaunchWithAryan AI"
@@ -49,151 +44,75 @@ const testimonials = [
 
   <ServiceHero title="Rank Higher." highlight="Grow Faster."
     desc="AI-powered SEO automation for content strategy, SERP tracking, competitor analysis, and ranking growth. Turn search into your biggest growth channel."
-    badge="SEO Automation Service">
+    badge="SEO Automation Service" ctaUrl="/contact?type=premium">
 
-    <div class="relative w-full h-[320px] sm:h-[400px] lg:h-[460px] flex items-center justify-center">
-      <div class="absolute w-72 h-72 rounded-full blur-[100px] opacity-20 glow-hero-primary pointer-events-none" />
-      <div class="absolute w-48 h-48 rounded-full blur-[80px] opacity-15 top-[10%] left-[20%] glow-hero-teal pointer-events-none" />
-      <svg viewBox="0 0 420 400" class="w-full h-full max-w-[440px]">
-        <defs>
-          <linearGradient id="sg" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#d4a843" /><stop offset="100%" stop-color="#b89038" />
-          </linearGradient>
-          <linearGradient id="st" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#14b8a6" /><stop offset="100%" stop-color="#0d9488" />
-          </linearGradient>
-        </defs>
-        <rect x="30" y="40" width="360" height="320" rx="20" fill="var(--bg-glass)" stroke="url(#sg)" stroke-width="1" opacity="0.9"/>
-        <rect x="50" y="65" width="320" height="30" rx="8" fill="var(--bg-elevated)" stroke="var(--border-color)" stroke-width="0.5"/>
-        <text x="65" y="84" fill="var(--text-primary)" font-size="11" font-weight="700" font-family="Inter,sans-serif">SEO Dashboard</text>
-        <text x="320" y="84" fill="var(--text-muted)" font-size="9" font-family="Inter,sans-serif">Last updated: 2 min ago</text>
-        <rect x="50" y="108" width="90" height="50" rx="10" fill="url(#sg)" opacity="0.1"/>
-        <text x="95" y="128" text-anchor="middle" fill="url(#sg)" font-size="18" font-weight="700" font-family="Space Grotesk,monospace">#1</text>
-        <text x="95" y="146" text-anchor="middle" fill="var(--text-muted)" font-size="9" font-family="Inter,sans-serif">Avg. Position</text>
-        <rect x="155" y="108" width="90" height="50" rx="10" fill="url(#st)" opacity="0.08"/>
-        <text x="200" y="128" text-anchor="middle" fill="url(#st)" font-size="18" font-weight="700" font-family="Space Grotesk,monospace">12.4K</text>
-        <text x="200" y="146" text-anchor="middle" fill="var(--text-muted)" font-size="9" font-family="Inter,sans-serif">Monthly Clicks</text>
-        <rect x="260" y="108" width="110" height="50" rx="10" fill="url(#sg)" opacity="0.1"/>
-        <text x="315" y="128" text-anchor="middle" fill="url(#sg)" font-size="18" font-weight="700" font-family="Space Grotesk,monospace">+40%</text>
-        <text x="315" y="146" text-anchor="middle" fill="var(--text-muted)" font-size="9" font-family="Inter,sans-serif">Traffic Growth</text>
-        <rect x="50" y="175" width="320" height="18" rx="6" fill="var(--bg-elevated)" stroke="var(--border-color)" stroke-width="0.5"/>
-        <rect x="50" y="175" width="220" height="18" rx="6" fill="url(#sg)" opacity="0.3"/>
-        <text x="65" y="187" fill="var(--text-primary)" font-size="9" font-weight="600">Organic Traffic Target — 85% achieved</text>
-        <rect x="50" y="210" width="320" height="80" rx="12" fill="var(--bg-elevated)" stroke="var(--border-color)" stroke-width="0.5"/>
-        <text x="65" y="230" fill="var(--text-primary)" font-size="10" font-weight="600">Top Keywords</text>
-        {[0,1,2].map((_,i) => (
-          <g key={i}>
-            <rect x="65" y={240+i*18} width="120" height="14" rx="4" fill="var(--bg-hover)"/>
-            <text x="75" y={251+i*18} fill="var(--text-primary)" font-size="8" font-family="Inter,sans-serif">ai automation tools {i===2 ? '...' : ''}</text>
-            <text x="240" y={251+i*18} fill="var(--text-muted)" font-size="8">#{1+i}  ·  {[2400,1800,1200][i]} clicks</text>
-          </g>
-        ))}
-        <rect x="50" y="310" width="320" height="25" rx="8" fill="url(#sg)" opacity="0.15"/>
-        <text x="80" y="327" fill="url(#sg)" font-size="10" font-weight="600">+24 new keyword opportunities found</text>
-      </svg>
+    <div class="flex-shrink-0 w-48 h-48 lg:w-56 lg:h-56 mx-auto lg:mx-0">
+      <img src="/images/service-seo.svg" alt="SEO Automation Illustration" class="w-full h-full object-contain" loading="lazy" />
     </div>
   </ServiceHero>
 
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
-    <div class="text-center mb-16 space-y-4">
-      <span class="inline-block text-xs font-sans font-medium tracking-[0.2em] uppercase text-gold">What We Build</span>
-      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-grotesk font-bold tracking-tight text-theme-primary">
-        AI-Powered <span class="gradient-gold">SEO Engine</span>
-      </h2>
-      <p class="text-lg font-sans text-theme-secondary max-w-2xl mx-auto">An automated SEO system that researches, creates, optimizes, and tracks — so you dominate search results.</p>
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+    <div class="text-center mb-14">
+      <p class="text-xs font-semibold text-muted uppercase tracking-widest mb-3">Features</p>
+      <h2 class="text-3xl sm:text-4xl font-grotesk font-bold tracking-tight text-primary">AI-Powered <span class="gradient-gold">SEO Engine</span></h2>
+      <p class="text-base text-secondary mt-3 max-w-2xl mx-auto">An automated SEO system that researches, creates, optimizes, and tracks — so you dominate search results.</p>
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-      <div class="glass rounded-2xl p-6 lg:p-8 card-hover"><h3 class="font-grotesk font-semibold text-lg text-theme-primary mb-2">📝 Content Engine</h3><p class="text-sm font-sans text-theme-secondary">AI writes SEO-optimized blog posts, landing pages, and product descriptions at scale.</p></div>
-      <div class="glass rounded-2xl p-6 lg:p-8 card-hover"><h3 class="font-grotesk font-semibold text-lg text-theme-primary mb-2">📊 Rank Tracker</h3><p class="text-sm font-sans text-theme-secondary">Daily position tracking for every keyword across Google, local packs, and featured snippets.</p></div>
-      <div class="glass rounded-2xl p-6 lg:p-8 card-hover"><h3 class="font-grotesk font-semibold text-lg text-theme-primary mb-2">🔗 Link Monitor</h3><p class="text-sm font-sans text-theme-secondary">Track backlinks, find opportunities, and get alerted when competitors build new links.</p></div>
-      <div class="glass rounded-2xl p-6 lg:p-8 card-hover"><h3 class="font-grotesk font-semibold text-lg text-theme-primary mb-2">🛠️ Tech Audit</h3><p class="text-sm font-sans text-theme-secondary">Automated technical SEO audits with prioritized fixes for Core Web Vitals and crawl issues.</p></div>
-    </div>
-  </section>
-
-  <section class="relative overflow-hidden py-24 lg:py-32">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-16 space-y-4">
-        <span class="inline-block text-xs font-sans font-medium tracking-[0.2em] uppercase text-gold">Features</span>
-        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-grotesk font-bold tracking-tight text-theme-primary">
-          Full-Stack <span class="gradient-gold">SEO Automation</span>
-        </h2>
-      </div>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {features.map((f, i) => (
-          <div key={i} class="glass rounded-2xl p-6 lg:p-8 card-hover">
-            <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-gold to-gold-dim flex items-center justify-center mb-5 shadow-lg">
-              <f.icon class="w-5 h-5 text-darkbg" />
-            </div>
-            <h3 class="font-grotesk font-semibold text-lg text-theme-primary mb-3">{f.title}</h3>
-            <p class="text-sm font-sans text-theme-secondary leading-relaxed">{f.desc}</p>
+      {features.map((f, i) => (
+        <div key={i} class="card card-hover p-6 lg:p-7">
+          <div class="w-10 h-10 rounded-xl bg-raised border border-default flex items-center justify-center text-gold mb-4">
+            <f.icon class="w-5 h-5" />
           </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
-    <div class="text-center mb-16 space-y-4">
-      <span class="inline-block text-xs font-sans font-medium tracking-[0.2em] uppercase text-gold">How It Works</span>
-      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-grotesk font-bold tracking-tight text-theme-primary">
-        Audit to <span class="gradient-gold">Dominance</span>
-      </h2>
-    </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 relative max-w-5xl mx-auto">
-      <div class="hidden lg:block absolute top-8 left-[10%] right-[10%] h-[1px] bg-gradient-to-r from-gold/40 via-gold/20 to-transparent" aria-hidden="true" />
-      {process.map((p, i) => (
-        <div key={i} class="text-center relative z-10">
-          <div class="w-14 h-14 rounded-full bg-gold/10 border border-gold/20 flex items-center justify-center mx-auto mb-4">
-            <span class="font-grotesk font-bold text-base text-gold">{p.step}</span>
-          </div>
-          <h3 class="font-grotesk font-semibold text-base text-theme-primary mb-2">{p.title}</h3>
-          <p class="text-xs font-sans text-theme-muted leading-relaxed">{p.desc}</p>
+          <h3 class="font-grotesk font-semibold text-lg text-primary mb-3">{f.title}</h3>
+          <p class="text-sm text-secondary leading-relaxed">{f.desc}</p>
         </div>
       ))}
     </div>
   </section>
 
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
-    <div class="text-center mb-16 space-y-4">
-      <span class="inline-block text-xs font-sans font-medium tracking-[0.2em] uppercase text-gold">Impact</span>
-      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-grotesk font-bold tracking-tight text-theme-primary">
-        Data That <span class="gradient-gold">Proves Results</span>
-      </h2>
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+    <div class="text-center mb-14">
+      <p class="text-xs font-semibold text-muted uppercase tracking-widest mb-3">How It Works</p>
+      <h2 class="text-3xl sm:text-4xl font-grotesk font-bold tracking-tight text-primary">Audit to <span class="gradient-gold">Dominance</span></h2>
+      <p class="text-base text-secondary mt-3 max-w-2xl mx-auto">From audit to dominance — a systematic approach to SEO automation that delivers measurable results.</p>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 relative max-w-5xl mx-auto">
+      <div class="hidden lg:block absolute top-6 left-[10%] right-[10%] h-px bg-gradient-to-r from-gold/40 via-gold/20 to-transparent" aria-hidden="true" />
+      {process.map((p, i) => (
+        <div key={i} class="text-center relative z-10">
+          <div class="w-12 h-12 rounded-full bg-raised border border-default flex items-center justify-center mx-auto mb-4">
+            <span class="font-grotesk font-bold text-sm text-primary">{p.step}</span>
+          </div>
+          <h3 class="font-grotesk font-semibold text-base text-primary mb-2">{p.title}</h3>
+          <p class="text-xs text-muted leading-relaxed">{p.desc}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+    <div class="text-center mb-14">
+      <p class="text-xs font-semibold text-muted uppercase tracking-widest mb-3">Impact</p>
+      <h2 class="text-3xl sm:text-4xl font-grotesk font-bold tracking-tight text-primary">Data That <span class="gradient-gold">Proves Results</span></h2>
+      <p class="text-base text-secondary mt-3 max-w-2xl mx-auto">Real metrics from real campaigns — see what SEO automation delivers for our clients.</p>
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
       {benefits.map((b, i) => (
-        <div key={i} class="glass rounded-2xl p-8 text-center card-hover">
+        <div key={i} class="card card-hover p-6 lg:p-7 text-center">
           <b.icon class="w-8 h-8 text-gold mx-auto mb-4" />
           <div class="text-3xl lg:text-4xl font-grotesk font-bold gradient-gold mb-1">{b.value}</div>
-          <div class="text-sm font-sans font-semibold text-theme-primary mb-2">{b.label}</div>
-          <p class="text-xs font-sans text-theme-muted">{b.desc}</p>
+          <div class="text-sm font-grotesk font-semibold text-primary mb-2">{b.label}</div>
+          <p class="text-xs text-muted">{b.desc}</p>
         </div>
       ))}
     </div>
   </section>
 
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
-    <div class="text-center mb-16 space-y-4">
-      <span class="inline-block text-xs font-sans font-medium tracking-[0.2em] uppercase text-gold">Testimonials</span>
-      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-grotesk font-bold tracking-tight text-theme-primary">
-        Trusted by <span class="gradient-gold">Growth Teams</span>
-      </h2>
-    </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-      {testimonials.map((t, i) => (
-        <div key={i} class="glass rounded-2xl p-6 border-theme">
-          <div class="flex gap-1 mb-3">{Array(5).fill(0).map((_,j) => <Star key={j} class="w-4 h-4 fill-gold text-gold" />)}</div>
-          <p class="text-sm font-sans text-theme-secondary leading-relaxed italic">&ldquo;{t.quote}&rdquo;</p>
-          <div class="mt-3 text-sm"><span class="font-semibold text-theme-primary">{t.author}</span><span class="text-theme-muted"> — {t.role}</span></div>
-        </div>
-      ))}
-    </div>
-  </section>
-
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32" id="faq">
-    <div class="text-center mb-16 space-y-4">
-      <span class="inline-block text-xs font-sans font-medium tracking-[0.2em] uppercase text-gold">FAQ</span>
-      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-grotesk font-bold tracking-tight text-theme-primary">Questions? <span class="gradient-gold">Answered.</span></h2>
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28" id="faq">
+    <div class="text-center mb-14">
+      <p class="text-xs font-semibold text-muted uppercase tracking-widest mb-3">FAQ</p>
+      <h2 class="text-3xl sm:text-4xl font-grotesk font-bold tracking-tight text-primary">Questions? <span class="gradient-gold">Answered.</span></h2>
+      <p class="text-base text-secondary mt-3 max-w-2xl mx-auto">Everything you need to know about our SEO automation service.</p>
     </div>
     <div class="max-w-3xl mx-auto space-y-3">
       {faqs.map((faq, i) => (
@@ -202,16 +121,11 @@ const testimonials = [
     </div>
   </section>
 
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
-    <div class="glass rounded-3xl p-10 lg:p-16 text-center border-theme relative overflow-hidden">
-      <div class="absolute inset-0 pointer-events-none bg-gradient-to-br from-gold/5 via-transparent to-teal/5" aria-hidden="true" />
-      <div class="relative z-10 space-y-6">
-        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-grotesk font-bold tracking-tight text-theme-primary">
-          Ready to <span class="gradient-gold">Dominate</span> Search?
-        </h2>
-        <p class="text-lg font-sans text-theme-secondary max-w-xl mx-auto">Let's build your SEO automation engine. Free consultation included.</p>
-        <a href="/contact" class="btn-primary inline-flex">Start Your Project <ArrowRight class="w-4 h-4" /></a>
-      </div>
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+    <div class="card card-hover p-10 lg:p-14 text-center border-gold/20 max-w-4xl mx-auto">
+      <h2 class="text-3xl sm:text-4xl font-grotesk font-bold tracking-tight text-primary">Ready to <span class="gradient-gold">Dominate</span> Search?</h2>
+      <p class="text-base text-secondary mt-4 max-w-xl mx-auto">Let's build your SEO automation engine. Free consultation included.</p>
+      <a href="/contact?type=premium" class="btn-primary inline-flex mt-6">Start Your Project <ArrowRight class="w-4 h-4 ml-2" /></a>
     </div>
   </section>
 </Layout>

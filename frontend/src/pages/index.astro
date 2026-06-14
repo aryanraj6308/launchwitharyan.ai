@@ -1,19 +1,26 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.tsx';
-import { Rocket, Bot, Globe, TrendingUp, Shield, Zap, ArrowRight, CheckCircle, Clock, DollarSign, Users, BarChart3 } from 'lucide-react';
+import { Rocket, Bot, Globe, TrendingUp, ArrowRight, CheckCircle, Shield } from 'lucide-react';
 
 const services = [
-  { icon: Bot, title: "AI Automation Workflows", desc: "Custom AI agents that automate lead gen, support tickets, data entry, and reporting. Save 10x time with enterprise-grade reliability.", accent: "from-gold to-gold-dim" },
-  { icon: Globe, title: "Premium Web Platforms", desc: "High-performance websites built with Astro + React. Blazing fast, SEO-optimized, accessibility-first, with WCAG AA compliance.", accent: "from-teal to-teal-dim" },
-  { icon: Rocket, title: "AI Conversational Bots", desc: "Intelligent chatbots with RAG, tone-aware memory, and deep analytics. Deploy across web, WhatsApp, and Slack.", accent: "from-gold to-gold-dim" },
-  { icon: TrendingUp, title: "SEO Automation Engine", desc: "AI-driven content strategy, auto-blog generation, SERP analysis, and backlink intelligence. Outrank your competition.", accent: "from-teal to-teal-dim" },
+  { icon: Bot, title: "AI Automation Workflows", desc: "Custom AI agents that automate lead gen, support tickets, data entry, and reporting. Save 10x time with enterprise-grade reliability.", href: "/services/ai-automation" },
+  { icon: Globe, title: "Premium Web Platforms", desc: "High-performance websites built with Astro + React. Blazing fast, SEO-optimized, accessibility-first.", href: "/services/web-platforms" },
+  { icon: Rocket, title: "AI Conversational Bots", desc: "Intelligent chatbots with RAG, tone-aware memory, and deep analytics. Deploy across web, WhatsApp, and Slack.", href: "/services/ai-bots" },
+  { icon: TrendingUp, title: "SEO Automation Engine", desc: "AI-driven content strategy, auto-blog generation, SERP analysis, and backlink intelligence.", href: "/services/seo-automation" },
+];
+
+const process = [
+  { step: "01", title: "Discovery", desc: "We deep-dive into your business goals, audience, and technical requirements to map the optimal solution." },
+  { step: "02", title: "Architecture", desc: "Full technical blueprint with security audit, performance targets, and UX roadmap before any code is written." },
+  { step: "03", title: "Build & Iterate", desc: "Agile sprints with weekly demos. You see progress every step of the way with continuous feedback loops." },
+  { step: "04", title: "Deploy & Scale", desc: "Production launch with monitoring, CI/CD pipelines, and ongoing optimization to ensure peak performance." },
 ];
 
 const caseStudies = [
-  { icon: Clock, title: "StreamLogix — 70% Ticket Automation", result: "Automated customer support with AI agents handling 70% of incoming tickets. Response time dropped from 4h to 90s.", metric: "70%", metricLabel: "Automated" },
-  { icon: DollarSign, title: "Opal Studio — 40% Conversion Lift", result: "Built a sub-800ms SSR platform with intelligent caching. Mobile conversions jumped 40% in 30 days.", metric: "40%", metricLabel: "Conversion Lift" },
-  { icon: Users, title: "NexGen Data — 85% Workflow Speedup", result: "Automated data pipeline with AI agents. Processing time went from 6h to 45min per report.", metric: "85%", metricLabel: "Faster" },
+  { metric: "70%", label: "Ticket Automation", title: "StreamLogix", result: "AI agents handle 70% of incoming support tickets autonomously. Response time dropped from 4 hours to 90 seconds." },
+  { metric: "40%", label: "Conversion Lift", title: "Opal Studio", result: "Built a sub-800ms SSR platform. Mobile conversions jumped 40% within the first 30 days of launch." },
+  { metric: "85%", label: "Faster Workflows", title: "NexGen Data", result: "Data pipeline automation reduced processing time from 6 hours to 45 minutes per report." },
 ];
 
 const pricingPlans = [
@@ -27,7 +34,7 @@ const faqs = [
   { q: "How long does a typical project take?", a: "Starter projects are delivered in 2 weeks. Growth projects take 3 weeks. Enterprise solutions are scoped during discovery — most complete within 4–6 weeks." },
   { q: "Do I need technical knowledge to get started?", a: "Not at all. We handle everything from strategy to deployment. You'll receive a dashboard to monitor performance, and we provide ongoing support." },
   { q: "What platforms do you integrate with?", a: "We integrate with Shopify, WordPress, Salesforce, HubSpot, Slack, WhatsApp, Telegram, Stripe, Razorpay, Google Analytics, and more through custom API connectors." },
-  { q: "Is my data secure?", a: "Yes. We implement 7-layer backend security: SSTI/SQLi/LPDOS/ReDoS protection, brute-force lockout, clipboard attack prevention, JWT nonce verification, and HMAC-signed webhooks. All data is encrypted in transit and at rest." },
+  { q: "Is my data secure?", a: "Yes. We implement 7-layer backend security: SSTI/SQLi/LPDOS/ReDoS protection, brute-force lockout, JWT nonce verification, and HMAC-signed webhooks. All data is encrypted in transit and at rest." },
   { q: "What happens after launch?", a: "We provide 30 days of post-launch monitoring and support. For ongoing optimization, we offer maintenance plans including AI model retraining, content updates, and performance tuning." },
 ];
 ---
@@ -35,25 +42,25 @@ const faqs = [
 <Layout>
   <Hero client:load />
 
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32" id="services">
-    <div class="text-center mb-16 space-y-4">
-      <span class="inline-block text-xs font-sans font-medium tracking-[0.2em] uppercase text-gold">What We Build</span>
-      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-grotesk font-bold tracking-tight text-theme-primary">
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28" id="services">
+    <div class="max-w-2xl mb-14">
+      <p class="text-xs font-semibold text-muted uppercase tracking-widest mb-3">What We Build</p>
+      <h2 class="text-3xl sm:text-4xl font-grotesk font-bold tracking-tight text-primary">
         Full-Stack <span class="gradient-gold">AI & Web</span> Services
       </h2>
-      <p class="text-lg font-sans text-theme-secondary max-w-2xl mx-auto">
+      <p class="text-base text-secondary mt-3 max-w-xl">
         From custom AI agents to premium web platforms — we deliver production-ready digital infrastructure.
       </p>
     </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
       {services.map((s) => (
-        <article class="glass rounded-2xl p-6 lg:p-8 card-hover" itemScope itemType="https://schema.org/Service">
-          <div class={`w-11 h-11 rounded-xl bg-gradient-to-br ${s.accent} flex items-center justify-center mb-5 shadow-lg`}>
-            <s.icon class="w-5 h-5 text-darkbg" />
+        <article class="card card-hover p-6 lg:p-7" itemScope itemType="https://schema.org/Service">
+          <div class="w-10 h-10 rounded-xl bg-raised border border-default flex items-center justify-center text-gold mb-4">
+            <s.icon class="w-5 h-5" />
           </div>
-          <h3 class="font-grotesk font-semibold text-lg text-theme-primary mb-3" itemProp="name">{s.title}</h3>
-          <p class="font-sans text-sm text-theme-secondary leading-relaxed" itemProp="description">{s.desc}</p>
-          <a href="/contact" class="inline-flex items-center gap-1.5 mt-5 text-sm font-sans font-medium text-gold hover:text-gold-light transition-colors duration-200">
+          <h3 class="font-grotesk font-semibold text-base text-primary mb-2" itemProp="name">{s.title}</h3>
+          <p class="text-sm text-secondary leading-relaxed" itemProp="description">{s.desc}</p>
+          <a href={s.href} class="inline-flex items-center gap-1 mt-4 text-sm font-medium text-gold hover:text-gold-dim transition-colors">
             Learn More <ArrowRight class="w-3.5 h-3.5" />
           </a>
           <meta itemProp="provider" content="LaunchWithAryan AI" />
@@ -62,117 +69,86 @@ const faqs = [
     </div>
   </section>
 
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32" id="process">
-    <div class="text-center mb-16 space-y-4">
-      <span class="inline-block text-xs font-sans font-medium tracking-[0.2em] uppercase text-gold">How It Works</span>
-      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-grotesk font-bold tracking-tight text-theme-primary">
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28" id="process">
+    <div class="max-w-2xl mb-14">
+      <p class="text-xs font-semibold text-muted uppercase tracking-widest mb-3">How It Works</p>
+      <h2 class="text-3xl sm:text-4xl font-grotesk font-bold tracking-tight text-primary">
         From Idea to <span class="gradient-gold">Launch</span>
       </h2>
-      <p class="text-lg font-sans text-theme-secondary max-w-2xl mx-auto">
-        A proven 4-step process that delivers results — on time and on budget.
-      </p>
+      <p class="text-base text-secondary mt-3">A proven 4-step process that delivers results — on time and on budget.</p>
     </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 relative">
-      <div class="hidden lg:block absolute top-10 left-[12.5%] right-[12.5%] h-[1px] bg-gradient-to-r from-gold/40 via-gold/20 to-transparent" aria-hidden="true" />
-      {[
-        { step: "01", title: "Discovery", desc: "We deep-dive into your business goals, audience, and technical requirements." },
-        { step: "02", title: "Architecture", desc: "Full technical blueprint with security audit, performance targets, and UX roadmap." },
-        { step: "03", title: "Build & Iterate", desc: "Agile sprints with weekly demos. You see progress every step of the way." },
-        { step: "04", title: "Deploy & Scale", desc: "Production launch with monitoring, CI/CD, and ongoing optimization." },
-      ].map((p) => (
-        <div key={p.step} class="text-center relative z-10">
-          <div class="w-16 h-16 rounded-full bg-gold/10 border border-gold/20 flex items-center justify-center mx-auto mb-5">
-            <span class="font-grotesk font-bold text-lg text-gold">{p.step}</span>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div class="hidden lg:block absolute top-10 left-[12.5%] right-[12.5%] h-px bg-gradient-to-r from-gold/30 via-gold/10 to-transparent" aria-hidden="true" />
+      {process.map((p) => (
+        <div key={p.step}>
+          <div class="w-12 h-12 rounded-full bg-raised border border-default flex items-center justify-center mb-4">
+            <span class="font-grotesk font-bold text-sm text-gold">{p.step}</span>
           </div>
-          <h3 class="font-grotesk font-semibold text-lg text-theme-primary mb-2">{p.title}</h3>
-          <p class="font-sans text-sm text-theme-muted leading-relaxed max-w-[220px] mx-auto">{p.desc}</p>
+          <h3 class="font-grotesk font-semibold text-base text-primary mb-2">{p.title}</h3>
+          <p class="text-sm text-muted leading-relaxed">{p.desc}</p>
         </div>
       ))}
     </div>
   </section>
 
-  <section class="relative overflow-hidden" id="results">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
-      <div class="text-center mb-16 space-y-4">
-        <span class="inline-block text-xs font-sans font-medium tracking-[0.2em] uppercase text-gold">Proven Results</span>
-        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-grotesk font-bold tracking-tight text-theme-primary">
-          Real Outcomes For <span class="gradient-gold">Real Businesses</span>
-        </h2>
-        <p class="text-lg font-sans text-theme-secondary max-w-2xl mx-auto">
-          Measurable results from clients who trusted us with their AI automation and web infrastructure.
-        </p>
-      </div>
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {caseStudies.map((c, i) => (
-          <article class="glass rounded-2xl p-8 card-hover" key={i}>
-            <div class="flex items-center gap-4 mb-5">
-              <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-gold to-gold-dim flex items-center justify-center">
-                <c.icon class="w-5 h-5 text-darkbg" />
-              </div>
-              <div>
-                <div class="text-2xl font-grotesk font-bold text-gold">{c.metric}</div>
-                <div class="text-xs font-sans text-theme-muted uppercase tracking-wider">{c.metricLabel}</div>
-              </div>
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28" id="results">
+    <div class="max-w-2xl mb-14">
+      <p class="text-xs font-semibold text-muted uppercase tracking-widest mb-3">Proven Results</p>
+      <h2 class="text-3xl sm:text-4xl font-grotesk font-bold tracking-tight text-primary">
+        Real Outcomes For <span class="gradient-gold">Real Businesses</span>
+      </h2>
+      <p class="text-base text-secondary mt-3">Measurable results from clients who trusted us with their AI automation and web infrastructure.</p>
+    </div>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+      {caseStudies.map((c) => (
+        <article class="card card-hover p-7">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-10 h-10 rounded-xl bg-raised border border-default flex items-center justify-center text-gold">
+              <Shield class="w-5 h-5" />
             </div>
-            <h3 class="font-grotesk font-semibold text-base text-theme-primary mb-3">{c.title}</h3>
-            <p class="font-sans text-sm text-theme-secondary leading-relaxed">{c.result}</p>
-          </article>
-        ))}
-      </div>
-      <div class="mt-12 glass rounded-3xl p-8 lg:p-14 grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 text-center border-theme">
-        <div>
-          <div class="text-3xl lg:text-4xl font-grotesk font-bold gradient-gold">150+</div>
-          <div class="text-sm font-sans text-theme-muted mt-2 uppercase tracking-wider">Projects Delivered</div>
-        </div>
-        <div>
-          <div class="text-3xl lg:text-4xl font-grotesk font-bold gradient-gold">99.9%</div>
-          <div class="text-sm font-sans text-theme-muted mt-2 uppercase tracking-wider">Uptime Achieved</div>
-        </div>
-        <div>
-          <div class="text-3xl lg:text-4xl font-grotesk font-bold gradient-gold">4.9★</div>
-          <div class="text-sm font-sans text-theme-muted mt-2 uppercase tracking-wider">Client Rating</div>
-        </div>
-        <div>
-          <div class="text-3xl lg:text-4xl font-grotesk font-bold gradient-gold">85%</div>
-          <div class="text-sm font-sans text-theme-muted mt-2 uppercase tracking-wider">Avg. Efficiency Gain</div>
-        </div>
-      </div>
+            <div>
+              <div class="text-xl font-grotesk font-bold text-gold">{c.metric}</div>
+              <div class="text-xs text-muted">{c.label}</div>
+            </div>
+          </div>
+          <h3 class="font-grotesk font-semibold text-sm text-primary mb-2">{c.title}</h3>
+          <p class="text-sm text-secondary leading-relaxed">{c.result}</p>
+        </article>
+      ))}
     </div>
   </section>
 
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32" id="pricing">
-    <div class="text-center mb-16 space-y-4">
-      <span class="inline-block text-xs font-sans font-medium tracking-[0.2em] uppercase text-gold">Investment</span>
-      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-grotesk font-bold tracking-tight text-theme-primary">
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28" id="pricing">
+    <div class="max-w-2xl mb-14">
+      <p class="text-xs font-semibold text-muted uppercase tracking-widest mb-3">Investment</p>
+      <h2 class="text-3xl sm:text-4xl font-grotesk font-bold tracking-tight text-primary">
         Transparent <span class="gradient-gold">Pricing</span>
       </h2>
-      <p class="text-lg font-sans text-theme-secondary max-w-2xl mx-auto">
-        Fixed-price packages with no hidden fees. Every plan includes deployment and 30-day support.
-      </p>
+      <p class="text-base text-secondary mt-3">Fixed-price packages with no hidden fees. Every plan includes deployment and 30-day support.</p>
     </div>
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
       {pricingPlans.map((plan) => (
-        <div class={`relative glass rounded-2xl p-8 lg:p-10 card-hover ${plan.popular ? 'border-gold/40 ring-1 ring-gold/30' : 'border-theme'}`}>
+        <div class={`card card-hover p-7 lg:p-8 flex flex-col ${plan.popular ? 'border-gold/30 ring-1 ring-gold/20' : ''}`}>
           {plan.popular && (
-            <span class="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-xs font-sans font-semibold text-darkbg bg-gradient-to-r from-gold to-gold-dim">
+            <span class="inline-flex self-start px-3 py-1 rounded-full text-[10px] font-semibold text-darkbg bg-gold mb-4">
               Most Popular
             </span>
           )}
-          <h3 class="font-grotesk font-semibold text-xl text-theme-primary">{plan.name}</h3>
-          <div class="mt-4 mb-2">
-            <span class="text-3xl lg:text-4xl font-grotesk font-bold text-theme-primary">{plan.price}</span>
-            {plan.name !== 'Enterprise' && <span class="text-sm font-sans text-theme-muted"> / project</span>}
+          <h3 class="font-grotesk font-semibold text-lg text-primary">{plan.name}</h3>
+          <div class="mt-3 mb-1">
+            <span class="text-2xl lg:text-3xl font-grotesk font-bold text-primary">{plan.price}</span>
+            {plan.name !== 'Enterprise' && <span class="text-sm text-muted"> / project</span>}
           </div>
-          <p class="text-sm font-sans text-theme-muted mb-8">{plan.desc}</p>
-          <ul class="space-y-3 mb-10">
-            {plan.features.map((f, i) => (
-              <li key={i} class="flex items-start gap-3 text-sm font-sans text-theme-secondary">
+          <p class="text-sm text-muted mb-6">{plan.desc}</p>
+          <ul class="space-y-2.5 mb-8 flex-1">
+            {plan.features.map((f) => (
+              <li class="flex items-start gap-2.5 text-sm text-secondary">
                 <CheckCircle class="w-4 h-4 text-gold shrink-0 mt-0.5" />
                 {f}
               </li>
             ))}
           </ul>
-          <a href="/contact" class={`block text-center py-3 px-6 rounded-xl text-sm font-semibold font-sans transition-all duration-300 ${plan.popular ? 'btn-primary justify-center' : 'btn-secondary justify-center'}`}>
+          <a href="/contact" class={`block text-center py-2.5 px-5 rounded-xl text-sm font-semibold transition-all duration-200 ${plan.popular ? 'btn-primary justify-center' : 'btn-secondary justify-center'}`}>
             Get Started
           </a>
         </div>
@@ -180,19 +156,17 @@ const faqs = [
     </div>
   </section>
 
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32" id="faq">
-    <div class="text-center mb-16 space-y-4">
-      <span class="inline-block text-xs font-sans font-medium tracking-[0.2em] uppercase text-gold">FAQ</span>
-      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-grotesk font-bold tracking-tight text-theme-primary">
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28" id="faq">
+    <div class="max-w-2xl mb-14">
+      <p class="text-xs font-semibold text-muted uppercase tracking-widest mb-3">FAQ</p>
+      <h2 class="text-3xl sm:text-4xl font-grotesk font-bold tracking-tight text-primary">
         Questions? <span class="gradient-gold">Answered.</span>
       </h2>
-      <p class="text-lg font-sans text-theme-secondary max-w-2xl mx-auto">
-        Everything you need to know before getting started.
-      </p>
+      <p class="text-base text-secondary mt-3">Everything you need to know before getting started.</p>
     </div>
     <div class="max-w-3xl mx-auto space-y-3">
-      {faqs.map((faq, i) => (
-        <details class="faq-card" key={i}>
+      {faqs.map((faq) => (
+        <details class="faq-card" key={faq.q}>
           <summary>{faq.q}</summary>
           <div class="faq-answer">{faq.a}</div>
         </details>
@@ -200,34 +174,29 @@ const faqs = [
     </div>
   </section>
 
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32" id="contact">
-    <div class="text-center mb-16 space-y-4">
-      <span class="inline-block text-xs font-sans font-medium tracking-[0.2em] uppercase text-gold">Contact</span>
-      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-grotesk font-bold tracking-tight text-theme-primary">
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28" id="contact">
+    <div class="max-w-2xl mb-14">
+      <p class="text-xs font-semibold text-muted uppercase tracking-widest mb-3">Contact</p>
+      <h2 class="text-3xl sm:text-4xl font-grotesk font-bold tracking-tight text-primary">
         Let's Build <span class="gradient-gold">Something Great</span>
       </h2>
-      <p class="text-lg font-sans text-theme-secondary max-w-2xl mx-auto">
-        Tell us about your project. We'll get back to you within 24 hours with a tailored proposal.
-      </p>
+      <p class="text-base text-secondary mt-3">Tell us about your project. We'll get back to you within 24 hours with a tailored proposal.</p>
     </div>
-    <div class="max-w-2xl mx-auto glass rounded-3xl p-8 lg:p-12 border-theme">
-      <form action="/api/contact" method="POST" class="space-y-6">
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-          <div>
-            <label for="name" class="block text-sm font-sans font-medium text-theme-primary mb-2">Full Name</label>
-            <input type="text" id="name" name="name" required placeholder="Your name"
-              class="w-full px-4 py-3 rounded-xl bg-theme-elevated border border-theme text-theme-primary text-sm font-sans placeholder:text-theme-muted/60 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold/30 transition-all duration-200" />
+    <div class="max-w-2xl mx-auto card p-8 lg:p-10">
+      <form action="/api/contact" method="POST" class="space-y-5">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="space-y-1.5">
+            <label for="name" class="text-sm font-medium text-primary">Full Name</label>
+            <input type="text" id="name" name="name" required placeholder="Your name" />
           </div>
-          <div>
-            <label for="email" class="block text-sm font-sans font-medium text-theme-primary mb-2">Email Address</label>
-            <input type="email" id="email" name="email" required placeholder="you@company.com"
-              class="w-full px-4 py-3 rounded-xl bg-theme-elevated border border-theme text-theme-primary text-sm font-sans placeholder:text-theme-muted/60 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold/30 transition-all duration-200" />
+          <div class="space-y-1.5">
+            <label for="email" class="text-sm font-medium text-primary">Email Address</label>
+            <input type="email" id="email" name="email" required placeholder="you@company.com" />
           </div>
         </div>
-        <div>
-          <label for="service" class="block text-sm font-sans font-medium text-theme-primary mb-2">Service Needed</label>
-          <select id="service" name="service"
-            class="w-full px-4 py-3 rounded-xl bg-theme-elevated border border-theme text-theme-primary text-sm font-sans focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold/30 transition-all duration-200">
+        <div class="space-y-1.5">
+          <label for="service" class="text-sm font-medium text-primary">Service Needed</label>
+          <select id="service" name="service">
             <option value="">Select a service...</option>
             <option value="ai-automation">AI Automation Workflows</option>
             <option value="web-platform">Premium Web Platform</option>
@@ -236,24 +205,17 @@ const faqs = [
             <option value="other">Other / Not Sure</option>
           </select>
         </div>
-        <div>
-          <label for="message" class="block text-sm font-sans font-medium text-theme-primary mb-2">Project Details</label>
-          <textarea id="message" name="message" rows={4} required placeholder="Tell us about your project, goals, and timeline..."
-            class="w-full px-4 py-3 rounded-xl bg-theme-elevated border border-theme text-theme-primary text-sm font-sans placeholder:text-theme-muted/60 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold/30 transition-all duration-200 resize-y"></textarea>
+        <div class="space-y-1.5">
+          <label for="message" class="text-sm font-medium text-primary">Project Details</label>
+          <textarea id="message" name="message" rows={4} required placeholder="Tell us about your project, goals, and timeline..."></textarea>
         </div>
-        <button type="submit" class="btn-primary w-full justify-center text-base py-3.5">
+        <button type="submit" class="btn-primary w-full justify-center text-base py-3">
           Send Proposal Request <ArrowRight class="w-4 h-4" />
         </button>
-        <p class="text-xs font-sans text-theme-muted text-center">
+        <p class="text-xs text-muted text-center">
           We respect your privacy. No spam, no sharing your info.
         </p>
       </form>
     </div>
   </section>
 </Layout>
-
-<style is:global>
-  @keyframes pulseSlow { 0%, 100% { opacity: 0.2; } 50% { opacity: 0.35; } }
-  @keyframes drift3 { 0%, 100% { transform: translate(0, 0); } 25% { transform: translate(12px, -8px); } 50% { transform: translate(-6px, -12px); } 75% { transform: translate(-8px, 6px); } }
-  @keyframes bounceGentle { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-</style>
