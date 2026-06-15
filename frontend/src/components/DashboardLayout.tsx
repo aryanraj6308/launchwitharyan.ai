@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { LayoutDashboard, Download, Settings, BarChart2, ShieldAlert, Key, LogIn, Lock, Mail, Package, Loader2 } from 'lucide-react';
 import { apiUrl } from '../lib/api';
 
@@ -7,11 +7,9 @@ interface Purchase {
   product_id: string;
   product_name: string;
   amount: number;
+  currency: string;
   status: string;
   created_at: string | null;
-  name: string;
-  category: string;
-  date: string;
 }
 
 const productCatalogs: Record<string, { name: string; category: string; size: string }> = {
@@ -21,90 +19,71 @@ const productCatalogs: Record<string, { name: string; category: string; size: st
   'lead-pipeline': { name: 'Lead Ingestion Automation Kit', category: 'Automations', size: '15 KB' },
 };
 
-const getSessionId = (): string => {
-  if (typeof window === 'undefined') return '';
-  let sid = localStorage.getItem('purchase_session_id');
-  if (!sid) {
-    sid = crypto.randomUUID();
-    localStorage.setItem('purchase_session_id', sid);
-  }
-  return sid;
-};
-
-const loadPurchasesFromBackend = async (sessionId: string): Promise<Purchase[]> => {
-  if (typeof window === 'undefined') return [];
-  try {
-    const response = await fetch(apiUrl(`/api/payments/session-purchases?session_id=${sessionId}`));
-    if (!response.ok) return [];
-    const data = await response.json();
-    return data.purchases.map((p: any) => ({
-      ...p,
-      name: p.product_name,
-      category: productCatalogs[p.product_id]?.category || 'Digital Product',
-      date: p.created_at ? p.created_at.split('T')[0] : new Date().toISOString().split('T')[0],
-    }));
-  } catch {
-    return [];
-  }
-};
+function getToken(): string | null {
+  if (typeof window === 'undefined') return null;
+  return localStorage.getItem('auth_token');
+}
 
 export default function DashboardLayout() {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [authTab, setAuthTab] = useState<'login' | 'signup'>('login');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const [activeTab, setActiveTab] = useState<'downloads' | 'settings' | 'analytics'>('downloads');
+  const [activeTab, setActiveTab] = useState<'downloads' | 'settings'>('downloads');
   const [apiKey, setApiKey] = useState<string>('');
   const [ollamaUrl, setOllamaUrl] = useState<string>('http://localhost:11434');
   const [purchases, setPurchases] = useState<Purchase[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [sessionId, setSessionId] = useState<string>('');
+  const [authError, setAuthError] = useState<string | null>(null);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
-    setSessionId(getSessionId());
   }, []);
 
   useEffect(() => {
-    const token = localStorage.getItem('auth_token');
+    const token = getToken();
     if (token) setIsLoggedIn(true);
     setApiKey(localStorage.getItem('openai_key') || '');
     setOllamaUrl(localStorage.getItem('ollama_url') || 'http://localhost:11434');
   }, []);
 
-  useEffect(() => {
-    if (!mounted || !sessionId) return;
-    const loadAllPurchases = async () => {
-      setLoading(true);
-      try {
-        let localPurchases: Purchase[] = [];
-        const raw = localStorage.getItem('purchased_products');
-        if (raw) {
-          localPurchases = JSON.parse(raw).map((p: any) => ({
-            ...p,
-            name: p.product_name || p.name,
-            category: productCatalogs[p.product_id || p.id]?.category || 'Digital Product',
-            date: p.created_at ? p.created_at.split('T')[0] : p.date,
-          }));
-        }
-        const backendPurchases = await loadPurchasesFromBackend(sessionId);
-        const merged = [...backendPurchases];
-        localPurchases.forEach((local) => {
-          if (!merged.some((b) => b.product_id === local.product_id)) merged.push(local);
-        });
-        setPurchases(merged);
-      } catch {
+  const fetchPurchases = useCallback(async () => {
+    const token = getToken();
+    if (!token) {
+      setLoading(false);
+      return;
+    }
+    setLoading(true);
+    try {
+      const res = await fetch(apiUrl('/api/payments/my-purchases'), {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setPurchases(data.purchases || []);
+      } else {
         setPurchases([]);
-      } finally {
-        setLoading(false);
       }
-    };
-    loadAllPurchases();
-  }, [mounted, sessionId]);
+    } catch {
+      setPurchases([]);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
+    if (isLoggedIn) {
+      fetchPurchases();
+    } else {
+      setLoading(false);
+    }
+  }, [mounted, isLoggedIn, fetchPurchases]);
 
   const handleAuth = async (e: React.FormEvent) => {
     e.preventDefault();
+    setAuthError(null);
     try {
       const endpoint = authTab === 'login' ? '/api/auth/login' : '/api/auth/signup';
       const response = await fetch(apiUrl(endpoint), {
@@ -112,38 +91,36 @@ export default function DashboardLayout() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
       });
-      if (response.ok) {
-        const data = await response.json();
+      const data = await response.json();
+      if (response.ok && data.access_token) {
         localStorage.setItem('auth_token', data.access_token);
         setIsLoggedIn(true);
       } else {
-        simulateLogin();
+        setAuthError(data.detail || 'Authentication failed. Check your credentials.');
       }
     } catch {
-      simulateLogin();
+      setAuthError('Server unreachable. Please ensure the backend is running.');
     }
-  };
-
-  const simulateLogin = () => {
-    localStorage.setItem('auth_token', 'mock-jwt-token');
-    setIsLoggedIn(true);
   };
 
   const handleLogout = () => {
     localStorage.removeItem('auth_token');
     setIsLoggedIn(false);
+    setPurchases([]);
   };
 
   const saveConfig = () => {
     localStorage.setItem('openai_key', apiKey);
     localStorage.setItem('ollama_url', ollamaUrl);
-    alert('Configuration saved to Local Storage!');
+    alert('Configuration saved to Local Storage.');
   };
 
   const downloadFile = (purchase: Purchase) => {
-    const productId = purchase.product_id || purchase.id;
+    const token = getToken();
+    if (!token) return;
+    const productId = purchase.product_id;
     const a = document.createElement('a');
-    a.href = apiUrl(`/api/payments/download/${productId}?session_id=${encodeURIComponent(sessionId)}`);
+    a.href = apiUrl(`/api/payments/download/${productId}`);
     a.target = '_blank';
     document.body.appendChild(a);
     a.click();
@@ -158,7 +135,7 @@ export default function DashboardLayout() {
             <h2 className="text-xl font-grotesk font-bold text-primary">
               {authTab === 'login' ? 'Access Client Console' : 'Register Account'}
             </h2>
-            <p className="text-xs text-muted">Manage your templates, prompt downloads, and configure API integrations.</p>
+            <p className="text-xs text-muted">Manage your downloads and configure API integrations.</p>
           </div>
 
           <form onSubmit={handleAuth} className="space-y-4">
@@ -176,6 +153,9 @@ export default function DashboardLayout() {
                 <input type="password" required value={password} onChange={(e) => setPassword(e.target.value)} placeholder="••••••••" className="pl-9" />
               </div>
             </div>
+            {authError && (
+              <div className="text-xs text-red-400 bg-red-500/10 border border-red-500/20 p-3 rounded-xl">{authError}</div>
+            )}
             <button type="submit" className="w-full btn-primary justify-center text-sm py-3">
               <LogIn className="w-4 h-4" />
               {authTab === 'login' ? 'Login' : 'Sign Up'}
@@ -201,7 +181,7 @@ export default function DashboardLayout() {
             <div className="w-9 h-9 rounded-full bg-gold/20 flex items-center justify-center text-gold font-bold text-sm">U</div>
             <div>
               <span className="text-[10px] text-muted">Member Account</span>
-              <h4 className="text-sm font-bold text-primary leading-tight">user@example.com</h4>
+              <h4 className="text-sm font-bold text-primary leading-tight">{email || 'Authenticated'}</h4>
             </div>
           </div>
 
@@ -216,11 +196,6 @@ export default function DashboardLayout() {
               <Settings className="w-4 h-4" />
               AI Configuration
             </button>
-            <button onClick={() => setActiveTab('analytics')}
-              className={`flex items-center gap-2.5 px-3.5 py-2 rounded-lg text-xs font-medium transition-all duration-150 cursor-pointer ${activeTab === 'analytics' ? 'bg-gold text-darkbg' : 'text-muted hover:text-primary hover:bg-raised'}`}>
-              <BarChart2 className="w-4 h-4" />
-              Usage Analytics
-            </button>
           </div>
 
           <button onClick={handleLogout}
@@ -234,8 +209,8 @@ export default function DashboardLayout() {
         {activeTab === 'downloads' && (
           <div className="card p-8 space-y-6">
             <div className="border-b border-default pb-4">
-              <h2 className="text-lg font-grotesk font-bold text-primary">Your Products Store Downloads</h2>
-              <p className="text-xs text-muted mt-1">Access source files and prompt templates for item configurations you bought.</p>
+              <h2 className="text-lg font-grotesk font-bold text-primary">Your Digital Downloads</h2>
+              <p className="text-xs text-muted mt-1">Access files for products you have purchased.</p>
             </div>
 
             <div className="space-y-3">
@@ -254,15 +229,19 @@ export default function DashboardLayout() {
                 </div>
               ) : (
                 purchases.map((purchase) => {
-                  const productId = purchase.product_id || purchase.id;
+                  const productId = purchase.product_id;
                   const cat = productCatalogs[productId];
                   return (
                     <div key={purchase.id}
                       className="flex flex-col sm:flex-row justify-between sm:items-center p-5 rounded-xl bg-raised border border-default hover:border-hover transition-colors gap-4">
                       <div className="space-y-1">
                         <span className="inline-block px-2 py-0.5 rounded-md bg-raised text-[9px] text-gold uppercase tracking-wider">{cat?.category || 'Digital Product'}</span>
-                        <h3 className="text-sm font-medium text-primary">{purchase.name}</h3>
-                        <p className="text-[10px] text-muted">Purchased on {purchase.date} &bull; {cat?.size || '—'}</p>
+                        <h3 className="text-sm font-medium text-primary">{purchase.product_name}</h3>
+                        <p className="text-[10px] text-muted">
+                          {purchase.created_at ? `Purchased on ${purchase.created_at.split('T')[0]}` : ''}
+                          {cat?.size ? ` \u2022 ${cat.size}` : ''}
+                          {purchase.amount ? ` \u2022 ${purchase.currency} ${purchase.amount}` : ''}
+                        </p>
                       </div>
                       <button onClick={() => downloadFile(purchase)}
                         className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-raised hover:bg-hovered border border-default text-xs font-medium text-primary transition-colors cursor-pointer">
@@ -291,44 +270,19 @@ export default function DashboardLayout() {
                   OpenAI API Key
                 </label>
                 <input type="password" value={apiKey} onChange={(e) => setApiKey(e.target.value)} placeholder="sk-proj-..." className="font-mono text-xs" />
-                <span className="text-[10px] text-muted">Saves securely in your local browser sandbox context only.</span>
+                <span className="text-[10px] text-muted">Stored locally in your browser.</span>
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs text-muted uppercase tracking-wider font-medium">Ollama Local host URL</label>
+                <label className="text-xs text-muted uppercase tracking-wider font-medium">Ollama Local URL</label>
                 <input type="text" value={ollamaUrl} onChange={(e) => setOllamaUrl(e.target.value)} placeholder="http://localhost:11434" className="font-mono text-xs" />
-                <span className="text-[10px] text-muted">Local URL connection for hosting quantized models offline.</span>
+                <span className="text-[10px] text-muted">URL for local Ollama instance.</span>
               </div>
 
               <button onClick={saveConfig}
                 className="inline-flex items-center justify-center px-5 py-2 rounded-xl bg-gold hover:bg-gold-dim text-darkbg text-xs font-medium transition-all duration-200 cursor-pointer">
                 Save Configuration
               </button>
-            </div>
-          </div>
-        )}
-
-        {activeTab === 'analytics' && (
-          <div className="card p-8 space-y-6">
-            <div className="border-b border-default pb-4">
-              <h2 className="text-lg font-grotesk font-bold text-primary">Client Query Telemetry</h2>
-              <p className="text-xs text-muted mt-1">Monitor real-time search completions and rate limits.</p>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="card p-5">
-                <span className="text-[10px] text-muted uppercase tracking-wider font-medium">Total Prompts Executed</span>
-                <div className="text-xl font-bold text-primary mt-1">1,240 queries</div>
-              </div>
-              <div className="card p-5">
-                <span className="text-[10px] text-muted uppercase tracking-wider font-medium">Rate Limit Tokens Remaining</span>
-                <div className="text-xl font-bold text-primary mt-1">98,000 / 100k</div>
-              </div>
-            </div>
-
-            <div className="p-4 rounded-xl border border-yellow-500/10 bg-yellow-500/5 text-yellow-500/80 flex items-start gap-3 text-xs leading-relaxed">
-              <ShieldAlert className="w-4 h-4 shrink-0 mt-0.5" />
-              <span><strong>Attention:</strong> Rate limits are configured at 50 requests per hour for the default sandbox account. Add your custom OpenAI API key above to unlock unlimited completions.</span>
             </div>
           </div>
         )}

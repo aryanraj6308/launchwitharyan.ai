@@ -7,7 +7,7 @@ from slowapi.util import get_remote_address
 from sqlalchemy.orm import Session
 
 from app.database import get_db, AnalyticsEvent as AnalyticsEventModel
-from app.schemas import AnalyticsEvent
+from app.schemas import AnalyticsEventCreate as AnalyticsEvent
 
 router = APIRouter(prefix="/api/analytics", tags=["Analytics"])
 limiter = Limiter(key_func=get_remote_address)

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Search, ShoppingBag, Sparkles, Filter, Check, ShieldCheck, AlertCircle, Download } from 'lucide-react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { Search, ShoppingBag, Sparkles, Filter, Check, ShieldCheck, AlertCircle, Download, Loader2, LogIn } from 'lucide-react';
 import { apiUrl } from '../lib/api';
 
 interface Product {
@@ -10,7 +10,6 @@ interface Product {
   description: string;
   features: string[];
   specs: string;
-  paymentLink: string;
 }
 
 const productsData: Product[] = [
@@ -22,7 +21,6 @@ const productsData: Product[] = [
     description: 'A premium, custom-optimized landing page blueprint with GSAP scroll scripts, dark mode variables, and built-in lead forms.',
     features: ['100/100 Core Web Vitals', 'Tailwind CSS v4 config', 'Clean TypeScript support', 'Framer Motion animations'],
     specs: 'Astro 5.0 + React 18',
-    paymentLink: 'https://rzp.io/rzp/AGENuVaz'
   },
   {
     id: 'rag-boilerplate',
@@ -32,7 +30,6 @@ const productsData: Product[] = [
     description: 'A production-ready database orchestration template. Connects local vector schemas directly to OpenAI or local models.',
     features: ['Supabase PGVector schema', 'FastAPI backend connection', 'Dynamic prompt logs UI', 'Rate-limiting middleware'],
     specs: 'Python FastAPI + PostgreSQL',
-    paymentLink: 'https://rzp.io/rzp/KAlFHQ6'
   },
   {
     id: 'seo-prompt-pack',
@@ -42,7 +39,6 @@ const productsData: Product[] = [
     description: 'A list of 50+ tested, enterprise-grade system prompts for writing highly structured SEO blog posts that convert users.',
     features: ['Zero hallucination guardrails', 'Markdown outline structuring', 'JSON metadata exports', 'Optimized for GPT-4 / Claude-3'],
     specs: 'Text / JSON configurations',
-    paymentLink: 'https://rzp.io/rzp/AmIkpdx'
   },
   {
     id: 'lead-pipeline',
@@ -52,65 +48,26 @@ const productsData: Product[] = [
     description: 'Clean automated serverless integration script to instantly pipe lead forms to Google Sheets, Notion databases, and Slack channels.',
     features: ['Detailed error log alerts', 'Duplicate deduplication filtering', 'Multi-app delivery triggers', 'Fast validation schemas'],
     specs: 'Node.js / Python Webhook',
-    paymentLink: 'https://rzp.io/rzp/7Kn2XSNj'
-  }
+  },
 ];
 
-interface PurchaseRecord {
-  id: string;
-  product_id: string;
-  product_name: string;
-  amount: number;
-  status: string;
-  created_at: string | null;
+interface RazorpayInstance {
+  open: () => void;
 }
 
-const getSessionId = (): string => {
-  if (typeof window === 'undefined') return '';
-  let sid = localStorage.getItem('purchase_session_id');
-  if (!sid) {
-    sid = crypto.randomUUID();
-    localStorage.setItem('purchase_session_id', sid);
-  }
-  return sid;
-};
-
-const loadPurchasesSafe = (): PurchaseRecord[] => {
-  if (typeof window === 'undefined') return [];
-  try {
-    const raw = localStorage.getItem('purchased_products');
-    return raw ? JSON.parse(raw) : [];
-  } catch { return []; }
-};
-
-const savePurchase = (product: Product) => {
-  const existing = loadPurchasesSafe();
-  if (!existing.find((p) => p.product_id === product.id)) {
-    existing.push({
-      id: crypto.randomUUID(),
-      product_id: product.id,
-      product_name: product.title,
-      amount: product.price,
-      status: 'paid',
-      created_at: new Date().toISOString(),
-    });
-    localStorage.setItem('purchased_products', JSON.stringify(existing));
-  }
-};
-
-const confirmPurchaseWithBackend = async (productId: string, sessionId: string): Promise<boolean> => {
-  try {
-    const response = await fetch(apiUrl('/api/payments/confirm-purchase'), {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ product_id: productId, session_id: sessionId }),
-    });
-    const data = await response.json();
-    return data.status === 'success' || data.status === 'already_exists';
-  } catch {
-    return false;
-  }
-};
+interface RazorpayOptions {
+  key: string;
+  amount: number;
+  currency: string;
+  name: string;
+  description: string;
+  order_id: string;
+  prefill: { email: string };
+  modal: {
+    ondismiss: () => void;
+  };
+  handler: (response: { razorpay_order_id: string; razorpay_payment_id: string; razorpay_signature: string }) => void;
+}
 
 const INR_TO_USD = 0.012;
 
@@ -120,45 +77,54 @@ function formatPrice(priceInr: number): string {
   return `₹${priceInr}`;
 }
 
+function getToken(): string | null {
+  if (typeof window === 'undefined') return null;
+  return localStorage.getItem('auth_token');
+}
+
 export default function Store() {
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
-  const [checkoutProduct, setCheckoutProduct] = useState<Product | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [purchasedItems, setPurchasedItems] = useState<string[]>([]);
-  const [sessionId, setSessionId] = useState<string>('');
-  const [mounted, setMounted] = useState(false);
-  const [, forceUpdate] = useState(0);
+  const [purchasedIds, setPurchasedIds] = useState<Set<string>>(new Set());
+  const [loading, setLoading] = useState(true);
+  const [checkingProduct, setCheckingProduct] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const clearError = useCallback(() => setError(null), []);
 
   useEffect(() => {
-    setMounted(true);
-    setSessionId(getSessionId());
+    setIsLoggedIn(!!getToken());
+  }, []);
 
-    const pending = localStorage.getItem('pending_purchase');
-    if (pending) {
-      try {
-        const { product_id, session_id } = JSON.parse(pending);
-        const product = productsData.find((p) => p.id === product_id);
-        if (product) {
-          savePurchase(product);
-          confirmPurchaseWithBackend(product_id, session_id);
-        }
-      } catch { /* ignore */ }
-      localStorage.removeItem('pending_purchase');
+  const checkAllPurchases = useCallback(async () => {
+    const token = getToken();
+    if (!token) {
+      setLoading(false);
+      return;
     }
+    setLoading(true);
+    const purchased = new Set<string>();
+    try {
+      const res = await fetch(apiUrl('/api/payments/my-purchases'), {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (res.ok) {
+        const data = await res.json();
+        for (const p of data.purchases || []) {
+          purchased.add(p.product_id);
+        }
+      }
+    } catch {
+      // Backend unreachable
+    }
+    setPurchasedIds(purchased);
+    setLoading(false);
   }, []);
 
   useEffect(() => {
-    const handler = () => forceUpdate((n) => n + 1);
-    window.addEventListener('currencyChange', handler);
-    return () => window.removeEventListener('currencyChange', handler);
-  }, []);
-
-  useEffect(() => {
-    if (!mounted) return;
-    const stored = loadPurchasesSafe();
-    setPurchasedItems(stored.map((p) => p.product_id));
-  }, [mounted]);
+    checkAllPurchases();
+  }, [checkAllPurchases]);
 
   const filteredProducts = productsData.filter((prod) => {
     const matchesCategory = selectedCategory === 'All' || prod.category === selectedCategory;
@@ -168,37 +134,114 @@ export default function Store() {
   });
 
   const handleCheckout = async (product: Product) => {
-    setIsLoading(true);
-    setCheckoutProduct(product);
-
-    if (product.paymentLink) {
-      localStorage.setItem('pending_purchase', JSON.stringify({ product_id: product.id, session_id: sessionId }));
-      window.open(product.paymentLink, '_blank');
-      setIsLoading(false);
-      setCheckoutProduct(null);
+    clearError();
+    const token = getToken();
+    if (!token) {
+      window.location.href = `/login?redirect=${encodeURIComponent('/store')}`;
       return;
     }
 
-    simulateCheckout(product);
+    setCheckingProduct(product.id);
+
+    try {
+      const orderRes = await fetch(apiUrl('/api/payments/create-order'), {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ product_id: product.id }),
+      });
+
+      if (!orderRes.ok) {
+        const err = await orderRes.json().catch(() => ({}));
+        setError(err.detail || 'Failed to create order. Please try again.');
+        setCheckingProduct(null);
+        return;
+      }
+
+      const orderData = await orderRes.json();
+
+      if (typeof (window as any).Razorpay === 'undefined') {
+        setError('Payment system loading. Please refresh and try again.');
+        setCheckingProduct(null);
+        return;
+      }
+
+      const rzp = new (window as any).Razorpay({
+        key: orderData.key_id,
+        amount: orderData.amount,
+        currency: orderData.currency,
+        name: 'LaunchWithAryan AI',
+        description: product.title,
+        order_id: orderData.order_id,
+        prefill: { email: orderData.user_email },
+        modal: {
+          ondismiss: () => {
+            setCheckingProduct(null);
+          },
+        },
+        handler: async (response: { razorpay_order_id: string; razorpay_payment_id: string; razorpay_signature: string }) => {
+          try {
+            const verifyRes = await fetch(apiUrl('/api/payments/verify-payment'), {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+              },
+              body: JSON.stringify({
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_signature: response.razorpay_signature,
+              }),
+            });
+
+            if (verifyRes.ok) {
+              const verifyData = await verifyRes.json();
+              if (verifyData.status === 'success' || verifyData.status === 'already_verified') {
+                await checkAllPurchases();
+                setCheckingProduct(null);
+                return;
+              }
+            }
+
+            const verifyErr = await verifyRes.json().catch(() => ({}));
+            setError(verifyErr.detail || 'Payment verification failed. Contact support with your payment ID.');
+          } catch {
+            setError('Payment verification failed. Contact support with your payment ID.');
+          }
+          setCheckingProduct(null);
+        },
+      } as RazorpayOptions);
+
+      rzp.open();
+    } catch {
+      setError('Failed to initiate checkout. Please try again.');
+      setCheckingProduct(null);
+    }
   };
 
-  const simulateCheckout = async (product: Product) => {
-    const confirmBuy = window.confirm(
-      `[Offline Sandbox Mode]\n\nProduct: ${product.title}\nPrice: ${formatPrice(product.price)}\n\nWould you like to simulate a successful payment and unlock this digital file?`
-    );
-    if (confirmBuy) {
-      savePurchase(product);
-      setPurchasedItems((prev) => [...prev, product.id]);
-      await confirmPurchaseWithBackend(product.id, sessionId);
-      alert(`[Demo Mode Success] "${product.title}" has been successfully added to your dashboard! You can now download it.`);
-    }
-    setIsLoading(false);
-    setCheckoutProduct(null);
+  const handleDownload = (productId: string) => {
+    const token = getToken();
+    if (!token) return;
+    const a = document.createElement('a');
+    a.href = apiUrl(`/api/payments/download/${productId}`);
+    a.target = '_blank';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
   };
 
   return (
     <div className="font-sans space-y-10">
-      {/* Filters & Search */}
+      {error && (
+        <div className="flex items-start gap-3 p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-sm text-red-400">
+          <AlertCircle className="w-5 h-5 shrink-0 mt-0.5" />
+          <div className="flex-1">{error}</div>
+          <button onClick={clearError} className="text-red-400 hover:text-red-300 cursor-pointer">&times;</button>
+        </div>
+      )}
+
       <div className="flex flex-col md:flex-row gap-4 justify-between items-center bg-raised p-4 rounded-xl border border-default">
         <div className="flex items-center gap-1.5 overflow-x-auto w-full md:w-auto pb-1 md:pb-0">
           <Filter className="w-4 h-4 text-muted mr-1 shrink-0" />
@@ -229,7 +272,6 @@ export default function Store() {
         </div>
       </div>
 
-      {/* Products */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {filteredProducts.map((prod) => (
           <div key={prod.id} className="card card-hover p-6 lg:p-7 flex flex-col justify-between space-y-6">
@@ -268,22 +310,36 @@ export default function Store() {
               </div>
             </div>
 
-            {purchasedItems.includes(prod.id) ? (
-              <a
-                href={apiUrl(`/api/payments/download/${prod.id}?session_id=${encodeURIComponent(getSessionId())}`)}
+            {purchasedIds.has(prod.id) ? (
+              <button
+                onClick={() => handleDownload(prod.id)}
                 className="w-full inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-green-600 hover:bg-green-700 text-sm font-medium text-white transition-all duration-200 cursor-pointer"
               >
                 <Download className="w-4 h-4" />
-                Download Now
-              </a>
+                Download
+              </button>
             ) : (
               <button
                 onClick={() => handleCheckout(prod)}
-                disabled={isLoading && checkoutProduct?.id === prod.id}
+                disabled={checkingProduct === prod.id}
                 className="w-full inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-gold hover:bg-gold-dim text-darkbg text-sm font-medium transition-all duration-200 cursor-pointer disabled:opacity-50"
               >
-                <ShoppingBag className="w-4 h-4" />
-                {isLoading && checkoutProduct?.id === prod.id ? 'Processing...' : 'Buy Now'}
+                {checkingProduct === prod.id ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    Processing...
+                  </>
+                ) : !isLoggedIn ? (
+                  <>
+                    <LogIn className="w-4 h-4" />
+                    Login to Buy
+                  </>
+                ) : (
+                  <>
+                    <ShoppingBag className="w-4 h-4" />
+                    Buy Now
+                  </>
+                )}
               </button>
             )}
           </div>
@@ -300,9 +356,9 @@ export default function Store() {
       <div className="pt-6 border-t border-default flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted">
         <div className="flex items-center gap-2">
           <ShieldCheck className="w-4 h-4 text-green-500" />
-          <span>Secure transaction checkouts via Razorpay API.</span>
+          <span>Secure checkout via Razorpay. Payments verified server-side.</span>
         </div>
-        <span>Instant direct download links available post-purchase.</span>
+        <span>Download access granted only after payment verification.</span>
       </div>
     </div>
   );

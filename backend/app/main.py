@@ -11,7 +11,7 @@ from slowapi.util import get_remote_address
 
 from app.config import settings
 from app.database import create_tables
-from app.routers import ai, auth, payments, contact, analytics
+from app.routers import ai, auth, payments, contact, analytics, admin
 from app.security import limit_body_size
 
 # ─── Logging ───
@@ -91,16 +91,29 @@ async def log_request_time(request: Request, call_next):
     return response
 
 
-# ─── Security Headers Middleware (#7 defence-in-depth) ───
+# ─── Security Headers Middleware (Helmet-style) ───
 @app.middleware("http")
 async def security_headers_middleware(request: Request, call_next):
     response = await call_next(request)
+    # Prevent MIME-type sniffing
     response.headers["X-Content-Type-Options"] = "nosniff"
+    # Block framing (clickjacking)
     response.headers["X-Frame-Options"] = "DENY"
+    # Enable XSS filter in legacy browsers
     response.headers["X-XSS-Protection"] = "1; mode=block"
-    response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
-    response.headers["Cache-Control"] = "no-store"
+    # HSTS — force HTTPS for 1 year
+    response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains; preload"
+    # Disable caching of API responses
+    response.headers["Cache-Control"] = "no-store, max-age=0"
     response.headers["Pragma"] = "no-cache"
+    # Referrer policy
+    response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+    # Permissions policy — restrict browser features
+    response.headers["Permissions-Policy"] = "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+    # Cross-Origin-Embedder-Policy
+    response.headers["Cross-Origin-Embedder-Policy"] = "require-corp"
+    response.headers["Cross-Origin-Opener-Policy"] = "same-origin"
+    response.headers["Cross-Origin-Resource-Policy"] = "same-origin"
     return response
 
 
@@ -121,3 +134,4 @@ app.include_router(ai.router)
 app.include_router(payments.router)
 app.include_router(contact.router)
 app.include_router(analytics.router)
+app.include_router(admin.router)

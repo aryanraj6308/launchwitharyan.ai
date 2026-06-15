@@ -1,5 +1,5 @@
 from pydantic import BaseModel, EmailStr, field_validator
-from typing import Optional
+from typing import Optional, Any
 import re
 
 from app.security import (
@@ -32,7 +32,6 @@ class UserCreate(BaseModel):
     def validate_email(cls, v: str) -> str:
         v = sanitize_input(v)
         v = validate_length(v, MAX_EMAIL_LEN, "email")
-        # ReDoS-safe email format check
         if not SAFE_EMAIL_RE.match(v):
             raise ValueError("Invalid email format.")
         return v
@@ -42,7 +41,6 @@ class UserCreate(BaseModel):
     def validate_password(cls, v: str) -> str:
         v = sanitize_input(v)
         v = validate_length(v, MAX_PASSWORD_LEN, "password")
-        # Password strength check
         if len(v) < 8:
             raise ValueError("Password must be at least 8 characters long.")
         if not re.search(r"[A-Z]", v):
@@ -84,6 +82,20 @@ class Token(BaseModel):
 
 class TokenData(BaseModel):
     email: Optional[str] = None
+    user_id: Optional[str] = None
+
+
+# ──────── User Schemas ────────
+
+class UserResponse(BaseModel):
+    id: str
+    email: str
+    is_active: bool
+    is_admin: bool
+    created_at: Optional[str] = None
+
+    class Config:
+        from_attributes = True
 
 
 # ──────── Contact / Lead Schemas ────────
@@ -148,11 +160,26 @@ class LeadResponse(BaseModel):
         from_attributes = True
 
 
-# ──────── Payment Schemas ────────
+# ──────── Product Schemas ────────
+
+class ProductResponse(BaseModel):
+    id: str
+    product_id: str
+    name: str
+    description: Optional[str]
+    price_inr: float
+    price_usd: Optional[float]
+    category: Optional[str]
+    is_active: bool
+
+    class Config:
+        from_attributes = True
+
+
+# ──────── Payment / Order Schemas ────────
 
 class CreateOrderRequest(BaseModel):
     product_id: str
-    amount: float  # in USD dollars (will be converted to paise)
 
     @field_validator("product_id")
     @classmethod
@@ -161,29 +188,20 @@ class CreateOrderRequest(BaseModel):
         v = validate_length(v, MAX_PRODUCT_ID_LEN, "product_id")
         return v
 
-    @field_validator("amount")
-    @classmethod
-    def validate_amount(cls, v: float) -> float:
-        if v <= 0:
-            raise ValueError("Amount must be positive.")
-        if v > 100_000:
-            raise ValueError("Amount exceeds maximum allowed.")
-        return v
-
 
 class CreateOrderResponse(BaseModel):
     order_id: str
     key_id: str
-    amount: int  # in paise
+    amount: int
     currency: str
+    product_id: str
+    user_email: str
 
 
 class VerifyPaymentRequest(BaseModel):
     razorpay_order_id: str
     razorpay_payment_id: str
     razorpay_signature: str
-    nonce: Optional[str] = None
-    timestamp: Optional[int] = None
 
     @field_validator("razorpay_order_id", "razorpay_payment_id", "razorpay_signature")
     @classmethod
@@ -196,6 +214,8 @@ class VerifyPaymentRequest(BaseModel):
 class VerifyPaymentResponse(BaseModel):
     status: str
     message: str
+    product_id: Optional[str] = None
+    download_url: Optional[str] = None
 
 
 class PurchaseRecord(BaseModel):
@@ -203,6 +223,7 @@ class PurchaseRecord(BaseModel):
     product_id: str
     product_name: str
     amount: float
+    currency: str
     status: str
     created_at: Optional[str] = None
 
@@ -214,9 +235,8 @@ class PurchaseListResponse(BaseModel):
     purchases: list[PurchaseRecord]
 
 
-class TrackDownloadRequest(BaseModel):
+class CheckAccessRequest(BaseModel):
     product_id: str
-    user_id: Optional[str] = None
 
     @field_validator("product_id")
     @classmethod
@@ -226,33 +246,99 @@ class TrackDownloadRequest(BaseModel):
         return v
 
 
-class TrackDownloadResponse(BaseModel):
-    status: str
-    download_count: int
-
-
-class ConfirmPurchaseRequest(BaseModel):
+class CheckAccessResponse(BaseModel):
+    has_access: bool
     product_id: str
-    session_id: str
-
-    @field_validator("product_id")
-    @classmethod
-    def validate_pid(cls, v: str) -> str:
-        v = sanitize_strict(v)
-        v = validate_length(v, MAX_PRODUCT_ID_LEN, "product_id")
-        return v
-
-    @field_validator("session_id")
-    @classmethod
-    def validate_sid(cls, v: str) -> str:
-        v = sanitize_strict(v)
-        v = validate_length(v, MAX_SESSION_ID_LEN, "session_id")
-        return v
+    product_name: Optional[str] = None
 
 
-class ConfirmPurchaseResponse(BaseModel):
+# ──────── Admin Schemas ────────
+
+class AdminOrderResponse(BaseModel):
+    id: str
+    user_id: Optional[str]
+    user_email: Optional[str]
+    product_id: str
+    product_name: str
+    amount: float
+    currency: str
+    razorpay_order_id: Optional[str]
+    razorpay_payment_id: Optional[str]
     status: str
+    created_at: Optional[str]
+
+    class Config:
+        from_attributes = True
+
+
+class AdminPaymentResponse(BaseModel):
+    id: str
+    user_id: Optional[str]
+    order_id: Optional[str]
+    razorpay_order_id: Optional[str]
+    razorpay_payment_id: Optional[str]
+    amount: float
+    currency: str
+    status: str
+    method: Optional[str]
+    error_code: Optional[str]
+    created_at: Optional[str]
+
+    class Config:
+        from_attributes = True
+
+
+class AdminDashboardStats(BaseModel):
+    total_users: int
+    total_orders: int
+    total_revenue: float
+    paid_orders: int
+    failed_orders: int
+    pending_orders: int
+    total_downloads: int
+    recent_orders: list[AdminOrderResponse]
+
+
+# ──────── Razorpay Webhook ────────
+
+class RazorpayWebhookPayload(BaseModel):
+    event: str
+    payload: dict[str, Any]
+    created_at: Optional[int] = None
+
+
+# ──────── Support Schemas ────────
+
+class SupportRequestCreate(BaseModel):
+    email: EmailStr
+    subject: str
     message: str
+
+    @field_validator("subject")
+    @classmethod
+    def validate_subject(cls, v: str) -> str:
+        v = sanitize_strict(v)
+        v = validate_length(v, 255, "subject")
+        return v
+
+    @field_validator("message")
+    @classmethod
+    def validate_message(cls, v: str) -> str:
+        v = sanitize_strict(v)
+        v = validate_length(v, MAX_MESSAGE_LEN, "message")
+        return v
+
+
+class SupportRequestResponse(BaseModel):
+    id: str
+    email: str
+    subject: str
+    message: str
+    status: str
+    created_at: Optional[str]
+
+    class Config:
+        from_attributes = True
 
 
 # ──────── AI Chat Schemas ────────
@@ -284,7 +370,7 @@ class ChatResponse(BaseModel):
 
 # ──────── Analytics Schemas ────────
 
-class AnalyticsEvent(BaseModel):
+class AnalyticsEventCreate(BaseModel):
     event_type: str
     page: Optional[str] = None
     user_id: Optional[str] = None

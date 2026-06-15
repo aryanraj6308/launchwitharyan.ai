@@ -1,6 +1,5 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import ServiceHero from '../../components/ServiceHero.tsx';
 import { MessageSquare, Brain, Globe, BarChart3, Users, Languages, PhoneCall, Database, ArrowRight } from 'lucide-react';
 
 const features = [
@@ -42,17 +41,23 @@ const faqs = [
 <Layout title="AI Conversational Bots | LaunchWithAryan AI"
   description="Deploy intelligent AI chatbots with RAG memory, context awareness, analytics, and human-like conversations across web, WhatsApp, and Slack.">
 
-  <ServiceHero title="AI Chatbots That Actually" highlight="Understand Customers."
-    desc="Deploy intelligent AI bots with memory, context awareness, analytics, and human-like conversations. 24/7 support across web, WhatsApp, and Slack."
-    badge="AI Chatbot Service" ctaUrl="/contact?type=quick">
-
-    <div class="flex-shrink-0 w-48 h-48 lg:w-56 lg:h-56 mx-auto lg:mx-0">
-      <img src="/images/service-chatbot.svg" alt="AI Chatbot Illustration" class="w-full h-full object-contain" loading="lazy" />
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+    <div class="max-w-3xl">
+      <p class="text-xs font-semibold text-muted uppercase tracking-widest mb-3">AI Chatbot Service</p>
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-grotesk font-bold tracking-tight leading-[1.1] text-primary">
+        AI Chatbots That Actually <span class="gradient-gold">Understand Customers.</span>
+      </h1>
+      <p class="text-base sm:text-lg text-secondary mt-4 max-w-2xl">
+        Deploy intelligent AI bots with memory, context awareness, analytics, and human-like conversations. 24/7 support across web, WhatsApp, and Slack.
+      </p>
+      <a href="/contact?type=quick" class="btn-primary text-base inline-flex mt-6">
+        Start Your Project <ArrowRight class="w-4 h-4" />
+      </a>
     </div>
-  </ServiceHero>
+  </section>
 
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
-    <div class="text-center mb-14">
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
+    <div class="text-center mb-12">
       <p class="text-xs font-semibold text-muted uppercase tracking-widest mb-3">Features</p>
       <h2 class="text-3xl sm:text-4xl font-grotesk font-bold tracking-tight text-primary">Intelligent <span class="gradient-gold">Conversation</span></h2>
       <p class="text-base text-secondary mt-3 max-w-2xl mx-auto">AI chatbots with memory, context, and human-like understanding — deployed across every channel your customers use.</p>
@@ -70,8 +75,8 @@ const faqs = [
     </div>
   </section>
 
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
-    <div class="text-center mb-14">
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
+    <div class="text-center mb-12">
       <p class="text-xs font-semibold text-muted uppercase tracking-widest mb-3">How It Works</p>
       <h2 class="text-3xl sm:text-4xl font-grotesk font-bold tracking-tight text-primary">Knowledge to <span class="gradient-gold">Conversation</span></h2>
       <p class="text-base text-secondary mt-3 max-w-2xl mx-auto">From raw data to intelligent dialogue — our proven process delivers production-ready AI chatbots.</p>
@@ -90,8 +95,8 @@ const faqs = [
     </div>
   </section>
 
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
-    <div class="text-center mb-14">
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
+    <div class="text-center mb-12">
       <p class="text-xs font-semibold text-muted uppercase tracking-widest mb-3">Impact</p>
       <h2 class="text-3xl sm:text-4xl font-grotesk font-bold tracking-tight text-primary">Results That <span class="gradient-gold">Speak</span></h2>
       <p class="text-base text-secondary mt-3 max-w-2xl mx-auto">Real metrics from real deployments — see what AI chatbots deliver for our clients.</p>
@@ -108,8 +113,8 @@ const faqs = [
     </div>
   </section>
 
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28" id="faq">
-    <div class="text-center mb-14">
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20" id="faq">
+    <div class="text-center mb-12">
       <p class="text-xs font-semibold text-muted uppercase tracking-widest mb-3">FAQ</p>
       <h2 class="text-3xl sm:text-4xl font-grotesk font-bold tracking-tight text-primary">Questions? <span class="gradient-gold">Answered.</span></h2>
       <p class="text-base text-secondary mt-3 max-w-2xl mx-auto">Everything you need to know about our AI chatbot service.</p>
@@ -121,7 +126,7 @@ const faqs = [
     </div>
   </section>
 
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
     <div class="card card-hover p-10 lg:p-14 text-center border-gold/20 max-w-4xl mx-auto">
       <h2 class="text-3xl sm:text-4xl font-grotesk font-bold tracking-tight text-primary">Ready to <span class="gradient-gold">Deploy</span> Your AI Bot?</h2>
       <p class="text-base text-secondary mt-4 max-w-xl mx-auto">Let's build a chatbot that your customers will love. Free consultation included.</p>

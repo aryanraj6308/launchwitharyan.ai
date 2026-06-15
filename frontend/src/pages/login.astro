@@ -1,21 +1,20 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { LogIn } from 'lucide-react';
+
+const redirect = Astro.url.searchParams.get('redirect') || '/dashboard';
 ---
 
 <Layout title="Login — Client Console | LaunchWithAryan AI">
   <section class="min-h-[70vh] flex items-center justify-center py-20">
     <div class="w-full max-w-md mx-auto px-4">
-      <div class="card p-8 sm:p-10 space-y-6">
+      <div class="card p-8 sm:p-10 space-y-6" id="login-card">
         <div class="text-center space-y-2">
-          <div class="w-12 h-12 rounded-full bg-gold/20 flex items-center justify-center mx-auto">
-            <LogIn class="w-5 h-5 text-gold" />
-          </div>
+          <img src="/logo.svg" alt="LaunchWithAryan AI" class="h-10 w-auto mx-auto" />
           <h1 class="text-xl font-grotesk font-bold text-primary">Client Console</h1>
           <p class="text-xs text-muted">Sign in to manage your downloads and API configuration.</p>
         </div>
 
-        <form method="POST" action="/api/auth/login" class="space-y-4">
+        <form id="login-form" class="space-y-4">
           <div class="space-y-1.5">
             <label for="email" class="text-xs text-muted uppercase tracking-wider font-medium">Email</label>
             <input type="email" id="email" name="email" required placeholder="name@company.com" />
@@ -24,16 +23,59 @@ import { LogIn } from 'lucide-react';
             <label for="password" class="text-xs text-muted uppercase tracking-wider font-medium">Password</label>
             <input type="password" id="password" name="password" required placeholder="••••••••" />
           </div>
-          <button type="submit" class="w-full btn-primary justify-center text-sm py-3">
-            <LogIn class="w-4 h-4" />
+          <div id="login-error" class="hidden text-xs text-red-400 bg-red-500/10 border border-red-500/20 p-3 rounded-xl"></div>
+          <button type="submit" id="login-btn" class="w-full btn-primary justify-center text-sm py-3">
             Sign In
           </button>
         </form>
 
         <p class="text-center text-xs text-muted">
-          No account? <a href="/dashboard" class="text-gold hover:text-gold-dim underline">Go to Dashboard</a> to access the sandbox.
+          No account? <a href="/dashboard" class="text-gold hover:text-gold-dim underline">Visit dashboard</a> to register.
         </p>
       </div>
     </div>
   </section>
+
+  <script>
+    const API = (typeof import.meta !== 'undefined' && import.meta.env?.PUBLIC_API_URL)
+      ? import.meta.env.PUBLIC_API_URL.replace(/\/+$/, '')
+      : 'http://localhost:8000';
+
+    const params = new URLSearchParams(window.location.search);
+    const redirectUrl = params.get('redirect') || '/dashboard';
+
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const btn = document.getElementById('login-btn');
+      const errorEl = document.getElementById('login-error');
+
+      btn.disabled = true;
+      btn.textContent = 'Signing in...';
+      errorEl.classList.add('hidden');
+
+      try {
+        const res = await fetch(API + '/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password }),
+        });
+        const data = await res.json();
+        if (res.ok && data.access_token) {
+          localStorage.setItem('auth_token', data.access_token);
+          window.location.href = redirectUrl;
+        } else {
+          errorEl.textContent = data.detail || 'Login failed. Check your credentials.';
+          errorEl.classList.remove('hidden');
+        }
+      } catch {
+        errorEl.textContent = 'Server unreachable. Please ensure the backend is running.';
+        errorEl.classList.remove('hidden');
+      }
+
+      btn.disabled = false;
+      btn.textContent = 'Sign In';
+    });
+  </script>
 </Layout>
