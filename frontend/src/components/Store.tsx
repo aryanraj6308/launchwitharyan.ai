@@ -71,9 +71,8 @@ interface RazorpayOptions {
 
 const INR_TO_USD = 0.012;
 
-function formatPrice(priceInr: number): string {
-  const cur = typeof window !== 'undefined' ? localStorage.getItem('preferred_currency') : 'INR';
-  if (cur === 'USD') return `$${(priceInr * INR_TO_USD).toFixed(2)}`;
+function formatPrice(priceInr: number, currency: string): string {
+  if (currency === 'USD') return `$${(priceInr * INR_TO_USD).toFixed(2)}`;
   return `₹${priceInr}`;
 }
 
@@ -90,11 +89,20 @@ export default function Store() {
   const [checkingProduct, setCheckingProduct] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [currency, setCurrency] = useState<'INR' | 'USD'>('INR');
 
   const clearError = useCallback(() => setError(null), []);
 
   useEffect(() => {
     setIsLoggedIn(!!getToken());
+    const cur = localStorage.getItem('preferred_currency');
+    if (cur === 'INR' || cur === 'USD') setCurrency(cur);
+    const handler = () => {
+      const c = localStorage.getItem('preferred_currency');
+      if (c === 'INR' || c === 'USD') setCurrency(c);
+    };
+    window.addEventListener('currencyChange', handler);
+    return () => window.removeEventListener('currencyChange', handler);
   }, []);
 
   const checkAllPurchases = useCallback(async () => {
@@ -172,7 +180,7 @@ export default function Store() {
         key: orderData.key_id,
         amount: orderData.amount,
         currency: orderData.currency,
-        name: 'LaunchWithAryan AI',
+        name: 'AryanForge',
         description: product.title,
         order_id: orderData.order_id,
         prefill: { email: orderData.user_email },
@@ -249,7 +257,7 @@ export default function Store() {
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`px-3.5 py-1.5 rounded-lg text-xs font-medium transition-colors duration-150 cursor-pointer ${
+              className={`px-3.5 py-2.5 rounded-lg text-xs font-medium transition-colors duration-150 cursor-pointer min-h-[44px] ${
                 selectedCategory === cat
                   ? 'bg-gold text-darkbg'
                   : 'text-secondary hover:text-primary hover:bg-raised'
@@ -290,7 +298,7 @@ export default function Store() {
                   <Sparkles className="w-3 h-3" />
                   {prod.category}
                 </span>
-                <span className="text-lg font-grotesk font-bold text-primary">{formatPrice(prod.price)}</span>
+                <span className="text-lg font-grotesk font-bold text-primary">{formatPrice(prod.price, currency)}</span>
               </div>
 
               <div>

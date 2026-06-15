@@ -346,6 +346,8 @@ class SupportRequestResponse(BaseModel):
 class ChatRequest(BaseModel):
     message: str
     session_id: Optional[str] = None
+    name: Optional[str] = None
+    email: Optional[str] = None
 
     @field_validator("message")
     @classmethod
@@ -362,10 +364,216 @@ class ChatRequest(BaseModel):
             v = validate_length(v, MAX_SESSION_ID_LEN, "session_id")
         return v
 
+    @field_validator("name")
+    @classmethod
+    def validate_name(cls, v: Optional[str]) -> Optional[str]:
+        if v:
+            v = sanitize_strict(v)
+            v = validate_length(v, MAX_NAME_LEN, "name")
+        return v
+
+    @field_validator("email")
+    @classmethod
+    def validate_email(cls, v: Optional[str]) -> Optional[str]:
+        if v:
+            v = sanitize_input(v)
+            v = validate_length(v, MAX_EMAIL_LEN, "email")
+            if not SAFE_EMAIL_RE.match(v):
+                raise ValueError("Invalid email format.")
+        return v
+
 
 class ChatResponse(BaseModel):
     reply: str
     session_id: Optional[str] = None
+    lead_captured: Optional[bool] = False
+    lead_score: Optional[int] = None
+    lead_status: Optional[str] = None
+    wants_human: Optional[bool] = False
+    suggested_action: Optional[str] = None  # book_call, follow_up, handoff, none
+
+
+class LeadInfoRequest(BaseModel):
+    session_id: str
+    name: Optional[str] = None
+    email: Optional[str] = None
+    phone: Optional[str] = None
+    business_type: Optional[str] = None
+    budget_range: Optional[str] = None
+    requirements: Optional[str] = None
+
+    @field_validator("session_id")
+    @classmethod
+    def validate_sid(cls, v: str) -> str:
+        v = sanitize_strict(v)
+        v = validate_length(v, MAX_SESSION_ID_LEN, "session_id")
+        return v
+
+    @field_validator("name")
+    @classmethod
+    def validate_name(cls, v: Optional[str]) -> Optional[str]:
+        if v:
+            v = sanitize_strict(v)
+            v = validate_length(v, MAX_NAME_LEN, "name")
+        return v
+
+    @field_validator("email")
+    @classmethod
+    def validate_email(cls, v: Optional[str]) -> Optional[str]:
+        if v:
+            v = sanitize_input(v)
+            v = validate_length(v, MAX_EMAIL_LEN, "email")
+            if not SAFE_EMAIL_RE.match(v):
+                raise ValueError("Invalid email format.")
+        return v
+
+    @field_validator("phone")
+    @classmethod
+    def validate_phone(cls, v: Optional[str]) -> Optional[str]:
+        if v:
+            v = sanitize_strict(v)
+            v = validate_length(v, 50, "phone")
+        return v
+
+
+class LeadInfoResponse(BaseModel):
+    status: str
+    session_id: str
+    lead_score: Optional[int] = None
+    lead_status: Optional[str] = None
+
+
+# ──────── CRM / Conversation Schemas ────────
+
+class ConversationResponse(BaseModel):
+    id: str
+    session_id: str
+    visitor_name: Optional[str]
+    visitor_email: Optional[str]
+    visitor_phone: Optional[str]
+    business_type: Optional[str]
+    budget_range: Optional[str]
+    requirements: Optional[str]
+    lead_score: int
+    lead_status: str
+    source_page: Optional[str]
+    is_active: bool
+    wants_human: bool
+    message_count: int
+    created_at: Optional[str]
+    updated_at: Optional[str]
+
+    class Config:
+        from_attributes = True
+
+
+class MessageResponse(BaseModel):
+    id: int
+    sender: str
+    text: str
+    message_type: str
+    created_at: Optional[str]
+
+    class Config:
+        from_attributes = True
+
+
+class ConversationDetailResponse(BaseModel):
+    conversation: ConversationResponse
+    messages: list[MessageResponse]
+
+
+class FollowUpCreate(BaseModel):
+    conversation_id: str
+    email: str
+    name: Optional[str] = None
+    follow_up_type: str = "email"
+    scheduled_at: Optional[str] = None
+
+    @field_validator("email")
+    @classmethod
+    def validate_email(cls, v: str) -> str:
+        v = sanitize_input(v)
+        v = validate_length(v, MAX_EMAIL_LEN, "email")
+        if not SAFE_EMAIL_RE.match(v):
+            raise ValueError("Invalid email format.")
+        return v
+
+
+class FollowUpResponse(BaseModel):
+    id: str
+    conversation_id: str
+    email: str
+    name: Optional[str]
+    lead_status: str
+    follow_up_type: str
+    status: str
+    scheduled_at: Optional[str]
+    sent_at: Optional[str]
+    calendly_link: Optional[str]
+    created_at: Optional[str]
+
+    class Config:
+        from_attributes = True
+
+
+class CalendarBookingRequest(BaseModel):
+    conversation_id: Optional[str] = None
+    name: str
+    email: EmailStr
+    phone: Optional[str] = None
+    preferred_date: Optional[str] = None
+    preferred_time: Optional[str] = None
+    timezone: str = "UTC"
+
+    @field_validator("name")
+    @classmethod
+    def validate_name(cls, v: str) -> str:
+        v = sanitize_strict(v)
+        v = validate_length(v, MAX_NAME_LEN, "name")
+        return v
+
+    @field_validator("phone")
+    @classmethod
+    def validate_phone(cls, v: Optional[str]) -> Optional[str]:
+        if v:
+            v = sanitize_strict(v)
+            v = validate_length(v, 50, "phone")
+        return v
+
+
+class CalendarBookingResponse(BaseModel):
+    status: str
+    message: str
+    meeting_link: Optional[str] = None
+
+
+# ──────── Admin Dashboard Enhanced ────────
+
+class AdminLeadStats(BaseModel):
+    total_leads: int
+    hot_leads: int
+    warm_leads: int
+    cold_leads: int
+    new_leads: int
+    converted_leads: int
+    avg_lead_score: float
+    total_potential_revenue: float
+
+
+class AdminConversationStats(BaseModel):
+    total_conversations: int
+    active_conversations: int
+    human_handoff_requested: int
+    follow_ups_scheduled: int
+    follow_ups_sent: int
+    discovery_calls_booked: int
+
+
+class AdminAnalyticsResponse(BaseModel):
+    leads: AdminLeadStats
+    conversations: AdminConversationStats
+    revenue: Optional[dict] = None
 
 
 # ──────── Analytics Schemas ────────

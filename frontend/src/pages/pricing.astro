@@ -6,6 +6,7 @@ const plans = [
   {
     name: "Starter",
     price: "199",
+    priceInr: "16,517",
     billing: "per month",
     icon: Zap,
     desc: "Perfect for growing teams looking to deploy a chatbot or simple AI tool.",
@@ -22,6 +23,7 @@ const plans = [
   {
     name: "Growth Engine",
     price: "499",
+    priceInr: "41,417",
     billing: "per month",
     icon: MessageSquare,
     desc: "For digital businesses looking to deploy full AI automation workflows.",
@@ -39,6 +41,7 @@ const plans = [
   {
     name: "Enterprise",
     price: "1,299",
+    priceInr: "1,07,817",
     billing: "per month",
     icon: Globe,
     desc: "Custom enterprise automation with dedicated infrastructure and team.",
@@ -56,7 +59,7 @@ const plans = [
 ];
 ---
 
-<Layout title="Premium Automation Subscriptions | LaunchWithAryan AI">
+<Layout title="Premium Automation Subscriptions | AryanForge">
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
     <div class="max-w-2xl mb-14">
       <p class="text-xs font-semibold text-muted uppercase tracking-widest mb-3">Investment Structure</p>
@@ -89,8 +92,10 @@ const plans = [
 
               <p class="text-sm text-secondary mb-4">{plan.desc}</p>
 
-              <div class="mb-5">
-                <span class="text-2xl lg:text-3xl font-grotesk font-bold text-primary">${plan.price}</span>
+              <div class="mb-5" data-price>
+                <span class="text-2xl lg:text-3xl font-grotesk font-bold text-primary">
+                  <span class="price-symbol">$</span><span class="price-value" data-inr={plan.priceInr} data-usd={plan.price}>{plan.price}</span>
+                </span>
                 <span class="text-sm text-muted"> / {plan.billing}</span>
               </div>
 
@@ -118,4 +123,26 @@ const plans = [
       })}
     </div>
   </section>
+
+  <script>
+    function updatePrices() {
+      const currency = localStorage.getItem('preferred_currency') || 'USD';
+      document.querySelectorAll('[data-price]').forEach(el => {
+        const value = el.querySelector('.price-value');
+        const symbol = el.querySelector('.price-symbol');
+        if (!value) return;
+        const inr = value.dataset.inr;
+        const usd = value.dataset.usd;
+        if (currency === 'INR') {
+          value.textContent = inr;
+          if (symbol) symbol.textContent = '₹';
+        } else {
+          value.textContent = usd;
+          if (symbol) symbol.textContent = '$';
+        }
+      });
+    }
+    updatePrices();
+    window.addEventListener('currencyChange', updatePrices);
+  </script>
 </Layout>

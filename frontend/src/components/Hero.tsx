@@ -25,10 +25,10 @@ export default function Hero() {
             </p>
 
             <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-3 mt-10">
-              <a href="/contact" className="btn-primary text-base">
+              <a href="/contact" className="btn-primary text-base min-h-[48px]">
                 Book a Free Call <ArrowRight className="w-4 h-4" />
               </a>
-              <a href="/portfolio" className="btn-secondary text-base">
+              <a href="/portfolio" className="btn-secondary text-base min-h-[48px]">
                 See Our Work
               </a>
             </div>

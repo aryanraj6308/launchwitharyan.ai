@@ -30,7 +30,7 @@ from app.routers.auth import get_current_user, oauth2_scheme
 async def get_authenticated_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
     return await get_current_user(token, db)
 
-logger = logging.getLogger("launchwitharyan.payments")
+logger = logging.getLogger("aryanforge.payments")
 
 router = APIRouter(prefix="/api/payments", tags=["Payments"])
 limiter = Limiter(key_func=get_remote_address)

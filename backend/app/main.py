@@ -10,9 +10,10 @@ from slowapi.errors import RateLimitExceeded
 from slowapi.util import get_remote_address
 
 from app.config import settings
-from app.database import create_tables
-from app.routers import ai, auth, payments, contact, analytics, admin
+from app.database import create_tables, SessionLocal
+from app.routers import ai, auth, payments, contact, analytics, admin, knowledge_ai, flowise_proxy
 from app.security import limit_body_size
+from app.knowledge import seed_knowledge_base
 
 # ─── Logging ───
 logging.basicConfig(
@@ -20,7 +21,7 @@ logging.basicConfig(
     format="%(asctime)s │ %(levelname)s │ %(name)s │ %(message)s",
     datefmt="%Y-%m-%d %H:%M:%S",
 )
-logger = logging.getLogger("launchwitharyan")
+logger = logging.getLogger("aryanforge")
 
 # ─── Rate Limiter ───
 limiter = Limiter(key_func=get_remote_address, default_limits=["200/minute"])
@@ -29,8 +30,16 @@ limiter = Limiter(key_func=get_remote_address, default_limits=["200/minute"])
 # ─── Startup / Shutdown lifecycle ───
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    logger.info("🚀 LaunchWithAryan AI Backend starting up...")
+    logger.info("🚀 AryanForge Backend starting up...")
     create_tables()
+
+    # Seed knowledge base
+    try:
+        db = SessionLocal()
+        seed_knowledge_base(db)
+        db.close()
+    except Exception as e:
+        logger.warning(f"Knowledge base seeding skipped: {e}")
 
     # #4: Warn about default/placeholder secrets
     secret_warnings = settings.check_secrets()
@@ -45,9 +54,9 @@ async def lifespan(app: FastAPI):
 
 # ─── FastAPI App ───
 app = FastAPI(
-    title="LaunchWithAryan AI — Backend API",
+    title="AryanForge — Backend API",
     description=(
-        "Production-grade REST API for the LaunchWithAryan AI Agency Platform. "
+        "Production-grade REST API for the AryanForge Agency Platform. "
         "Handles authentication, AI chat routing (OpenAI/Ollama), "
         "Razorpay payments, lead capture, and analytics tracking."
     ),
@@ -122,7 +131,7 @@ async def security_headers_middleware(request: Request, call_next):
 async def health():
     return {
         "status": "healthy",
-        "service": "LaunchWithAryan AI Backend",
+        "service": "AryanForge Backend",
         "version": "1.0.0",
         "environment": settings.ENVIRONMENT,
     }
@@ -131,6 +140,7 @@ async def health():
 # ─── Routers ───
 app.include_router(auth.router)
 app.include_router(ai.router)
+app.include_router(knowledge_ai.router)
 app.include_router(payments.router)
 app.include_router(contact.router)
 app.include_router(analytics.router)

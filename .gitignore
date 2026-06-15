@@ -45,8 +45,19 @@ test_output.html
 Thumbs.db
 desktop.ini
 
+# Logs
+*.log
+
 # Build Outputs
 frontend/dist/
 backend/*.db
 backend/backend.log
 frontend/public/images/
+
+# Flowise
+backend/flowise/node_modules/
+backend/flowise/package-lock.json
+
+# Database
+*.db
+*.sqlite3

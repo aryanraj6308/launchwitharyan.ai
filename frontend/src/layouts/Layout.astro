@@ -1,7 +1,8 @@
 ---
 import Navbar from '../components/Navbar.tsx';
 import Footer from '../components/Footer.astro';
-import Chatbot from '../components/Chatbot.tsx';
+import ChatbotAI from '../components/ChatbotAI.tsx';
+import CookieConsent from '../components/CookieConsent.tsx';
 import '../styles/global.css';
 
 interface Props {
@@ -12,7 +13,7 @@ interface Props {
 }
 
 const {
-  title = "LaunchWithAryan AI | Premium AI Automations & Web Platforms",
+  title = "AryanForge | Premium AI Automations & Web Platforms",
   description = "A premium luxury technology company crafting high-performance websites, AI systems, and digital tools for forward-thinking enterprises.",
   ogImage = "/images/og-image.svg",
   canonicalURL = Astro.url.href
@@ -20,15 +21,31 @@ const {
 
 const schemaMarkup = {
   "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  "name": "LaunchWithAryan AI",
-  "url": "https://launchwitharyan.ai",
-  "image": ogImage,
+  "@type": "Organization",
+  "name": "AryanForge",
+  "url": "https://aryanforge.com",
+  "logo": "https://aryanforge.com/logo.svg",
+  "image": ogImage.startsWith('http') ? ogImage : `https://aryanforge.com${ogImage}`,
   "description": description,
-  "address": { "@type": "PostalAddress", "addressCountry": "India" },
+  "foundingDate": "2025",
+  "address": {
+    "@type": "PostalAddress",
+    "addressCountry": "IN"
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "aryan@launchwitharyan.ai",
+    "contactType": "sales",
+    "availableLanguage": ["English"]
+  },
+  "sameAs": [
+    "https://aryanforge.com"
+  ],
   "serviceType": [
-    "AI Automation Services", "Premium Web Development",
-    "AI Conversational Chatbots", "SEO Automation Engines"
+    "AI Automation Services",
+    "Premium Web Development",
+    "AI Conversational Chatbots",
+    "SEO Automation Engines"
   ],
   "priceRange": "$$$$"
 };
@@ -44,6 +61,8 @@ const schemaMarkup = {
     <title>{title}</title>
     <meta name="title" content={title} />
     <meta name="description" content={description} />
+    <meta name="keywords" content="AI automation, web development, chatbots, SEO automation, AI agents, lead generation, custom software" />
+    <meta name="author" content="Aryan" />
     <link rel="canonical" href={canonicalURL} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalURL} />
@@ -56,6 +75,9 @@ const schemaMarkup = {
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={ogImage} />
     <meta name="robots" content="index, follow" />
+    <meta name="googlebot" content="index, follow" />
+    <!-- AdSense: replace with your publisher ID when approved -->
+    <!-- <meta name="google-adsense-account" content="ca-pub-xxxxxxxxxxxxxxxx" /> -->
     <link rel="sitemap" href="/sitemap-index.xml" />
     <script type="application/ld+json" is:raw set:html={JSON.stringify(schemaMarkup)} />
     <script is:inline>
@@ -80,6 +102,7 @@ const schemaMarkup = {
 
     <Footer />
 
-    <Chatbot client:load />
+    <ChatbotAI client:load />
+    <CookieConsent client:load />
   </body>
 </html>

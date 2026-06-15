@@ -61,8 +61,8 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
-          <a href="/" className="flex items-center gap-3 shrink-0" aria-label="Home">
-            <img src="/logo.svg" alt="Home" className="h-8 w-auto" loading="eager" decoding="async" />
+          <a href="/" className="flex items-center gap-3 shrink-0" aria-label="AryanForge — Home">
+            <img src="/logo.svg" alt="AryanForge logo" className="h-8 w-auto" loading="eager" decoding="async" />
           </a>
 
           <div className="hidden md:flex items-center gap-1">
@@ -115,14 +115,14 @@ export default function Navbar() {
           <div className="md:hidden flex items-center gap-1">
             <button
               onClick={toggleTheme}
-              className="p-2 text-secondary hover:text-primary transition-colors duration-150"
+              className="p-2.5 text-secondary hover:text-primary transition-colors duration-150 min-h-[44px] min-w-[44px] flex items-center justify-center"
               aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
             >
               {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
             </button>
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 text-secondary hover:text-primary transition-colors duration-150"
+              className="p-2.5 text-secondary hover:text-primary transition-colors duration-150 min-h-[44px] min-w-[44px] flex items-center justify-center"
               aria-label={isOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={isOpen}
             >
@@ -133,14 +133,15 @@ export default function Navbar() {
       </div>
 
       <div
-        className={`md:hidden fixed inset-x-0 top-0 bottom-0 z-[-1] transition-all duration-300 ${
+        className={`md:hidden fixed inset-0 z-40 transition-all duration-300 ${
           isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
         onClick={() => setIsOpen(false)}
       >
+        <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
         <div
-          className={`absolute top-full left-0 right-0 bg-theme-primary border-b border-default transition-all duration-300 origin-top ${
-            isOpen ? 'max-h-[80vh] py-4 opacity-100' : 'max-h-0 py-0 opacity-0'
+          className={`absolute top-full left-0 right-0 bg-theme-primary border-b border-default transition-all duration-300 origin-top overflow-y-auto ${
+            isOpen ? 'max-h-[calc(100vh-64px)] py-4 opacity-100' : 'max-h-0 py-0 opacity-0'
           }`}
           onClick={(e) => e.stopPropagation()}
         >
@@ -150,13 +151,36 @@ export default function Navbar() {
                 key={item.name}
                 href={item.href}
                 onClick={() => setIsOpen(false)}
-                className="block text-sm font-medium text-secondary hover:text-primary py-2.5 px-3 rounded-lg hover:bg-raised transition-colors duration-150"
+                className="block text-sm font-medium text-secondary hover:text-primary py-3 px-3 rounded-lg hover:bg-raised transition-colors duration-150 min-h-[44px]"
               >
                 {item.name}
               </a>
             ))}
-            <div className="pt-3 px-3">
-              <a href="/contact" onClick={() => setIsOpen(false)} className="btn-primary w-full justify-center text-sm">
+            <div className="pt-4 px-3 space-y-2">
+              <div className="flex items-center justify-center gap-1 bg-raised border border-default rounded-lg p-1 w-fit mx-auto">
+                {[{ c: 'INR' as const, l: '₹ INR' }, { c: 'USD' as const, l: '$ USD' }].map((cur) => (
+                  <button key={cur.c}
+                    onClick={() => {
+                      try {
+                        localStorage.setItem('preferred_currency', cur.c);
+                        setCurrencyState(cur.c);
+                        window.dispatchEvent(new Event('currencyChange'));
+                      } catch {}
+                    }}
+                    className={`px-4 py-2 rounded-md text-xs font-medium transition-all cursor-pointer min-h-[44px] ${
+                      currency === cur.c ? 'bg-gold text-darkbg' : 'text-muted hover:text-primary'
+                    }`}
+                  >
+                    {cur.l}
+                  </button>
+                ))}
+              </div>
+              <a href="/login" onClick={() => setIsOpen(false)}
+                className="btn-secondary w-full justify-center text-sm min-h-[44px]">
+                <LogIn className="w-4 h-4" /> Login
+              </a>
+              <a href="/contact" onClick={() => setIsOpen(false)}
+                className="btn-primary w-full justify-center text-sm min-h-[44px]">
                 Start Project
               </a>
             </div>

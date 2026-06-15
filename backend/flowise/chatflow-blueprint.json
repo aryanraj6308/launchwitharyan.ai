@@ -1,0 +1,77 @@
+{
+  "name": "AryanForge AI Consultant",
+  "description": "Full chatbot flow for AryanForge — AI persona, RAG knowledge base, lead extraction, and conversation memory.",
+  "nodes": [
+    {
+      "id": "system-prompt",
+      "name": "System Prompt",
+      "data": {
+        "prompt": "You are Aryan, the founder and lead engineer at AryanForge, a premium AI automation studio.\n\nYOUR PERSONALITY:\n- Professional, confident, and warm. You speak like a technical founder who cares about results.\n- You use \"we\" when referring to AryanForge, \"I\" when giving personal opinions or commitments.\n- You are concise but thorough. Never salesy or pushy.\n\nYOUR SERVICES:\n1. AI Workflow Automation — custom AI agents for lead gen, support, data entry, reporting. ROI in 60-90 days.\n2. Premium Web Platforms — Astro/React sites with sub-100ms load times, SEO-optimized.\n3. AI Conversational Bots — chatbots with RAG, memory, human handoff. Deploy on web, WhatsApp, Slack.\n4. SEO Automation Engine — AI content strategy, auto-blog generation, SERP analysis.\n\nPRICING (use KNOWLEDGE BASE for exact numbers):\n- Starter: $2,499 setup (1 workflow/site), 2-week delivery\n- Growth: $4,999 setup (3 workflows/site), 3-week delivery\n- Enterprise: $9,999+ custom, 4-6 week delivery\n- Chatbots start at $2,499\n\nYOUR GOAL:\n- QUALIFY the lead: ask about their business, pain points, budget, timeline\n- EXTRACT info: name, email, phone, company, budget range\n- Suggest: book a free discovery call via Calendly when they show interest\n- If they want to talk to a human, offer to connect them with Aryan directly\n\nALWAYS:\n- Stay on brand. Never mention competitors by name.\n- If asked something outside your scope, say \"Let me connect you with our team for that.\"\n- Keep responses under 4 paragraphs.\n- End with an open question to continue the conversation.\n- When lead info is collected, offer to book a free discovery call.",
+        "type": "system"
+      },
+      "position": [0, 0]
+    },
+    {
+      "id": "groq-model",
+      "name": "Groq Chat Model",
+      "data": {
+        "model": "llama-3.3-70b-versatile",
+        "temperature": 0.7,
+        "maxTokens": 500,
+        "topP": 1,
+        "frequencyPenalty": 0,
+        "presencePenalty": 0,
+        "credential": "groq-api-key"
+      },
+      "position": [300, 0],
+      "inputs": [
+        { "node": "system-prompt", "output": "prompt" }
+      ]
+    },
+    {
+      "id": "memory",
+      "name": "Conversation Memory",
+      "data": {
+        "type": "buffer",
+        "sessionId": "sessionId",
+        "memoryKey": "chat_history",
+        "returnMessages": true,
+        "maxMessages": 20
+      },
+      "position": [300, 250],
+      "inputs": [
+        { "node": "groq-model", "output": "text" }
+      ]
+    },
+    {
+      "id": "knowledge-base",
+      "name": "Knowledge Base",
+      "data": {
+        "type": "static",
+        "entries": [
+          {"title": "AI Workflow Automation", "content": "Custom AI agents for lead gen, support, data entry, reporting. Discovery -> Architecture -> Build -> Deploy. ROI in 60-90 days. 10x faster workflows, 60% cost reduction."},
+          {"title": "Web Platform Development", "content": "Astro, React, Next.js. Sub-100ms load, SEO-opt, WCAG AA accessible. 5-page site: 2-3wks. Complex platform: 4-8wks. CMS: Sanity, Strapi, WordPress."},
+          {"title": "AI Chatbot Development", "content": "Customer support, lead qualification, sales bots, multi-agent systems. Web, WhatsApp, Telegram, Slack. 24/7, multi-language, human handoff. From $2,499."},
+          {"title": "SEO Automation", "content": "AI keyword research, content generation, technical SEO, Core Web Vitals. 300% avg traffic increase, 850+ keywords top 10."},
+          {"title": "Pricing Starter", "content": "$2,499 setup. 1 AI workflow or landing page. Basic CRM + WhatsApp bot. 1 revision. 2-week delivery."},
+          {"title": "Pricing Growth", "content": "$4,999 setup. 3 AI workflows or multi-page site. Full CRM + WhatsApp + analytics. AI content 5 posts/mo. 3 revisions. 3-week delivery."},
+          {"title": "Pricing Enterprise", "content": "$9,999+ setup. Unlimited workflows. Custom integrations. Dedicated PM. SLA guarantee. Security audit."},
+          {"title": "Tech Stack", "content": "Python FastAPI, PostgreSQL, SQLite, Redis, Astro, React, Tailwind, OpenAI, Groq, LangChain, Ollama, JWT, Razorpay."},
+          {"title": "Founder Contact", "content": "Founder: Aryan. Email: aryan@launchwitharyan.ai. WhatsApp: +918877390736. Calendly for discovery calls."},
+          {"title": "Support Policy", "content": "30-day post-launch support. Premium maintenance from $149/mo: 24/7 monitoring, security updates, performance optimization."},
+          {"title": "FAQ Timeline", "content": "Basic chatbot: 1-2 weeks. Standard with lead qualification: 2-3 weeks. Complex multi-agent: 3-5 weeks."},
+          {"title": "FAQ Security", "content": "7-layer security: SSTI/SQLi protection, brute-force lockout, JWT nonce, HMAC webhooks. Encrypted in transit and rest."}
+        ]
+      },
+      "position": [300, -250],
+      "inputs": [
+        { "node": "system-prompt", "output": "prompt" }
+      ]
+    }
+  ],
+  "edges": [
+    { "source": "system-prompt", "target": "groq-model", "sourceHandle": "prompt", "targetHandle": "prompt" },
+    { "source": "knowledge-base", "target": "groq-model", "sourceHandle": "context", "targetHandle": "context" },
+    { "source": "groq-model", "target": "memory", "sourceHandle": "text", "targetHandle": "input" }
+  ]
+}

@@ -4,7 +4,7 @@ from typing import List
 
 class Settings(BaseSettings):
     # Database
-    DATABASE_URL: str = "postgresql://user:password@localhost:5432/launchwitharyan"
+    DATABASE_URL: str = "postgresql://user:password@localhost:5432/aryanforge"
     SUPABASE_URL: str = ""
     SUPABASE_ANON_KEY: str = ""
 
@@ -24,10 +24,50 @@ class Settings(BaseSettings):
     GROQ_API_KEY: str = ""
 
     # CORS
-    CORS_ORIGINS: str = "http://localhost:4321,https://launchwitharyan.ai"
+    CORS_ORIGINS: str = "http://localhost:4321,https://aryanforge.com"
 
     # Downloads
     DOWNLOADS_DIR: str = ""  # Path to ZIP files; empty = ../frontend/public/downloads relative to backend
+
+    # Email (SMTP)
+    SMTP_HOST: str = ""
+    SMTP_PORT: int = 587
+    SMTP_USER: str = ""
+    SMTP_PASSWORD: str = ""
+    SMTP_FROM: str = "aryan@launchwitharyan.ai"
+    SMTP_FROM_NAME: str = "Aryan @ AryanForge"
+
+    # Calendar / Scheduling
+    CALENDLY_LINK: str = "https://calendly.com/aryanraj6308/discovery-call"
+    GOOGLE_CALENDAR_ID: str = ""
+
+    # WhatsApp (Twilio)
+    TWILIO_ACCOUNT_SID: str = ""
+    TWILIO_AUTH_TOKEN: str = ""
+    TWILIO_WHATSAPP_NUMBER: str = ""
+
+    # Slack / Notion Webhooks
+    SLACK_WEBHOOK_URL: str = ""
+    NOTION_API_KEY: str = ""
+    NOTION_DATABASE_ID: str = ""
+
+    # Google Sheets (for lead export)
+    GOOGLE_SHEETS_CREDENTIALS: str = ""
+
+    # AI Chat Configuration
+    AI_MODEL: str = "gpt-4o-mini"
+    AI_TEMPERATURE: float = 0.7
+    AI_MAX_TOKENS: int = 500
+    ENABLE_KNOWLEDGE_RAG: bool = True
+
+    # Flowise
+    FLOWISE_API_URL: str = "http://localhost:3000"
+    FLOWISE_CHATFLOW_ID: str = ""
+    ENABLE_FLOWISE: bool = False
+
+    # Follow-up
+    FOLLOW_UP_DELAY_HOURS: int = 2  # send follow-up email 2 hours after lead leaves
+    FOLLOW_UP_REMINDER_DAYS: int = 3  # send reminder after 3 days if no response
 
     # Environment
     ENVIRONMENT: str = "development"

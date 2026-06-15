@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, Column, String, Integer, Float, Boolean, Text, DateTime, ForeignKey, JSON
+from sqlalchemy import create_engine, Column, String, Integer, Float, Boolean, Text, DateTime, ForeignKey, JSON, Date, Time
 from sqlalchemy.orm import sessionmaker, declarative_base, relationship
 from sqlalchemy.sql import func
 import uuid
@@ -148,6 +148,122 @@ class AnalyticsEvent(Base):
     page = Column(String, nullable=True)
     user_id = Column(String, nullable=True)
     event_metadata = Column("metadata", Text, nullable=True)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+
+# ──────── AI Knowledge Base ────────
+
+class KnowledgeBase(Base):
+    __tablename__ = "knowledge_base"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    category = Column(String(64), nullable=False, index=True)  # service, pricing, faq, tech, portfolio, policy
+    title = Column(String(255), nullable=False)
+    content = Column(Text, nullable=False)
+    tags = Column(String(512), nullable=True)  # comma-separated keywords
+    priority = Column(Integer, default=0)  # higher = more important
+    is_active = Column(Boolean, default=True)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+    def __repr__(self):
+        return f"<KnowledgeBase {self.category}: {self.title[:50]}>"
+
+
+# ──────── AI Conversations ────────
+
+class Conversation(Base):
+    __tablename__ = "conversations"
+
+    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
+    session_id = Column(String(255), unique=True, nullable=False, index=True)
+    visitor_name = Column(String(255), nullable=True)
+    visitor_email = Column(String(254), nullable=True)
+    visitor_phone = Column(String(50), nullable=True)
+    business_type = Column(String(255), nullable=True)
+    budget_range = Column(String(100), nullable=True)
+    requirements = Column(Text, nullable=True)
+    lead_score = Column(Integer, default=0)  # 0-100
+    lead_status = Column(String(20), default="new")  # new, cold, warm, hot, qualified, converted, lost
+    source_page = Column(String(255), nullable=True)
+    ip_address = Column(String(45), nullable=True)
+    user_agent = Column(String(512), nullable=True)
+    is_active = Column(Boolean, default=True)
+    wants_human = Column(Boolean, default=False)
+    follow_up_scheduled = Column(Boolean, default=False)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), onupdate=func.now())
+
+    messages = relationship("Message", back_populates="conversation", cascade="all, delete-orphan",
+                            order_by="Message.created_at")
+
+
+class Message(Base):
+    __tablename__ = "messages"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    conversation_id = Column(String, ForeignKey("conversations.id", ondelete="CASCADE"), nullable=False, index=True)
+    sender = Column(String(10), nullable=False)  # "user" or "bot"
+    text = Column(Text, nullable=False)
+    message_type = Column(String(50), default="text")  # text, lead_info, handoff_request, booking
+    metadata_json = Column("metadata", Text, nullable=True)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+    conversation = relationship("Conversation", back_populates="messages")
+
+
+# ──────── Lead Scoring Log ────────
+
+class LeadScore(Base):
+    __tablename__ = "lead_scores"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    conversation_id = Column(String, ForeignKey("conversations.id", ondelete="CASCADE"), nullable=False, index=True)
+    score = Column(Integer, nullable=False)
+    budget_score = Column(Integer, default=0)
+    urgency_score = Column(Integer, default=0)
+    intent_score = Column(Integer, default=0)
+    business_size_score = Column(Integer, default=0)
+    reasoning = Column(Text, nullable=True)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+
+# ──────── Follow-ups ────────
+
+class FollowUp(Base):
+    __tablename__ = "follow_ups"
+
+    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
+    conversation_id = Column(String, ForeignKey("conversations.id", ondelete="CASCADE"), nullable=False, index=True)
+    email = Column(String(254), nullable=False)
+    name = Column(String(255), nullable=True)
+    lead_status = Column(String(20), default="warm")
+    follow_up_type = Column(String(50), default="email")  # email, whatsapp, sms
+    subject = Column(String(255), nullable=True)
+    message_template = Column(Text, nullable=True)
+    scheduled_at = Column(DateTime(timezone=True), nullable=True)
+    sent_at = Column(DateTime(timezone=True), nullable=True)
+    status = Column(String(20), default="pending")  # pending, sent, failed, cancelled
+    calendly_link = Column(String(512), nullable=True)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+
+# ──────── Calendar Events / Discovery Calls ────────
+
+class CalendarEvent(Base):
+    __tablename__ = "calendar_events"
+
+    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
+    conversation_id = Column(String, ForeignKey("conversations.id", ondelete="SET NULL"), nullable=True, index=True)
+    name = Column(String(255), nullable=False)
+    email = Column(String(254), nullable=False)
+    phone = Column(String(50), nullable=True)
+    event_type = Column(String(50), default="discovery_call")  # discovery_call, consultation, follow_up
+    preferred_date = Column(Date, nullable=True)
+    preferred_time = Column(Time, nullable=True)
+    timezone = Column(String(50), default="UTC")
+    meeting_link = Column(String(512), nullable=True)
+    status = Column(String(20), default="pending")  # pending, confirmed, completed, cancelled
+    notes = Column(Text, nullable=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
 

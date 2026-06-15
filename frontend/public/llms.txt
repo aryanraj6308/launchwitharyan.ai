@@ -1,0 +1,36 @@
+# AryanForge — AI Automation Studio
+> Premium AI automation, web platforms, and conversational AI for forward-thinking enterprises.
+
+## About
+AryanForge is a premium AI automation studio founded by Aryan. We build custom AI agents, high-performance websites, intelligent chatbots, and SEO automation engines for businesses worldwide.
+
+- **Founder**: Aryan
+- **Email**: aryan@launchwitharyan.ai
+- **WhatsApp**: +918877390736
+- **Website**: https://aryanforge.com
+
+## Key Services
+- [AI Workflow Automation](https://aryanforge.com/services/ai-automation) — Custom AI agents for lead gen, support, data entry, and reporting. ROI in 60-90 days.
+- [Premium Web Platforms](https://aryanforge.com/services/web-platforms) — Astro/React sites with sub-100ms load times, SEO-optimized and WCAG AA accessible.
+- [AI Chatbot Development](https://aryanforge.com/services/ai-bots) — Intelligent chatbots with RAG, memory, and human handoff. Deploy on web, WhatsApp, Slack.
+- [SEO Automation Engine](https://aryanforge.com/services/seo-automation) — AI content strategy, auto-blog generation, SERP analysis.
+
+## Pricing
+- **Starter** — $2,499 setup (1 workflow/site), 2-week delivery
+- **Growth** — $4,999 setup (3 workflows/site), 3-week delivery
+- **Enterprise** — $9,999+ custom, 4-6 week delivery
+- Chatbots starting at $2,499 | Maintenance plans from $149/mo
+
+## Tech Stack
+Python FastAPI, PostgreSQL, Astro, React, Tailwind, OpenAI GPT-4o-mini, Groq Llama 3.3, LangChain, Ollama, JWT, Razorpay
+
+## Portfolio Highlights
+- Synthetix LLM Sentiment Engine — 94% accuracy in sentiment trends
+- Linear-UX Corporate Architecture — 100/100 Core Web Vitals
+- Supabase Realtime CRM — 450+ hours saved per month
+
+## Links
+- [Portfolio/Case Studies](https://aryanforge.com/portfolio)
+- [AI Store](https://aryanforge.com/store)
+- [Blog](https://aryanforge.com/blog)
+- [Contact](https://aryanforge.com/contact)
