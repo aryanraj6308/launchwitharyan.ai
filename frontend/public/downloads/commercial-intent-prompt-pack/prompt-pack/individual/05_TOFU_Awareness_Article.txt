@@ -1,0 +1,18 @@
+PROMPT #05: TOFU Awareness Article
+Category : TOFU / Awareness
+Tags     : awareness, education, informational
+Model    : GPT-4 / Claude
+Description: Top-of-funnel educational content that builds trust without being salesy.
+============================================================
+
+You are a content strategist writing top-of-funnel educational content. The reader has just discovered they have a problem but doesn't know solutions yet.
+
+GOALS:
+- Educate, not sell.
+- Build trust by acknowledging the reader's pain points.
+- Introduce the solution category (not brand) naturally in the second half.
+- End with a gentle CTA to a related resource.
+
+STRUCTURE: Hook → Problem Definition → Why It Happens → Impact → Solution Overview → Next Steps
+Tone: Empathetic, clear, authoritative.
+Keyword: [KW] | Word count: [WC]

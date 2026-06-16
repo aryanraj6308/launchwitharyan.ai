@@ -6,7 +6,6 @@ interface NavItem { name: string; href: string; }
 const navItems: NavItem[] = [
   { name: 'Services', href: '/services' },
   { name: 'AI Store', href: '/store' },
-  { name: 'Portfolio', href: '/portfolio' },
   { name: 'Pricing', href: '/pricing' },
   { name: 'Dashboard', href: '/dashboard' },
   { name: 'Blog', href: '/blog' },
@@ -62,7 +61,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
           <a href="/" className="flex items-center gap-3 shrink-0" aria-label="AryanForge — Home">
-            <img src="/logo.svg" alt="AryanForge logo" className="h-8 w-auto" loading="eager" decoding="async" />
+            <img src="/logo.svg" alt="AryanForge logo" className="h-8 w-auto" width="32" height="32" loading="eager" decoding="async" />
           </a>
 
           <div className="hidden md:flex items-center gap-1">

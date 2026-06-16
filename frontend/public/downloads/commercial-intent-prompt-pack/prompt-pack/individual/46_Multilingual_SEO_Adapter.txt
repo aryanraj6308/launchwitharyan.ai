@@ -1,0 +1,22 @@
+PROMPT #46: Multilingual SEO Adapter
+Category : SEO Foundation
+Tags     : multilingual, hreflang, localization
+Model    : GPT-4 / Claude
+Description: Adapts English blog posts for international markets with hreflang guidance.
+============================================================
+
+Adapt the following English blog post for the [TARGET_LOCALE] market.
+
+LOCALIZATION RULES:
+- Translate naturally, not literally — idioms must be culturally appropriate.
+- Replace US-specific examples with [TARGET_COUNTRY] equivalents.
+- Adapt currency, units, date formats to local standard.
+- Local keyword: [LOCAL_KW] — use in place of English primary KW.
+- Adjust regulatory references for [COUNTRY] law.
+- Mark any section needing local expert review: [LOCAL_REVIEW NEEDED].
+
+TECHNICAL:
+- Output hreflang tag suggestion for this locale.
+- JSON: include 'locale', 'primaryKW', 'localKeyword', 'country' fields.
+
+Source post: [CONTENT] | Target locale: [LOCALE] | Local KW: [LOCAL_KW]

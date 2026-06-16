@@ -1,0 +1,27 @@
+PROMPT #50: Full Blog Post + JSON Package
+Category : JSON Metadata
+Tags     : full-package, JSON, complete
+Model    : GPT-4 / Claude
+Description: End-to-end prompt: writes the full post AND outputs complete JSON metadata package.
+============================================================
+
+Write a complete, publish-ready blog post AND output the full JSON metadata package.
+
+STEP 1 — OUTLINE (output first for approval):
+[Markdown outline with H1-H3 hierarchy]
+
+STEP 2 — FULL POST:
+[Complete blog post following the outline]
+
+STEP 3 — JSON PACKAGE:
+```json
+{
+  "postMeta": {"title": "", "slug": "", "metaTitle": "", "metaDesc": "", "primaryKW": "", "secondaryKWs": [], "wordCount": 0, "readingLevel": "", "intent": ""},
+  "seoMeta": {"schemaTypes": [], "faqSchema": [], "internalLinkOpportunities": []},
+  "contentMeta": {"ctaCount": 0, "ctaText": [], "keyStats": [], "factCheckItems": []},
+  "publishChecklist": {"hallucinations": "checked", "ctaPresent": true, "metaComplete": true}
+}
+```
+
+GUARDRAILS: All hallucination rules apply. Fill wordCount by counting, not estimating.
+Topic: [TOPIC] | KW: [KW] | Word count: [WC]

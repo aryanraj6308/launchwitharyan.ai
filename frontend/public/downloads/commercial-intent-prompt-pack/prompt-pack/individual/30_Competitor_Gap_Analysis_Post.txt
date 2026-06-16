@@ -1,0 +1,23 @@
+PROMPT #30: Competitor Gap Analysis Post
+Category : SEO Foundation
+Tags     : gap, competitive, SERP
+Model    : GPT-4 / Claude
+Description: Identifies and fills topic gaps that competitors rank for but you don't.
+============================================================
+
+Write a blog post that captures search traffic currently going to competitor content by covering their topic gaps and doing it better.
+
+STRATEGY:
+1. Open with the angle competitors miss (provided in [COMPETITOR_GAPS]).
+2. Go 2x deeper on at least 3 subtopics.
+3. Add unique value: original framework, analogy, checklist, or tool suggestion.
+4. Better structure: more specific H2s, cleaner organization.
+5. Faster answers: answer intent in first 100 words.
+
+MARK opportunities: [BEATS COMPETITOR: how this section is better]
+
+GUARDRAILS:
+- Do not copy competitor content.
+- All added claims must be factual or clearly framed as opinion.
+
+Topic: [TOPIC] | Competitor gaps: [GAPS] | KW: [KW]

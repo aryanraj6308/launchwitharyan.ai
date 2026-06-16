@@ -1,0 +1,26 @@
+PROMPT #39: Repurpose to LinkedIn / Twitter Thread
+Category : Conversion Copy
+Tags     : repurpose, social, distribution
+Model    : GPT-4 / Claude
+Description: Converts blog posts into LinkedIn articles or Twitter/X thread format.
+============================================================
+
+Repurpose the following blog post into two formats:
+
+FORMAT 1 — LinkedIn Article (600-800 words):
+- Professional tone, first-person.
+- Open with a strong hook (not the blog intro).
+- Restructure for scan-reading (short paragraphs, line breaks).
+- End with a question to drive comments.
+
+FORMAT 2 — Twitter/X Thread (10-15 tweets):
+- Tweet 1: Bold hook with numbers or surprise.
+- Tweets 2-13: One insight per tweet, numbered.
+- Final tweet: CTA + blog link placeholder.
+
+GUARDRAILS:
+- Preserve all factual claims exactly.
+- No invented stats.
+- Add '(1/N)' numbering to thread tweets.
+
+Blog post: [CONTENT]

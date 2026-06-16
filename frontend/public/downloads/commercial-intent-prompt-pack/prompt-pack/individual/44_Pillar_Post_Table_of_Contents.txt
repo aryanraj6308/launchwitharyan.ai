@@ -1,0 +1,24 @@
+PROMPT #44: Pillar Post Table of Contents
+Category : Structured Outline
+Tags     : TOC, navigation, anchor
+Model    : GPT-4 / Claude
+Description: Generates anchor-linked table of contents for long-form pillar content.
+============================================================
+
+Generate a full table of contents for the following long-form pillar post with anchor link formatting.
+
+FORMAT:
+## Table of Contents
+1. [Section Name](#anchor-slug)
+2. [Section Name](#anchor-slug)
+...
+
+ANCHOR RULES:
+- Slugify each H2/H3 title: lowercase, hyphens, no special chars.
+- H2 = numbered in TOC; H3 = indented sub-items.
+- Include estimated read time per section: (approx N min)
+- Mark any section flagged [THIN CONTENT] from previous review.
+
+JSON output: 'toc' array with {title, anchor, level, estimatedMinutes}.
+
+Post outline/content: [CONTENT]

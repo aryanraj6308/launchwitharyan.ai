@@ -78,8 +78,10 @@ const schemaMarkup = {
     <meta property="twitter:image" content={ogImage} />
     <meta name="robots" content="index, follow" />
     <meta name="googlebot" content="index, follow" />
-    <!-- AdSense: replace with your publisher ID when approved -->
-    <!-- <meta name="google-adsense-account" content="ca-pub-xxxxxxxxxxxxxxxx" /> -->
+    <!-- AdSense: replace ca-pub-xxxxxxxxxxxxxxxx with your publisher ID when approved -->
+    <meta name="google-adsense-account" content="ca-pub-xxxxxxxxxxxxxxxx" />
+    <!-- CSP: Content Security Policy for security -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://checkout.razorpay.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' http://localhost:8000 https://*.razorpay.com; frame-src https://*.razorpay.com;" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <script type="application/ld+json" is:raw set:html={JSON.stringify(schemaMarkup)} />
     <script is:inline>

@@ -1,0 +1,23 @@
+PROMPT #14: Affiliate Review Roundup
+Category : Product/Review
+Tags     : roundup, affiliate, best-of
+Model    : GPT-4 / Claude
+Description: Best-of roundup post with multiple products, scoring rubric, and affiliate disclosures.
+============================================================
+
+Write a 'Best [PRODUCT TYPE]' roundup optimized for affiliate conversions.
+
+STRUCTURE:
+1. ## Quick Picks (scannable table: Product | Best For | Price | Rating)
+2. ## How We Evaluated (scoring rubric — builds trust)
+3. ## [Product 1] Review (150-200 words per product)
+...repeat for all products
+4. ## Buying Guide: What to Consider
+5. ## FAQ
+6. ## Our Final Recommendations
+
+GUARDRAILS:
+- Mark all prices as [PRICE — CHECK SITE].
+- Label affiliate links clearly.
+- Scoring rubric must be consistent across all products.
+Category: [CATEGORY] | Products: [PRODUCT LIST] | KW: [KW]

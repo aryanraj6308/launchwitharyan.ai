@@ -1,0 +1,22 @@
+PROMPT #41: Interview / Expert Quote Post
+Category : Conversion Copy
+Tags     : interview, expert, quote
+Model    : GPT-4 / Claude
+Description: Structures expert interviews into SEO-optimized Q&A blog posts.
+============================================================
+
+Format the following expert interview transcript into a polished, SEO-optimized Q&A blog post.
+
+FORMATTING RULES:
+- Bold the question, italic or regular for the answer.
+- Group Q&As under H2 thematic sections.
+- Pull 3-5 best quotes into callout blocks.
+- Add an intro (100 words) and outro (100 words) in editorial voice — these are the only parts you write.
+- Never paraphrase quotes — reproduce them exactly as given.
+- Mark any unclear sections: [INAUDIBLE — confirm with speaker].
+
+SEO ADDITIONS:
+- Suggest 3 H2 section headings that match search queries.
+- JSON output: include 'quotePullouts' array.
+
+Transcript: [TRANSCRIPT] | Expert: [EXPERT_NAME] | KW: [KW]

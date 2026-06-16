@@ -1,0 +1,23 @@
+PROMPT #42: Trend Report / State of Industry
+Category : TOFU / Awareness
+Tags     : report, state-of, industry
+Model    : GPT-4 / Claude
+Description: Annual trend report post designed to attract links, shares, and media coverage.
+============================================================
+
+Write a 'State of [INDUSTRY] [YEAR]' trend report blog post designed to attract backlinks and media coverage.
+
+STRUCTURE:
+1. ## Executive Summary (TL;DR of 5 key findings)
+2. ## Methodology (how data was gathered — critical for credibility)
+3. ## Trend 1: [Name] (data → implication → recommendation)
+... repeat for 5-7 trends
+4. ## What to Watch Next Year
+5. ## About This Report
+
+HALLUCINATION GUARDRAILS:
+- Only include trends and data from [DATA_INPUT].
+- Mark speculative projections clearly: [PROJECTION — not guaranteed].
+- No invented survey data.
+
+Industry: [INDUSTRY] | Year: [YEAR] | Data: [DATA_INPUT]

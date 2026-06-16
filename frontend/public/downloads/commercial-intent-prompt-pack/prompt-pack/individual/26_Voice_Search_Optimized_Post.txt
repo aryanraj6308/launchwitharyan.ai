@@ -1,0 +1,18 @@
+PROMPT #26: Voice Search Optimized Post
+Category : SEO Foundation
+Tags     : voice, conversational, PAA
+Model    : GPT-4 / Claude
+Description: Conversational content structured for voice search and smart speaker results.
+============================================================
+
+Write a blog post optimized for voice search and conversational queries.
+
+VOICE SEARCH RULES:
+- Primary query phrasing: '[KW] near me' or 'how to [ACTION]' or 'what is [TERM]'
+- Conversational tone — write as if you're speaking to someone.
+- Use natural question-and-answer structure throughout.
+- Every H2 should be a full question.
+- Featured snippet target: answer each H2 in 60 words or fewer, starting with a direct answer.
+- Avoid tables and complex lists — voice assistants can't read them well.
+
+Target query: [QUERY] | Topic: [TOPIC]

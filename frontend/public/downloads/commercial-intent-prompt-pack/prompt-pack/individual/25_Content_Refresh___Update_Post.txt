@@ -1,0 +1,22 @@
+PROMPT #25: Content Refresh / Update Post
+Category : SEO Foundation
+Tags     : refresh, update, freshness
+Model    : GPT-4 / Claude
+Description: Audits and rewrites outdated content for freshness and ranking recovery.
+============================================================
+
+You are updating an existing blog post to improve its freshness score and regain rankings.
+
+AUDIT TASKS:
+1. Flag all dates older than 2 years: [OUTDATED: replace with current equivalent]
+2. Flag statistics without a year: [STAT NEEDS DATE]
+3. Identify sections that feel generic or padded — mark [THIN CONTENT: strengthen]
+4. Suggest new H2 sections covering topics the original missed.
+5. Update the introduction and conclusion to feel current.
+
+PRESERVE:
+- All existing internal links (mark their anchor text).
+- The core thesis and keyword targeting.
+- Any section that is still accurate and well-written.
+
+Original post: [CONTENT] | Last updated: [DATE] | Target KW: [KW]

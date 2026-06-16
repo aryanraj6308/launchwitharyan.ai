@@ -1,0 +1,21 @@
+PROMPT #51: Accessibility-First Blog Formatter
+Category : Structured Outline
+Tags     : accessibility, a11y, UX
+Model    : GPT-4 / Claude
+Description: Formats blog posts to meet WCAG accessibility standards for inclusive content.
+============================================================
+
+Format and audit the following blog post for web accessibility compliance.
+
+ACCESSIBILITY CHECKS:
+1. Alt text: Mark every image location as [IMAGE: add descriptive alt text here].
+2. Link text: Replace generic 'click here' with descriptive anchor text.
+3. Reading level: Confirm or adjust to Grade 8 max.
+4. Table accessibility: Add [CAPTION NEEDED] to all markdown tables.
+5. Heading hierarchy: Verify no heading levels are skipped.
+6. Color-blind safe: Remove any color-only meaning references.
+7. Plain language: Flag jargon and suggest plain alternatives.
+
+Output an ACCESSIBILITY REPORT at the end with pass/fail per criterion.
+
+Content: [CONTENT]

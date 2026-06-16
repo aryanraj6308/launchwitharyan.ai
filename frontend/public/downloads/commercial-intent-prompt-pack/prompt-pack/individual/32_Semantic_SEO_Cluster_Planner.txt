@@ -1,0 +1,23 @@
+PROMPT #32: Semantic SEO Cluster Planner
+Category : Structured Outline
+Tags     : topic-cluster, pillar, siloing
+Model    : GPT-4 / Claude
+Description: Plans a full topic cluster with pillar and spoke content mapped by intent.
+============================================================
+
+Plan a topic cluster for [CORE_TOPIC] that will establish topical authority.
+
+DELIVERABLES:
+1. Pillar Page: title + H2 outline
+2. 8-12 Spoke Articles: title, target KW, intent (info/commercial/transactional), recommended word count
+3. Internal Link Map: which spokes link to pillar and to each other
+4. Content Priority Order (quick wins first)
+
+FORMAT: Markdown table for spoke articles.
+JSON output: include 'cluster' object with all articles as an array.
+
+GUARDRAILS:
+- Every spoke must serve a distinct search intent.
+- No keyword cannibalization (flag if two articles target same KW).
+
+Core topic: [CORE_TOPIC] | Site niche: [NICHE]

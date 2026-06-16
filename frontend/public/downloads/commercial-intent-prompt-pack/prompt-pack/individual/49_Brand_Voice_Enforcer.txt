@@ -1,0 +1,23 @@
+PROMPT #49: Brand Voice Enforcer
+Category : Anti-Hallucination
+Tags     : brand-voice, tone, consistency
+Model    : GPT-4 / Claude
+Description: Rewrites AI output to match a specific brand voice guide.
+============================================================
+
+Rewrite the following content to match our brand voice precisely.
+
+BRAND VOICE PARAMETERS:
+- Tone: [TONE] (e.g., 'authoritative but approachable, like a trusted advisor')
+- Vocabulary: PREFER [PREFERRED_WORDS] | AVOID [BANNED_WORDS]
+- Sentence style: [STYLE] (e.g., short punchy sentences, or complex multi-clause)
+- Personality traits: [TRAITS]
+- What we never say: [NEVER_SAY]
+- Example of on-brand writing: [EXAMPLE_PARAGRAPH]
+
+RULES:
+- Do not change facts, only presentation.
+- Flag any section where voice guidance conflicts with clarity: [VOICE CONFLICT].
+- Output a score (1-10) for how closely the rewrite matches the voice guide.
+
+Content: [CONTENT] | Voice guide: [VOICE_GUIDE]

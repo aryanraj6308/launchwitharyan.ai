@@ -1,0 +1,17 @@
+PROMPT #08: Listicle Conversion Post
+Category : Conversion Copy
+Tags     : listicle, clicks, engagement
+Model    : GPT-4 / Claude
+Description: High-CTR listicle format with intro hooks, numbered entries, and embedded CTAs.
+============================================================
+
+Write a conversion-optimized listicle blog post. Listicles must drive clicks AND conversions — not just traffic.
+
+RULES:
+- Title formula: [Number] [Adjective] [Things] That [Benefit]
+- Each list item: Bold headline → 80-120 word explanation → micro-CTA or stat
+- Embed 2 internal CTAs (not at the end only): one mid-post, one at conclusion.
+- Use pattern interrupts: callout boxes, pro tips, warnings formatted in blockquotes.
+- Avoid fluff — every sentence must earn its place.
+
+Number of items: [N] | Keyword: [KW] | Audience: [AUDIENCE]

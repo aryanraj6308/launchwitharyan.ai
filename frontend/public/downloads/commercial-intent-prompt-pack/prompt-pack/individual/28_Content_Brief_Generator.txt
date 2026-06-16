@@ -1,0 +1,25 @@
+PROMPT #28: Content Brief Generator
+Category : Structured Outline
+Tags     : brief, strategy, planning
+Model    : GPT-4 / Claude
+Description: Full content brief document for assigning to writers, with all SEO parameters.
+============================================================
+
+Generate a detailed content brief for a writer to execute on the following topic.
+
+BRIEF MUST INCLUDE:
+1. Post goal (traffic? leads? sales?)
+2. Target reader persona
+3. Primary keyword + monthly volume placeholder
+4. Secondary + LSI keywords
+5. Recommended word count
+6. Tone and style guide (3-5 rules)
+7. Competitor posts to beat (mark as [MANUALLY ADD URLS])
+8. Required sections with notes per section
+9. Internal links to include
+10. CTA instructions
+11. Content guardrails (what NOT to say)
+12. JSON metadata template to fill out
+
+Output as a well-structured markdown document suitable for sharing with a writer.
+Topic: [TOPIC] | KW: [KW] | Goal: [GOAL]

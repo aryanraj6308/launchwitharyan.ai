@@ -1,0 +1,25 @@
+PROMPT #36: Objection Handling Content
+Category : Conversion Copy
+Tags     : objections, trust, MOFU
+Model    : GPT-4 / Claude
+Description: Mid-funnel content that proactively handles buyer objections to increase conversion.
+============================================================
+
+Write a blog post that addresses common objections buyers have about [PRODUCT/SERVICE/CATEGORY].
+
+STRUCTURE (for each objection):
+- H2: State the objection as the reader would say it ('But isn't [X] too expensive?')
+- Acknowledge the objection genuinely.
+- Provide evidence-based reframe.
+- Real-world example or social proof placeholder.
+- Micro-CTA.
+
+OBJECTIONS TO ADDRESS:
+[OBJECTION_LIST]
+
+GUARDRAILS:
+- Never dismiss objections or be condescending.
+- Do not fabricate testimonials — use [QUOTE: INSERT REAL TESTIMONIAL].
+- Never make pricing claims — use [PRICING — check current rates].
+
+Product: [PRODUCT] | KW: [KW]

@@ -13,7 +13,6 @@ const footerLinks = [
   {
     heading: 'Company',
     links: [
-      { label: 'Portfolio', href: '/portfolio' },
       { label: 'Pricing', href: '/pricing' },
       { label: 'Blog', href: '/blog' },
       { label: 'Contact', href: '/contact' },
@@ -38,7 +37,7 @@ const footerLinks = [
     <div class="grid grid-cols-2 md:grid-cols-4 gap-10 lg:gap-12">
       <div class="col-span-2 md:col-span-1">
         <a href="/" class="block mb-4 w-fit" aria-label="AryanForge — Home">
-          <img src="/logo.svg" alt="AryanForge logo" class="h-7 w-auto" />
+          <img src="/logo.svg" alt="AryanForge logo" class="h-7 w-auto" width="28" height="28" />
         </a>
         <p class="text-sm text-secondary leading-relaxed max-w-[240px]">
           Premium AI automation and web development studio crafting enterprise-grade digital solutions.
@@ -63,6 +62,13 @@ const footerLinks = [
       <p class="text-xs text-muted">
         &copy; {currentYear} AryanForge. All rights reserved.
       </p>
+      <!-- AdSense Footer Ad Unit (placeholder) -->
+      <div class="ad-container" style="display:none;">
+        <ins class="adsbygoogle"
+          style="display:inline-block;width:728px;height:90px"
+          data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
+          data-ad-slot="xxxxxxxxxx"></ins>
+      </div>
     </div>
   </div>
 </footer>

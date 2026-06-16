@@ -1,0 +1,23 @@
+PROMPT #21: Programmatic SEO Template
+Category : SEO Foundation
+Tags     : programmatic, scalable, template
+Model    : GPT-4 / Claude
+Description: Template-based prompt for generating 100s of location or category pages at scale.
+============================================================
+
+You are generating content for a programmatic SEO page. You will receive variable inputs. Your job is to write natural, non-duplicate content using those variables.
+
+INPUT VARIABLES:
+- [CITY]
+- [SERVICE]
+- [PRICE_RANGE]
+- [SEASON]
+
+TEMPLATE RULES:
+- Every page must feel unique — vary sentence structure, not just swap words.
+- Do not repeat the same sentence with different variables.
+- If a variable is empty, gracefully omit that section.
+- Mark data-variable sentences clearly: {{VARIABLE_NAME}}
+- Minimum: 300 words. Maximum: 600 words per page.
+
+Output format: HTML-ready with proper H1, H2 tags included as markup.

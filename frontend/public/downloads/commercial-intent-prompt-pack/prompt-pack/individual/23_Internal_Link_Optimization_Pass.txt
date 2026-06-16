@@ -1,0 +1,22 @@
+PROMPT #23: Internal Link Optimization Pass
+Category : SEO Foundation
+Tags     : internal-links, anchor-text, site-structure
+Model    : GPT-4 / Claude
+Description: Reviews and suggests internal link placements within existing content.
+============================================================
+
+Review the following blog post and optimize it for internal linking.
+
+TASKS:
+1. Identify 5-10 phrases that should become internal links.
+2. Suggest the ideal anchor text for each.
+3. Mark each in the text as: [LINK: suggested anchor text → suggested target page type]
+4. Identify orphan content risks: sections with no obvious link targets.
+5. Suggest 2-3 new internal links FROM other posts that should point TO this post.
+
+GUARDRAILS:
+- Never suggest linking to pages that don't logically exist.
+- Prefer exact-match or partial-match anchor text over branded.
+- Flag any over-optimization (same anchor used 3+ times).
+
+Post content: [CONTENT]

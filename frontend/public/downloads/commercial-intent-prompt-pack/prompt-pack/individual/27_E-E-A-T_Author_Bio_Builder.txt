@@ -1,0 +1,23 @@
+PROMPT #27: E-E-A-T Author Bio Builder
+Category : SEO Foundation
+Tags     : E-E-A-T, author, trust
+Model    : GPT-4 / Claude
+Description: Generates structured author bios that satisfy Google's E-E-A-T requirements.
+============================================================
+
+Write an E-E-A-T-optimized author bio for a blog post on [TOPIC].
+
+E-E-A-T ELEMENTS TO INCLUDE:
+- Experience: years in the field, hands-on work done.
+- Expertise: credentials, certifications, publications.
+- Authoritativeness: media mentions, speaking, recognitions.
+- Trustworthiness: editorial standards, fact-checking process.
+
+FORMAT:
+- Short bio (50 words): for post footer.
+- Long bio (150 words): for author page.
+- Social proof bullets (3-5 one-liners for sidebar display).
+- Schema output: 'author' JSON-LD block.
+
+Only use information provided in [AUTHOR_DATA]. Mark any gaps as [NEEDS INFO].
+Author data: [AUTHOR_DATA] | Topic niche: [NICHE]

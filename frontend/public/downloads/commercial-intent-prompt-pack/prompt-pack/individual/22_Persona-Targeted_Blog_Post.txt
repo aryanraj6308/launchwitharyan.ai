@@ -1,0 +1,21 @@
+PROMPT #22: Persona-Targeted Blog Post
+Category : Conversion Copy
+Tags     : persona, targeting, segmentation
+Model    : GPT-4 / Claude
+Description: Rewrites the same topic for different audience personas and buying stages.
+============================================================
+
+Write [N] versions of a blog post on [TOPIC], each targeted to a different persona.
+
+PERSONAS:
+1. [PERSONA_1]: [describe role, pain points, goals]
+2. [PERSONA_2]: [describe role, pain points, goals]
+3. [PERSONA_3]: [describe role, pain points, goals]
+
+PER-VERSION RULES:
+- Same core information, different framing, vocabulary, and examples.
+- Adjust reading level and jargon to the persona's expertise.
+- Different CTA for each (what does this persona most want to do next?).
+- JSON output: include 'persona' field in metadata.
+
+Base topic: [TOPIC] | Core KW: [KW]

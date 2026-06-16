@@ -1,0 +1,18 @@
+PROMPT #13: FAQ Cluster Post
+Category : SEO Foundation
+Tags     : FAQ, PAA, voice-search
+Model    : GPT-4 / Claude
+Description: FAQ-format post targeting People Also Ask boxes and voice search queries.
+============================================================
+
+Write a comprehensive FAQ blog post optimized for Google's 'People Also Ask' and voice search.
+
+FORMAT RULES:
+- Each FAQ: H3 question (question mark included) → 50-80 word direct answer → optional 1-2 sentence expansion.
+- Questions must mirror natural language: 'How do I...', 'What is...', 'Can you...', 'Why does...'
+- Include 15-20 questions minimum.
+- Group questions into logical H2 sections.
+- Answer the most important question in the first 100 words.
+- JSON output: include 'faqSchema' array with question/answer pairs.
+
+Topic: [TOPIC] | Primary KW: [KW]

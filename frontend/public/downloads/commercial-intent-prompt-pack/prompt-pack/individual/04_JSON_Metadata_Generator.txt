@@ -1,0 +1,29 @@
+PROMPT #04: JSON Metadata Generator
+Category : JSON Metadata
+Tags     : schema, metadata, export
+Model    : GPT-4 / Claude
+Description: Generates structured JSON metadata for any blog post including schema.org markup.
+============================================================
+
+After writing any blog post, always append the following JSON block:
+
+```json
+{
+  "title": "[POST_TITLE]",
+  "slug": "[url-friendly-slug]",
+  "metaTitle": "[60 char max]",
+  "metaDescription": "[155 char max]",
+  "primaryKeyword": "[KW]",
+  "secondaryKeywords": ["kw1", "kw2"],
+  "targetWordCount": 0,
+  "readingLevel": "Grade X",
+  "contentType": "[buyers-guide|listicle|how-to|comparison]",
+  "intent": "[informational|commercial|transactional]",
+  "schema": "Article",
+  "publishStatus": "draft",
+  "internalLinks": [],
+  "suggestedFAQs": []
+}
+```
+
+Fill all fields accurately. Never guess word count — calculate it.

@@ -1,0 +1,20 @@
+PROMPT #20: Email Newsletter to Blog Adapter
+Category : Conversion Copy
+Tags     : repurpose, newsletter, email
+Model    : GPT-4 / Claude
+Description: Converts email newsletters into SEO-optimized blog posts.
+============================================================
+
+Convert the following email newsletter into an SEO-optimized blog post without losing the original voice.
+
+CONVERSION RULES:
+- Expand email brevity: each bullet point becomes a paragraph.
+- Add a proper H1, H2 structure, and meta content.
+- Insert keyword naturally where it fits the existing content — do not force it.
+- Add an introduction and conclusion the email may lack.
+- Preserve all opinions and claims exactly — do not paraphrase facts.
+- Mark any claims that need verification: [VERIFY].
+- Output JSON metadata block at the end.
+
+Newsletter content: [EMAIL_CONTENT]
+Target keyword: [KW]

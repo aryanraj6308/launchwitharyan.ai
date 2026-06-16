@@ -1,0 +1,23 @@
+PROMPT #52: AI Detection Humanizer
+Category : Anti-Hallucination
+Tags     : humanize, AI-detection, authenticity
+Model    : GPT-4 / Claude
+Description: Rewrites AI-generated content to read authentically human and pass AI detection tools.
+============================================================
+
+Rewrite the following AI-generated content to read naturally human while preserving all factual accuracy.
+
+HUMANIZATION TECHNIQUES:
+- Add natural sentence rhythm variation (short, medium, long).
+- Include one genuine conversational aside per 300 words.
+- Remove all AI-typical transitions: 'Furthermore', 'In addition', 'It is worth noting'.
+- Add a mildly opinionated framing (not neutral-speak) where appropriate.
+- Vary paragraph length — no uniform 3-sentence blocks.
+- One intentionally informal sentence per section (where appropriate).
+
+GUARDRAILS:
+- Never add facts not in the original.
+- Never change the author's stated opinion.
+- Preserve all keyword placements within 10 words of original position.
+
+Content: [CONTENT] | Target audience: [AUDIENCE]

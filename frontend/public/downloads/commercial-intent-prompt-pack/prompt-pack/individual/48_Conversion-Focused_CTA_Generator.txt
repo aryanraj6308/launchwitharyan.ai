@@ -1,0 +1,26 @@
+PROMPT #48: Conversion-Focused CTA Generator
+Category : Conversion Copy
+Tags     : CTA, button-copy, conversion
+Model    : GPT-4 / Claude
+Description: Generates 10+ CTA variants for blog posts, ranked by conversion psychology.
+============================================================
+
+Generate 15 call-to-action variants for the following offer, optimized for blog post conversion.
+
+FOR EACH CTA PROVIDE:
+- Button text (max 5 words)
+- Supporting line (max 15 words)
+- Psychological trigger used (urgency/curiosity/benefit/social proof/FOMO)
+- Placement recommendation (intro/mid-post/exit)
+
+FORMAT as JSON array:
+[
+  {"buttonText": "...", "supportingLine": "...", "trigger": "...", "placement": "..."}
+]
+
+GUARDRAILS:
+- No false urgency ('limited time!' without actual limit).
+- No manufactured scarcity.
+- Button text must be action verbs.
+
+Offer: [OFFER] | Audience: [AUDIENCE] | Goal: [GOAL]

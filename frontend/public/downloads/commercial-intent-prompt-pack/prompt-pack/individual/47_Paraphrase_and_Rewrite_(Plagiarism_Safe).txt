@@ -1,0 +1,23 @@
+PROMPT #47: Paraphrase & Rewrite (Plagiarism Safe)
+Category : Anti-Hallucination
+Tags     : rewrite, originality, plagiarism
+Model    : GPT-4 / Claude
+Description: Rewrites source material into 100% original content while preserving accuracy.
+============================================================
+
+Rewrite the following source content as a completely original blog post that passes plagiarism detection.
+
+REWRITE RULES:
+- Change sentence structure, not just synonyms.
+- Reorganize the information flow.
+- Add your own connecting tissue and transitions.
+- Use a different opening and closing.
+- Never copy more than 5 consecutive words from the source.
+
+GUARDRAILS:
+- Preserve all factual claims exactly — accuracy > originality.
+- Mark any claim you're uncertain about: [VERIFY — check source].
+- Do not add information not in the source.
+- Output a 'Changes Made' summary at the end.
+
+Source: [SOURCE_CONTENT] | Target KW: [KW]

@@ -33,8 +33,8 @@ export default function Hero() {
               <a href="/contact" className="btn-primary text-base min-h-[48px]">
                 Book a Free Call <ArrowRight className="w-4 h-4" />
               </a>
-              <a href="/portfolio" className="btn-secondary text-base min-h-[48px]">
-                <Play className="w-4 h-4" /> See Our Work
+              <a href="/services" className="btn-secondary text-base min-h-[48px]">
+                <Play className="w-4 h-4" /> Our Services
               </a>
             </div>
 

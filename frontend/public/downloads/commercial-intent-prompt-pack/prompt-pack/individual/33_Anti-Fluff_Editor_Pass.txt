@@ -1,0 +1,24 @@
+PROMPT #33: Anti-Fluff Editor Pass
+Category : Anti-Hallucination
+Tags     : editing, concise, quality
+Model    : GPT-4 / Claude
+Description: Strips filler sentences, passive voice, and AI clichés from generated content.
+============================================================
+
+Edit the following blog post draft to eliminate AI-generated fluff and weak writing.
+
+FLUFF PATTERNS TO DELETE:
+- 'In today's digital landscape'
+- 'It's important to note that'
+- 'In conclusion, it is clear that'
+- 'As we have seen in this article'
+- Any sentence that doesn't add information
+- Any paragraph that restates the intro in different words
+
+STRENGTHEN:
+- Replace every passive voice sentence with active voice.
+- Replace vague adjectives (great, amazing, effective) with specific ones.
+- Cut word count by 15-20% while preserving all information.
+- Flag any remaining weak sentences: [WEAK — strengthen this]
+
+Draft: [CONTENT]

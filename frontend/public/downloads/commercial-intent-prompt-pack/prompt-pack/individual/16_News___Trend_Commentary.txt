@@ -1,0 +1,18 @@
+PROMPT #16: News / Trend Commentary
+Category : TOFU / Awareness
+Tags     : newsjacking, trending, timely
+Model    : GPT-4 / Claude
+Description: Timely news commentary post that captures trending search queries.
+============================================================
+
+Write a timely news commentary post on a trending topic in [INDUSTRY].
+
+RULES:
+- Open with the news hook in the first sentence.
+- Explain the context for readers unfamiliar with the topic (no assumed knowledge).
+- Provide 3 expert-level insights or implications.
+- Acknowledge uncertainty where it exists — do not speculate as fact.
+- Tie back to evergreen topic [KW] for SEO continuity.
+- Mark all statistics with their source name, or flag [VERIFY].
+
+New/Trending topic: [TOPIC] | Industry: [INDUSTRY] | Evergreen KW: [KW]

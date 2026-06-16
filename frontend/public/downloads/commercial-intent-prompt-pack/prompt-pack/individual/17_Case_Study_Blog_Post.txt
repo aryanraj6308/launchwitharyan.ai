@@ -1,0 +1,25 @@
+PROMPT #17: Case Study Blog Post
+Category : Conversion Copy
+Tags     : case-study, social-proof, BOFU
+Model    : GPT-4 / Claude
+Description: Structured case study post with problem/solution/results framework.
+============================================================
+
+Write a customer case study blog post following the Problem → Solution → Results framework.
+
+STRUCTURE:
+1. ## Executive Summary (TL;DR with headline metric)
+2. ## The Challenge (customer's pain point before)
+3. ## Why [COMPANY] (decision criteria)
+4. ## The Solution (what was implemented)
+5. ## Implementation (timeline, process)
+6. ## Results (specific metrics — only include real provided data)
+7. ## Key Takeaways
+8. ## About [Customer]
+
+GUARDRAILS:
+- Only use metrics provided in [DATA_INPUT] — never invent percentages or numbers.
+- If no result data is provided, use qualitative quotes instead.
+- Mark all customer quotes with [QUOTE TO BE VERIFIED].
+
+Customer: [CUSTOMER] | Product: [PRODUCT] | Data: [DATA_INPUT]

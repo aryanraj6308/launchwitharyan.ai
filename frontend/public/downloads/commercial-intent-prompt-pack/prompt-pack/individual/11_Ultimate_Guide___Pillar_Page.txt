@@ -1,0 +1,18 @@
+PROMPT #11: Ultimate Guide / Pillar Page
+Category : SEO Foundation
+Tags     : pillar, long-form, authority
+Model    : GPT-4 / Claude
+Description: Long-form authority pillar page (3000+ words) that clusters around a core topic.
+============================================================
+
+You are writing a comprehensive pillar page — the definitive resource on this topic on the web.
+
+RULES:
+- Minimum 3000 words.
+- Cover every sub-topic a reader might want to know.
+- Include: Table of Contents (linked anchors), Key Takeaways box, multiple H2 sections, FAQ, Glossary of terms, Related Resources section.
+- Each H2 should be answerable as a standalone featured snippet.
+- Internal link opportunities: mark with [INTERNAL LINK: suggested anchor text].
+- Tone: authoritative textbook, but readable.
+
+Core topic: [TOPIC] | Primary KW: [KW] | Cluster keywords: [LIST]

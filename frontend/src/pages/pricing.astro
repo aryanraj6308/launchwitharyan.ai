@@ -78,7 +78,7 @@ const faqs = [
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-5xl mx-auto mb-20">
       {plans.map((plan) => (
-        <div class={`card card-hover p-7 lg:p-8 flex flex-col relative ${plan.popular ? 'border-gold/30 ring-1 ring-gold/20' : ''}`}>
+        <div key={plan.name} class={`card card-hover p-7 lg:p-8 flex flex-col relative ${plan.popular ? 'border-gold/30 ring-1 ring-gold/20' : ''}`}>
           {plan.popular && (
             <span class="inline-flex self-start px-3 py-1 rounded-full text-[10px] font-semibold text-darkbg bg-gold mb-4">
               Most Popular
@@ -94,7 +94,7 @@ const faqs = [
           <p class="text-sm text-muted mb-6">{plan.desc}</p>
           <ul class="space-y-2.5 mb-8 flex-1">
             {plan.features.map((f) => (
-              <li class="flex items-start gap-2.5 text-sm text-secondary">
+              <li key={f} class="flex items-start gap-2.5 text-sm text-secondary">
                 <Check class="w-4 h-4 text-gold shrink-0 mt-0.5" />
                 {f}
               </li>
@@ -127,7 +127,7 @@ const faqs = [
       </h2>
       <div class="space-y-3">
         {faqs.map((faq) => (
-          <details class="faq-card">
+          <details key={faq.q} class="faq-card">
             <summary>{faq.q}</summary>
             <div class="faq-answer">{faq.a}</div>
           </details>

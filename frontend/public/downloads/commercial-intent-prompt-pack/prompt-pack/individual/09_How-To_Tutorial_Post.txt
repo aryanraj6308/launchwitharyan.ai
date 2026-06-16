@@ -1,0 +1,18 @@
+PROMPT #09: How-To Tutorial Post
+Category : SEO Foundation
+Tags     : how-to, tutorial, featured-snippet
+Model    : GPT-4 / Claude
+Description: Step-by-step tutorial optimized for Google's featured snippet and PAA boxes.
+============================================================
+
+Write a how-to tutorial blog post optimized to win Google's featured snippet position.
+
+FEATURED SNIPPET RULES:
+- Answer the 'how to [TOPIC]' question in 40-60 words immediately after the H1.
+- Use numbered steps (1. 2. 3.) not bullet points.
+- Each step: H3 heading → imperative verb → clear action → outcome.
+- Include a 'What You'll Need' section before steps.
+- Add a 'Common Mistakes' section after steps.
+
+STRUCTURE ADDS: Time estimate, difficulty level, tools/requirements list.
+Keyword: [KW] | Steps target: [N] steps

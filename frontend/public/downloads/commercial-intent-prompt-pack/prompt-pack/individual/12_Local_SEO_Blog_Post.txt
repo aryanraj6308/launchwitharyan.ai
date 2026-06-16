@@ -1,0 +1,18 @@
+PROMPT #12: Local SEO Blog Post
+Category : SEO Foundation
+Tags     : local, geo-targeted, GMB
+Model    : GPT-4 / Claude
+Description: Geo-targeted blog post with local intent signals for local SEO impact.
+============================================================
+
+Write a locally-targeted blog post that ranks for '[SERVICE] in [CITY]' queries.
+
+LOCAL SEO RULES:
+- Use '[SERVICE] in [CITY]' or '[CITY] [SERVICE]' naturally 3-4 times.
+- Include local landmarks, neighborhoods, or regional references where relevant.
+- Add a 'Serving the [CITY] Area' section with nearby locations.
+- Schema hint: LocalBusiness markup (note in JSON output).
+- Mention any local regulations, costs, or seasonal considerations specific to [REGION].
+- CTA: phone number placeholder, Google Maps embed suggestion, 'near me' anchor text.
+
+Service: [SERVICE] | City: [CITY] | State/Region: [REGION]

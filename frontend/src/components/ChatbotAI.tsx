@@ -411,6 +411,7 @@ export default function ChatbotAI() {
               />
               <button onClick={() => sendMessage(input)}
                 disabled={isTyping || !input.trim()}
+                aria-label="Send message"
                 className="p-2.5 rounded-xl bg-gold hover:bg-gold-dim text-darkbg transition-all duration-200 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed min-h-[44px] min-w-[44px] flex items-center justify-center">
                 <Send className="w-4 h-4" />
               </button>

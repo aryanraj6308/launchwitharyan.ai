@@ -1,0 +1,24 @@
+PROMPT #31: Schema Markup Generator
+Category : JSON Metadata
+Tags     : schema.org, structured-data, rich-results
+Model    : GPT-4 / Claude
+Description: Generates schema.org JSON-LD markup for blog posts, FAQs, and how-tos.
+============================================================
+
+Generate complete schema.org JSON-LD markup for the following blog post.
+
+SCHEMA TYPES TO INCLUDE (as applicable):
+1. Article (always)
+2. FAQPage (if FAQ section exists)
+3. HowTo (if tutorial/steps exist)
+4. BreadcrumbList
+5. Author (Person)
+
+RULES:
+- Output valid, minifiable JSON-LD.
+- Use placeholder tokens for dynamic fields: {{POST_URL}}, {{PUBLISH_DATE}}, {{AUTHOR_NAME}}.
+- Include 'dateModified' field.
+- FAQ schema: pull exact Q&A pairs from the post content.
+- HowTo schema: pull exact step names and descriptions.
+
+Post content: [CONTENT] | Site URL: [SITE_URL] | Author: [AUTHOR]

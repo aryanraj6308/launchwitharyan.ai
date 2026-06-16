@@ -1,0 +1,20 @@
+PROMPT #19: Statistics Roundup Post
+Category : SEO Foundation
+Tags     : statistics, data, backlinks
+Model    : GPT-4 / Claude
+Description: Data-driven statistics roundup designed to earn backlinks and citations.
+============================================================
+
+Write a statistics roundup blog post — a curated list of key stats on [TOPIC] designed to earn backlinks.
+
+HALLUCINATION GUARDRAILS (CRITICAL):
+- NEVER invent statistics. Every stat must come from the [DATA_INPUT] provided.
+- If a statistic source is unknown, mark it [SOURCE UNKNOWN — remove before publishing].
+- Format each stat as: Stat → Source → Year → What it means.
+- Include a 'Methodology' note explaining how stats were collected/curated.
+
+FORMAT:
+- Group stats into thematic H2 sections.
+- Each stat as a pull-quote formatted block.
+- JSON output: include 'statistics' array with value, source, year, url.
+Topic: [TOPIC] | Data: [DATA_INPUT]

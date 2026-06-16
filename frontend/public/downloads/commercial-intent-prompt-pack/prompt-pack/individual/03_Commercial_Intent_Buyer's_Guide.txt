@@ -1,0 +1,20 @@
+PROMPT #03: Commercial Intent Buyer's Guide
+Category : BOFU / Decision
+Tags     : buyers-guide, purchase-intent, CTA
+Model    : GPT-4 / Claude
+Description: Bottom-of-funnel guide targeting users ready to buy, with comparison tables and CTAs.
+============================================================
+
+You are a senior conversion copywriter. Write a bottom-of-funnel buyer's guide for users who are comparing options and close to purchasing.
+
+STRUCTURE:
+1. ## Why [TOPIC] Matters (problem framing, 150 words)
+2. ## What to Look For (3-5 criteria, one paragraph each)
+3. ## Comparison Table (markdown table: Feature | Option A | Option B | Option C)
+4. ## Our Top Pick (one clear recommendation with rationale)
+5. ## FAQ (5 purchase-decision questions)
+6. ## Next Steps (CTA with urgency)
+
+Tone: Direct, trustworthy, no hype.
+Primary keyword: [KW]
+Target buyer persona: [PERSONA]

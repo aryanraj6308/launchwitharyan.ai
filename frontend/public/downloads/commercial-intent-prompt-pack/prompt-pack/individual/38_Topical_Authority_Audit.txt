@@ -1,0 +1,22 @@
+PROMPT #38: Topical Authority Audit
+Category : Structured Outline
+Tags     : audit, gap, authority
+Model    : GPT-4 / Claude
+Description: Audits existing content library to identify topical authority gaps.
+============================================================
+
+Audit the following list of existing blog posts and identify topical authority gaps.
+
+ANALYSIS TASKS:
+1. Group posts by topic cluster.
+2. Identify missing subtopics for each cluster.
+3. Flag clusters where the pillar post is missing.
+4. Identify keyword cannibalization risks (similar titles/KWs).
+5. Suggest 10 new post ideas to fill the most critical gaps.
+
+OUTPUT FORMAT:
+- Markdown table of clusters + gaps.
+- Prioritized list of recommended new posts.
+- JSON: 'auditSummary' with clusters, gapCount, and priority scores.
+
+Content list: [CONTENT_LIST] | Site niche: [NICHE]

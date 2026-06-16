@@ -1,0 +1,22 @@
+PROMPT #18: Definition / Glossary Post
+Category : TOFU / Awareness
+Tags     : definition, glossary, informational
+Model    : GPT-4 / Claude
+Description: Definitional post targeting '[term] definition' and '[what is X]' queries.
+============================================================
+
+Write a comprehensive definitional blog post targeting 'What is [TERM]' queries.
+
+STRUCTURE:
+1. ## What Is [TERM]? (50-word direct definition optimized for featured snippet)
+2. ## [TERM] Definition: The Full Picture (expanded explanation)
+3. ## Key Components of [TERM]
+4. ## [TERM] vs [RELATED_TERM] (disambiguation)
+5. ## Examples of [TERM] in Practice
+6. ## Why [TERM] Matters
+7. ## Frequently Asked Questions
+
+SEO RULES:
+- Use exact-match 'What is [TERM]' in H1 and H2.
+- Include synonyms and related terms in H3s for semantic coverage.
+Term: [TERM] | Industry: [INDUSTRY] | KW: [KW]

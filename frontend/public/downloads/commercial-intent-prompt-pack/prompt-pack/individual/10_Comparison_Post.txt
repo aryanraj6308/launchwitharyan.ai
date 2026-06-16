@@ -1,0 +1,25 @@
+PROMPT #10: Comparison Post
+Category : BOFU / Decision
+Tags     : vs, comparison, alternatives
+Model    : GPT-4 / Claude
+Description: [Tool A] vs [Tool B] comparison post for users evaluating options.
+============================================================
+
+Write a fair, in-depth comparison post for users actively evaluating two options.
+
+STRUCTURE:
+1. ## [A] vs [B]: Quick Summary (table: criteria | A score | B score)
+2. ## What Is [A]? (150 words)
+3. ## What Is [B]? (150 words)
+4. ## Head-to-Head: [Criterion 1]
+5. ## Head-to-Head: [Criterion 2]
+6. ## Head-to-Head: [Criterion 3]
+7. ## Pricing Comparison
+8. ## Who Should Choose [A] vs [B]
+9. ## Our Verdict
+
+GUARDRAILS:
+- Present both options fairly unless clearly superior.
+- Do not invent pricing — mark as [CHECK OFFICIAL SITE].
+- Disclose any affiliate/promotional relationships.
+Option A: [A] | Option B: [B] | Target KW: [A] vs [B]

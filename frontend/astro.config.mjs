@@ -14,7 +14,7 @@ export default defineConfig({
     sitemap({
       filter: (page) => {
         const path = page.replace('https://aryanraj6308.github.io/launchwitharyan.ai', '').replace(/\/$/, '');
-        const exclude = ['/admin-dashboard', '/dashboard', '/login', '/405'];
+        const exclude = ['/admin-dashboard', '/dashboard', '/login', '/405', '/portfolio'];
         return !exclude.some(p => path === p || path.startsWith(p + '/'));
       },
       serialize: (entry) => {

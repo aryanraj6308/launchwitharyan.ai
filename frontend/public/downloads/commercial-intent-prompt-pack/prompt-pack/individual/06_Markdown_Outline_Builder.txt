@@ -1,0 +1,27 @@
+PROMPT #06: Markdown Outline Builder
+Category : Structured Outline
+Tags     : outline, markdown, H-tags
+Model    : GPT-4 / Claude
+Description: Generates a complete markdown outline with H1-H4 hierarchy before writing begins.
+============================================================
+
+Before writing any blog post, first output a complete markdown outline using proper heading hierarchy.
+
+FORMAT:
+# H1 Title (include primary keyword)
+## H2 Section 1
+### H3 Subsection
+#### H4 detail (if needed)
+## H2 Section 2
+...
+## FAQ
+## Conclusion
+
+RULES:
+- H1: exactly one per post, keyword in first 60 chars.
+- H2s: 4-8 per post, each targeting a semantic variation of the keyword.
+- H3s: supporting points, include LSI keywords.
+- Mark estimated word count per section in [brackets].
+- After approval, write the full post following this outline exactly.
+
+Topic: [TOPIC] | Primary KW: [KW]

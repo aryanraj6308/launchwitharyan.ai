@@ -1,0 +1,24 @@
+PROMPT #34: SaaS Feature Announcement Post
+Category : Conversion Copy
+Tags     : SaaS, product, announcement
+Model    : GPT-4 / Claude
+Description: Blog post announcing a new product feature with SEO and conversion goals.
+============================================================
+
+Write a feature announcement blog post for [FEATURE] that also ranks for [KW].
+
+STRUCTURE:
+1. ## [Feature] Is Here: What This Means for [USER_TYPE]
+2. ## The Problem We Solved (customer pain point)
+3. ## How [Feature] Works (step-by-step, clear language)
+4. ## Who Benefits Most (2-3 use cases)
+5. ## How to Get Started (CTA to feature or docs)
+6. ## FAQ
+
+RULES:
+- Lead with customer benefit, not engineering specs.
+- Use 'you' language throughout.
+- Avoid internal jargon — define any technical term on first use.
+- Do not claim capabilities the feature doesn't have.
+
+Feature: [FEATURE] | Product: [PRODUCT] | KW: [KW]

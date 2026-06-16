@@ -1,0 +1,21 @@
+PROMPT #24: Meta Title & Description Generator
+Category : JSON Metadata
+Tags     : meta, SERP, CTR
+Model    : GPT-4 / Claude
+Description: Generates 5 title/description variants per post optimized for SERP CTR.
+============================================================
+
+Generate 5 title and meta description variants for the following blog post, optimized for SERP click-through rate.
+
+RULES:
+- Title: max 60 characters, include primary keyword.
+- Meta description: max 155 characters, include keyword and a clear value proposition.
+- Vary each by angle: curiosity, benefit, urgency, number-driven, question.
+- Output as JSON array:
+[
+  {"title": "...", "metaDesc": "...", "angle": "curiosity", "charTitle": N, "charDesc": N},
+  ...
+]
+- Flag any title over 60 chars with a warning.
+
+Post topic: [TOPIC] | Primary KW: [KW] | Key benefit: [BENEFIT]

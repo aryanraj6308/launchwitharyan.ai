@@ -1,0 +1,20 @@
+PROMPT #43: Checklist / Template Post
+Category : Structured Outline
+Tags     : checklist, template, download
+Model    : GPT-4 / Claude
+Description: Downloadable checklist blog post optimized for lead generation.
+============================================================
+
+Write a blog post built around a practical checklist that readers will want to download or bookmark.
+
+STRUCTURE:
+1. ## Introduction: Why [TOPIC] Needs a Checklist (80 words)
+2. ## The [N]-Point [TOPIC] Checklist (formatted as a markdown checkbox list)
+3. ## How to Use This Checklist
+4. ## Common Mistakes to Avoid
+5. ## [TOPIC] Checklist: Quick Reference (condensed version for scanning)
+6. ## Next Steps + Lead Gen CTA
+
+FORMATTING: Use - [ ] checkbox syntax for all checklist items.
+JSON output: include 'checklistItems' array with 'text' and 'category' per item.
+Keyword: [KW] | Checklist topic: [TOPIC]

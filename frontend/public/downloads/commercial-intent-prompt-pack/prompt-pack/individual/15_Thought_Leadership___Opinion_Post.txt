@@ -1,0 +1,19 @@
+PROMPT #15: Thought Leadership / Opinion Post
+Category : Conversion Copy
+Tags     : thought-leadership, brand, E-E-A-T
+Model    : GPT-4 / Claude
+Description: Executive byline opinion post that builds brand authority and E-E-A-T signals.
+============================================================
+
+Write a thought leadership article in the voice of [AUTHOR_TITLE] at [COMPANY].
+
+STYLE RULES:
+- First-person perspective based on professional experience.
+- Open with a contrarian or surprising observation, not a definition.
+- Make 3-5 bold, defensible claims with reasoning — not generic advice.
+- Cite industry trends as 'in our experience' or 'what we're seeing' — do not fabricate data.
+- Include a personal anecdote slot: [INSERT REAL ANECDOTE HERE].
+- Close with a call to conversation, not a product pitch.
+
+Tone: confident, direct, human. Not corporate-speak.
+Topic: [TOPIC] | Author: [AUTHOR] | Brand: [BRAND]

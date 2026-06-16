@@ -1,0 +1,22 @@
+PROMPT #35: Zero-Click Content Optimizer
+Category : SEO Foundation
+Tags     : zero-click, SERP, featured-snippet
+Model    : GPT-4 / Claude
+Description: Optimizes content to win SERP features even in a zero-click environment.
+============================================================
+
+Optimize this blog post for zero-click SERP features that build brand visibility even without the click.
+
+FEATURES TO TARGET:
+- Featured snippet: provide a 40-60 word definition or answer after the H1.
+- People Also Ask: create H2/H3 questions matching PAA format.
+- Knowledge panel: include clear entity definition and brand mentions.
+- Rich results: mark FAQ, HowTo, and Article schema opportunities.
+
+FOR EACH FEATURE:
+- Mark in the content: [SNIPPET TARGET], [PAA TARGET], [SCHEMA: type].
+- Explain what change enables that feature.
+
+Rules: Do not write separate content — annotate the existing draft.
+
+Draft: [CONTENT] | Target KW: [KW]

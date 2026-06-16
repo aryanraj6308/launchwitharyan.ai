@@ -3,7 +3,7 @@
 
 @theme {
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-  --font-grotesk: 'Space Grotesk', monospace;
+  --font-grotesk: 'Space Grotesk', sans-serif;
 
   --color-gold: #d4a843;
   --color-gold-dim: #b89038;

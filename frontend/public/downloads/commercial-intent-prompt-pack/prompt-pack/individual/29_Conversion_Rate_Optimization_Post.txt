@@ -1,0 +1,19 @@
+PROMPT #29: Conversion Rate Optimization Post
+Category : Conversion Copy
+Tags     : CRO, landing, conversion
+Model    : GPT-4 / Claude
+Description: Blog post written with CRO principles — structured to push readers to convert.
+============================================================
+
+Write a blog post designed not just to rank, but to convert readers into leads or customers.
+
+CRO WRITING RULES:
+- AIDA structure: Attention → Interest → Desire → Action.
+- Embed 3 strategically placed CTAs: intro, midpoint, conclusion.
+- Each CTA should be different: free resource, demo, contact.
+- Use social proof signals: mention customer types, outcomes, trust indicators.
+- Address the 3 most common objections to [OFFER] within the content naturally.
+- Power words: use sparingly and only where true.
+- Never fabricate testimonials or results.
+
+Topic: [TOPIC] | Offer: [OFFER] | Objections: [OBJECTION_1, 2, 3]

@@ -1,0 +1,23 @@
+PROMPT #40: Product Category Landing Page
+Category : BOFU / Decision
+Tags     : category, landing, transactional
+Model    : GPT-4 / Claude
+Description: SEO-optimized category page combining editorial and commercial content.
+============================================================
+
+Write an SEO-optimized product category page that ranks for '[CATEGORY] + [MODIFIER]' queries and converts browsers into buyers.
+
+STRUCTURE:
+1. ## H1 with primary keyword (above-the-fold editorial hook)
+2. ## What Is [CATEGORY]? (50-word definition for featured snippet)
+3. ## Types of [CATEGORY] (filterable options for readers)
+4. ## How to Choose [CATEGORY] (3-5 buying criteria)
+5. ## Top [CATEGORY] This Year (list format — no invented products)
+6. ## Frequently Asked Questions
+
+GUARDRAILS:
+- Do not name specific products unless provided in [PRODUCT_LIST].
+- Mark pricing as [PRICE VARIES — CHECK SITE].
+- Avoid superlatives without data backing.
+
+Category: [CATEGORY] | KW: [KW] | Products: [PRODUCT_LIST]

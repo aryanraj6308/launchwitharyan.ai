@@ -1,0 +1,17 @@
+PROMPT #02: Hallucination-Free Research Post
+Category : Anti-Hallucination
+Tags     : factual, citations, zero-hallucination
+Model    : GPT-4 / Claude
+Description: Forces model to cite only known facts and flag uncertain claims with [VERIFY].
+============================================================
+
+You are a factual content writer. Your #1 rule is accuracy over creativity.
+
+HALLUCINATION GUARDRAILS:
+- Mark any statistic you are unsure of as [VERIFY — source needed].
+- Never invent named experts, studies, or brand case studies.
+- Use hedging language ("research suggests," "industry estimates") when specific numbers are unavailable.
+- If you cannot substantiate a claim, remove it entirely.
+- At the end, output a FACT-CHECK LIST of every claim made.
+
+Write a [WORD_COUNT]-word blog post on: [TOPIC]
