@@ -108,6 +108,9 @@ export default function Navbar() {
               <LogIn className="w-3.5 h-3.5" /> Login
             </a>
             <a href="/contact" className="btn-primary text-sm ml-1">
+              Book a Demo
+            </a>
+            <a href="/contact" className="hidden xl:inline-flex btn-secondary text-sm ml-1">
               Start Project
             </a>
           </div>
@@ -175,13 +178,13 @@ export default function Navbar() {
                   </button>
                 ))}
               </div>
+              <a href="/contact" onClick={() => setIsOpen(false)}
+                className="btn-primary w-full justify-center text-sm min-h-[44px]">
+                Book a Demo
+              </a>
               <a href="/login" onClick={() => setIsOpen(false)}
                 className="btn-secondary w-full justify-center text-sm min-h-[44px]">
                 <LogIn className="w-4 h-4" /> Login
-              </a>
-              <a href="/contact" onClick={() => setIsOpen(false)}
-                className="btn-primary w-full justify-center text-sm min-h-[44px]">
-                Start Project
               </a>
             </div>
           </div>

@@ -1,13 +1,26 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.tsx';
-import { Rocket, Bot, Globe, TrendingUp, ArrowRight, CheckCircle, Shield } from 'lucide-react';
+import { Bot, Globe, TrendingUp, ArrowRight, CheckCircle, Star, Quote } from 'lucide-react';
 
 const services = [
   { icon: Bot, title: "AI Automation Workflows", desc: "Custom AI agents that automate lead gen, support tickets, data entry, and reporting. Save 10x time with enterprise-grade reliability.", href: "/services/ai-automation" },
   { icon: Globe, title: "Premium Web Platforms", desc: "High-performance websites built with Astro + React. Blazing fast, SEO-optimized, accessibility-first.", href: "/services/web-platforms" },
-  { icon: Rocket, title: "AI Conversational Bots", desc: "Intelligent chatbots with RAG, tone-aware memory, and deep analytics. Deploy across web, WhatsApp, and Slack.", href: "/services/ai-bots" },
+  { icon: Bot, title: "AI Conversational Bots", desc: "Intelligent chatbots with RAG, tone-aware memory, and deep analytics. Deploy across web, WhatsApp, and Slack.", href: "/services/ai-bots" },
   { icon: TrendingUp, title: "SEO Automation Engine", desc: "AI-driven content strategy, auto-blog generation, SERP analysis, and backlink intelligence.", href: "/services/seo-automation" },
+];
+
+const agents = [
+  { name: "Aria", role: "Autonomous Workflow Agent", desc: "Handles lead gen, support tickets, data entry, and reporting — 24/7 without supervision.", abilities: ["Lead Qualification", "Ticket Resolution", "Data Pipeline", "Analytics"] },
+  { name: "Nova", role: "Web Intelligence Agent", desc: "Builds and optimizes high-performance web platforms with real-time SEO intelligence.", abilities: ["Performance Tuning", "SEO Analysis", "Content Strategy", "A/B Testing"] },
+  { name: "Orion", role: "Conversational AI", desc: "Deploys intelligent bots with RAG memory, tone awareness, and multi-channel support.", abilities: ["RAG Memory", "Multi-Channel", "Lead Capture", "Sentiment Analysis"] },
+  { name: "Sage", role: "SEO Automation Engine", desc: "Generates optimized content, analyzes SERP trends, and builds backlink strategies autonomously.", abilities: ["Content Generation", "SERP Analysis", "Backlink Intel", "Keyword Mapping"] },
+];
+
+const testimonials = [
+  { quote: "Our support ticket resolution time dropped from 4 hours to 90 seconds. Aria handles 70% of incoming tickets autonomously.", author: "Michael Chen", role: "CTO, StreamLogix", metric: "70%", label: "Faster Resolution" },
+  { quote: "The platform Nova built for us loads in under 800ms. Mobile conversions jumped 40% in the first month.", author: "Sarah Park", role: "CEO, Opal Studio", metric: "40%", label: "Conversion Lift" },
+  { quote: "Data pipeline automation reduced our processing time from 6 hours to 45 minutes per report. Game changer.", author: "David Okonkwo", role: "Head of Data, NexGen", metric: "85%", label: "Faster Workflows" },
 ];
 
 const process = [
@@ -17,31 +30,29 @@ const process = [
   { step: "04", title: "Deploy & Scale", desc: "Production launch with monitoring, CI/CD pipelines, and ongoing optimization to ensure peak performance." },
 ];
 
-const caseStudies = [
-  { metric: "70%", label: "Ticket Automation", title: "StreamLogix", result: "AI agents handle 70% of incoming support tickets autonomously. Response time dropped from 4 hours to 90 seconds." },
-  { metric: "40%", label: "Conversion Lift", title: "Opal Studio", result: "Built a sub-800ms SSR platform. Mobile conversions jumped 40% within the first 30 days of launch." },
-  { metric: "85%", label: "Faster Workflows", title: "NexGen Data", result: "Data pipeline automation reduced processing time from 6 hours to 45 minutes per report." },
-];
-
-const pricingPlans = [
-  { name: "Starter", price: "$2,499", desc: "Best for startups launching their first AI workflow.", features: ["1 AI workflow or landing page", "Basic CRM + WhatsApp bot integration", "SEO-optimized (on-page)", "1 revision round", "2-week delivery"], popular: false },
-  { name: "Growth", price: "$4,999", desc: "For growing teams scaling operations with AI.", features: ["3 AI workflows or multi-page site", "Full CRM + WhatsApp bot + analytics", "AI content generation (5 posts/mo)", "3 revision rounds", "3-week delivery", "Priority support"], popular: true },
-  { name: "Enterprise", price: "$9,999+", desc: "Custom solutions for large-scale deployments.", features: ["Unlimited AI workflows", "Custom integrations & API access", "Dedicated project manager", "SLA-backed uptime guarantee", "Security audit & penetration test", "Ongoing optimization"], popular: false },
-];
-
-const faqs = [
-  { q: "What does an AI automation workflow include?", a: "Every workflow includes strategy design, AI agent development, integration with your existing tools, testing, and deployment. We use a combination of LLMs, vector databases, and custom logic to ensure reliability." },
-  { q: "How long does a typical project take?", a: "Starter projects are delivered in 2 weeks. Growth projects take 3 weeks. Enterprise solutions are scoped during discovery — most complete within 4–6 weeks." },
-  { q: "Do I need technical knowledge to get started?", a: "Not at all. We handle everything from strategy to deployment. You'll receive a dashboard to monitor performance, and we provide ongoing support." },
-  { q: "What platforms do you integrate with?", a: "We integrate with Shopify, WordPress, Salesforce, HubSpot, Slack, WhatsApp, Telegram, Stripe, Razorpay, Google Analytics, and more through custom API connectors." },
-  { q: "Is my data secure?", a: "Yes. We implement 7-layer backend security: SSTI/SQLi/LPDOS/ReDoS protection, brute-force lockout, JWT nonce verification, and HMAC-signed webhooks. All data is encrypted in transit and at rest." },
-  { q: "What happens after launch?", a: "We provide 30 days of post-launch monitoring and support. For ongoing optimization, we offer maintenance plans including AI model retraining, content updates, and performance tuning." },
+const trustBar = [
+  "End-to-End Encryption", "SOC 2 Compliant", "99.9% Uptime SLA",
+  "24/7 Monitoring", "Zero IP Leakage", "Agile Delivery"
 ];
 ---
 
 <Layout>
   <Hero client:load />
 
+  <!-- Trust Bar -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+    <p class="text-xs font-semibold text-muted uppercase tracking-widest text-center mb-6">Enterprise-Grade Infrastructure</p>
+    <div class="flex flex-wrap justify-center gap-3">
+      {trustBar.map((item) => (
+        <div class="trust-bar-item text-xs">
+          <svg class="w-3.5 h-3.5 text-gold shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+          {item}
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Services -->
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28" id="services">
     <div class="max-w-2xl mb-14">
       <p class="text-xs font-semibold text-muted uppercase tracking-widest mb-3">What We Build</p>
@@ -54,12 +65,12 @@ const faqs = [
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
       {services.map((s) => (
-        <article class="card card-hover p-6 lg:p-7" itemScope itemType="https://schema.org/Service">
+        <article class="card card-hover p-6 lg:p-7 flex flex-col" itemScope itemType="https://schema.org/Service">
           <div class="w-10 h-10 rounded-xl bg-raised border border-default flex items-center justify-center text-gold mb-4">
             <s.icon class="w-5 h-5" />
           </div>
           <h3 class="font-grotesk font-semibold text-base text-primary mb-2" itemProp="name">{s.title}</h3>
-          <p class="text-sm text-secondary leading-relaxed" itemProp="description">{s.desc}</p>
+          <p class="text-sm text-secondary leading-relaxed flex-1" itemProp="description">{s.desc}</p>
           <a href={s.href} class="inline-flex items-center gap-1 mt-4 text-sm font-medium text-gold hover:text-gold-dim transition-colors">
             Learn More <ArrowRight class="w-3.5 h-3.5" />
           </a>
@@ -69,6 +80,71 @@ const faqs = [
     </div>
   </section>
 
+  <!-- AI Agents Section -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+    <div class="max-w-2xl mb-14">
+      <p class="text-xs font-semibold text-muted uppercase tracking-widest mb-3">Meet Your AI Team</p>
+      <h2 class="text-3xl sm:text-4xl font-grotesk font-bold tracking-tight text-primary">
+        Purpose-Built <span class="gradient-gold">AI Agents</span>
+      </h2>
+      <p class="text-base text-secondary mt-3">Each agent is trained for a specific domain. Deploy them individually or as a coordinated workforce.</p>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      {agents.map((agent) => (
+        <div class="agent-card text-left">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="agent-avatar w-10 h-10 text-sm !mb-0" style={{ animationDelay: `${agents.indexOf(agent) * 0.5}s` }}>{agent.name[0]}</div>
+            <div>
+              <h3 class="font-grotesk font-semibold text-sm text-primary">{agent.name}</h3>
+              <p class="text-[11px] text-muted">{agent.role}</p>
+            </div>
+          </div>
+          <p class="text-xs text-secondary leading-relaxed mb-3">{agent.desc}</p>
+          <div class="flex flex-wrap gap-1.5">
+            {agent.abilities.map((a) => (
+              <span class="px-2 py-0.5 rounded-md bg-raised border border-default text-[10px] text-muted">{a}</span>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="py-20 lg:py-28">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-2xl mb-14">
+        <p class="text-xs font-semibold text-muted uppercase tracking-widest mb-3">Client Results</p>
+        <h2 class="text-3xl sm:text-4xl font-grotesk font-bold tracking-tight text-primary">
+          Trusted by <span class="gradient-gold">Ambitious Teams</span>
+        </h2>
+        <p class="text-base text-secondary mt-3">Real outcomes from actual deployments. No stock photography, no fluff.</p>
+      </div>
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+        {testimonials.map((t) => (
+          <div class="testimonial-card">
+            <div class="flex items-center gap-1 mb-4">
+              {[...Array(5)].map(() => <Star class="w-3.5 h-3.5 fill-gold text-gold" />)}
+            </div>
+            <Quote class="w-6 h-6 text-gold/30 mb-2" />
+            <p class="text-sm text-secondary leading-relaxed mb-6">&ldquo;{t.quote}&rdquo;</p>
+            <div class="flex items-center justify-between pt-4 border-t border-default">
+              <div>
+                <p class="text-xs font-semibold text-primary">{t.author}</p>
+                <p class="text-[11px] text-muted">{t.role}</p>
+              </div>
+              <div class="text-right">
+                <div class="text-sm font-grotesk font-bold text-gold">{t.metric}</div>
+                <div class="text-[10px] text-muted">{t.label}</div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28" id="process">
     <div class="max-w-2xl mb-14">
       <p class="text-xs font-semibold text-muted uppercase tracking-widest mb-3">How It Works</p>
@@ -77,7 +153,7 @@ const faqs = [
       </h2>
       <p class="text-base text-secondary mt-3">A proven 4-step process that delivers results — on time and on budget.</p>
     </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 relative">
       <div class="hidden lg:block absolute top-10 left-[12.5%] right-[12.5%] h-px bg-gradient-to-r from-gold/30 via-gold/10 to-transparent" aria-hidden="true" />
       {process.map((p) => (
         <div key={p.step}>
@@ -91,33 +167,7 @@ const faqs = [
     </div>
   </section>
 
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28" id="results">
-    <div class="max-w-2xl mb-14">
-      <p class="text-xs font-semibold text-muted uppercase tracking-widest mb-3">Proven Results</p>
-      <h2 class="text-3xl sm:text-4xl font-grotesk font-bold tracking-tight text-primary">
-        Real Outcomes For <span class="gradient-gold">Real Businesses</span>
-      </h2>
-      <p class="text-base text-secondary mt-3">Measurable results from clients who trusted us with their AI automation and web infrastructure.</p>
-    </div>
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
-      {caseStudies.map((c) => (
-        <article class="card card-hover p-7">
-          <div class="flex items-center gap-4 mb-4">
-            <div class="w-10 h-10 rounded-xl bg-raised border border-default flex items-center justify-center text-gold">
-              <Shield class="w-5 h-5" />
-            </div>
-            <div>
-              <div class="text-xl font-grotesk font-bold text-gold">{c.metric}</div>
-              <div class="text-xs text-muted">{c.label}</div>
-            </div>
-          </div>
-          <h3 class="font-grotesk font-semibold text-sm text-primary mb-2">{c.title}</h3>
-          <p class="text-sm text-secondary leading-relaxed">{c.result}</p>
-        </article>
-      ))}
-    </div>
-  </section>
-
+  <!-- Pricing -->
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28" id="pricing">
     <div class="max-w-2xl mb-14">
       <p class="text-xs font-semibold text-muted uppercase tracking-widest mb-3">Investment</p>
@@ -127,35 +177,62 @@ const faqs = [
       <p class="text-base text-secondary mt-3">Fixed-price packages with no hidden fees. Every plan includes deployment and 30-day support.</p>
     </div>
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-      {pricingPlans.map((plan) => (
-        <div class={`card card-hover p-7 lg:p-8 flex flex-col ${plan.popular ? 'border-gold/30 ring-1 ring-gold/20' : ''}`}>
-          {plan.popular && (
-            <span class="inline-flex self-start px-3 py-1 rounded-full text-[10px] font-semibold text-darkbg bg-gold mb-4">
-              Most Popular
-            </span>
-          )}
-          <h3 class="font-grotesk font-semibold text-lg text-primary">{plan.name}</h3>
-          <div class="mt-3 mb-1">
-            <span class="text-2xl lg:text-3xl font-grotesk font-bold text-primary">{plan.price}</span>
-            {plan.name !== 'Enterprise' && <span class="text-sm text-muted"> / project</span>}
-          </div>
-          <p class="text-sm text-muted mb-6">{plan.desc}</p>
-          <ul class="space-y-2.5 mb-8 flex-1">
-            {plan.features.map((f) => (
-              <li class="flex items-start gap-2.5 text-sm text-secondary">
-                <CheckCircle class="w-4 h-4 text-gold shrink-0 mt-0.5" />
-                {f}
-              </li>
-            ))}
-          </ul>
-          <a href="/contact" class={`block text-center py-2.5 px-5 rounded-xl text-sm font-semibold transition-all duration-200 ${plan.popular ? 'btn-primary justify-center' : 'btn-secondary justify-center'}`}>
-            Get Started
-          </a>
+      <div class="card card-hover p-7 lg:p-8 flex flex-col">
+        <h3 class="font-grotesk font-semibold text-lg text-primary">Starter</h3>
+        <div class="mt-3 mb-1">
+          <span class="text-2xl lg:text-3xl font-grotesk font-bold text-primary">$2,499</span>
+          <span class="text-sm text-muted"> / project</span>
         </div>
-      ))}
+        <p class="text-sm text-muted mb-6">Best for startups launching their first AI workflow.</p>
+        <ul class="space-y-2.5 mb-8 flex-1">
+          <li class="flex items-start gap-2.5 text-sm text-secondary"><CheckCircle class="w-4 h-4 text-gold shrink-0 mt-0.5" />1 AI workflow or landing page</li>
+          <li class="flex items-start gap-2.5 text-sm text-secondary"><CheckCircle class="w-4 h-4 text-gold shrink-0 mt-0.5" />Basic CRM + WhatsApp bot integration</li>
+          <li class="flex items-start gap-2.5 text-sm text-secondary"><CheckCircle class="w-4 h-4 text-gold shrink-0 mt-0.5" />SEO-optimized (on-page)</li>
+          <li class="flex items-start gap-2.5 text-sm text-secondary"><CheckCircle class="w-4 h-4 text-gold shrink-0 mt-0.5" />1 revision round</li>
+          <li class="flex items-start gap-2.5 text-sm text-secondary"><CheckCircle class="w-4 h-4 text-gold shrink-0 mt-0.5" />2-week delivery</li>
+        </ul>
+        <a href="/contact" class="btn-secondary w-full justify-center text-sm">Get Started</a>
+      </div>
+
+      <div class="card card-hover p-7 lg:p-8 flex flex-col border-gold/30 ring-1 ring-gold/20">
+        <span class="inline-flex self-start px-3 py-1 rounded-full text-[10px] font-semibold text-darkbg bg-gold mb-4">Most Popular</span>
+        <h3 class="font-grotesk font-semibold text-lg text-primary">Growth</h3>
+        <div class="mt-3 mb-1">
+          <span class="text-2xl lg:text-3xl font-grotesk font-bold text-primary">$4,999</span>
+          <span class="text-sm text-muted"> / project</span>
+        </div>
+        <p class="text-sm text-muted mb-6">For growing teams scaling operations with AI.</p>
+        <ul class="space-y-2.5 mb-8 flex-1">
+          <li class="flex items-start gap-2.5 text-sm text-secondary"><CheckCircle class="w-4 h-4 text-gold shrink-0 mt-0.5" />3 AI workflows or multi-page site</li>
+          <li class="flex items-start gap-2.5 text-sm text-secondary"><CheckCircle class="w-4 h-4 text-gold shrink-0 mt-0.5" />Full CRM + WhatsApp bot + analytics</li>
+          <li class="flex items-start gap-2.5 text-sm text-secondary"><CheckCircle class="w-4 h-4 text-gold shrink-0 mt-0.5" />AI content generation (5 posts/mo)</li>
+          <li class="flex items-start gap-2.5 text-sm text-secondary"><CheckCircle class="w-4 h-4 text-gold shrink-0 mt-0.5" />3 revision rounds</li>
+          <li class="flex items-start gap-2.5 text-sm text-secondary"><CheckCircle class="w-4 h-4 text-gold shrink-0 mt-0.5" />3-week delivery</li>
+          <li class="flex items-start gap-2.5 text-sm text-secondary"><CheckCircle class="w-4 h-4 text-gold shrink-0 mt-0.5" />Priority support</li>
+        </ul>
+        <a href="/contact" class="btn-primary w-full justify-center text-sm">Get Started</a>
+      </div>
+
+      <div class="card card-hover p-7 lg:p-8 flex flex-col">
+        <h3 class="font-grotesk font-semibold text-lg text-primary">Enterprise</h3>
+        <div class="mt-3 mb-1">
+          <span class="text-2xl lg:text-3xl font-grotesk font-bold text-primary">$9,999+</span>
+        </div>
+        <p class="text-sm text-muted mb-6">Custom solutions for large-scale deployments.</p>
+        <ul class="space-y-2.5 mb-8 flex-1">
+          <li class="flex items-start gap-2.5 text-sm text-secondary"><CheckCircle class="w-4 h-4 text-gold shrink-0 mt-0.5" />Unlimited AI workflows</li>
+          <li class="flex items-start gap-2.5 text-sm text-secondary"><CheckCircle class="w-4 h-4 text-gold shrink-0 mt-0.5" />Custom integrations & API access</li>
+          <li class="flex items-start gap-2.5 text-sm text-secondary"><CheckCircle class="w-4 h-4 text-gold shrink-0 mt-0.5" />Dedicated project manager</li>
+          <li class="flex items-start gap-2.5 text-sm text-secondary"><CheckCircle class="w-4 h-4 text-gold shrink-0 mt-0.5" />SLA-backed uptime guarantee</li>
+          <li class="flex items-start gap-2.5 text-sm text-secondary"><CheckCircle class="w-4 h-4 text-gold shrink-0 mt-0.5" />Security audit & penetration test</li>
+          <li class="flex items-start gap-2.5 text-sm text-secondary"><CheckCircle class="w-4 h-4 text-gold shrink-0 mt-0.5" />Ongoing optimization</li>
+        </ul>
+        <a href="/contact" class="btn-secondary w-full justify-center text-sm">Contact Sales</a>
+      </div>
     </div>
   </section>
 
+  <!-- FAQ -->
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28" id="faq" itemScope itemType="https://schema.org/FAQPage">
     <div class="max-w-2xl mb-14">
       <p class="text-xs font-semibold text-muted uppercase tracking-widest mb-3">FAQ</p>
@@ -165,59 +242,63 @@ const faqs = [
       <p class="text-base text-secondary mt-3">Everything you need to know before getting started.</p>
     </div>
     <div class="max-w-3xl mx-auto space-y-3">
-      {faqs.map((faq) => (
-        <details class="faq-card" key={faq.q} itemScope itemType="https://schema.org/Question" itemprop="mainEntity">
-          <summary itemprop="name">{faq.q}</summary>
-          <div class="faq-answer" itemScope itemType="https://schema.org/Answer" itemprop="acceptedAnswer">
-            <div itemprop="text">{faq.a}</div>
-          </div>
-        </details>
-      ))}
+      <details class="faq-card" itemScope itemType="https://schema.org/Question" itemprop="mainEntity">
+        <summary itemprop="name">What does an AI automation workflow include?</summary>
+        <div class="faq-answer" itemScope itemType="https://schema.org/Answer" itemprop="acceptedAnswer">
+          <div itemprop="text">Every workflow includes strategy design, AI agent development, integration with your existing tools, testing, and deployment. We use a combination of LLMs, vector databases, and custom logic to ensure reliability.</div>
+        </div>
+      </details>
+      <details class="faq-card" itemScope itemType="https://schema.org/Question" itemprop="mainEntity">
+        <summary itemprop="name">How long does a typical project take?</summary>
+        <div class="faq-answer" itemScope itemType="https://schema.org/Answer" itemprop="acceptedAnswer">
+          <div itemprop="text">Starter projects are delivered in 2 weeks. Growth projects take 3 weeks. Enterprise solutions are scoped during discovery — most complete within 4–6 weeks.</div>
+        </div>
+      </details>
+      <details class="faq-card" itemScope itemType="https://schema.org/Question" itemprop="mainEntity">
+        <summary itemprop="name">Do I need technical knowledge to get started?</summary>
+        <div class="faq-answer" itemScope itemType="https://schema.org/Answer" itemprop="acceptedAnswer">
+          <div itemprop="text">Not at all. We handle everything from strategy to deployment. You'll receive a dashboard to monitor performance, and we provide ongoing support.</div>
+        </div>
+      </details>
+      <details class="faq-card" itemScope itemType="https://schema.org/Question" itemprop="mainEntity">
+        <summary itemprop="name">What platforms do you integrate with?</summary>
+        <div class="faq-answer" itemScope itemType="https://schema.org/Answer" itemprop="acceptedAnswer">
+          <div itemprop="text">We integrate with Shopify, WordPress, Salesforce, HubSpot, Slack, WhatsApp, Telegram, Stripe, Razorpay, Google Analytics, and more through custom API connectors.</div>
+        </div>
+      </details>
+      <details class="faq-card" itemScope itemType="https://schema.org/Question" itemprop="mainEntity">
+        <summary itemprop="name">Is my data secure?</summary>
+        <div class="faq-answer" itemScope itemType="https://schema.org/Answer" itemprop="acceptedAnswer">
+          <div itemprop="text">Yes. We implement 7-layer backend security: SSTI/SQLi/LPDOS/ReDoS protection, brute-force lockout, JWT nonce verification, and HMAC-signed webhooks. All data is encrypted in transit and at rest.</div>
+        </div>
+      </details>
+      <details class="faq-card" itemScope itemType="https://schema.org/Question" itemprop="mainEntity">
+        <summary itemprop="name">What happens after launch?</summary>
+        <div class="faq-answer" itemScope itemType="https://schema.org/Answer" itemprop="acceptedAnswer">
+          <div itemprop="text">We provide 30 days of post-launch monitoring and support. For ongoing optimization, we offer maintenance plans including AI model retraining, content updates, and performance tuning.</div>
+        </div>
+      </details>
     </div>
   </section>
 
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28" id="contact">
-    <div class="max-w-2xl mb-14">
-      <p class="text-xs font-semibold text-muted uppercase tracking-widest mb-3">Contact</p>
-      <h2 class="text-3xl sm:text-4xl font-grotesk font-bold tracking-tight text-primary">
-        Let's Build <span class="gradient-gold">Something Great</span>
+  <!-- CTA -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+    <div class="cta-section">
+      <p class="text-xs font-semibold text-muted uppercase tracking-widest mb-3">Get Started</p>
+      <h2 class="text-3xl sm:text-4xl font-grotesk font-bold tracking-tight text-primary mb-4">
+        Ready to Deploy <span class="gradient-gold">Your AI Workforce</span>?
       </h2>
-      <p class="text-base text-secondary mt-3">Tell us about your project. We'll get back to you within 24 hours with a tailored proposal.</p>
-    </div>
-    <div class="max-w-2xl mx-auto card p-8 lg:p-10">
-      <form action="/api/contact" method="POST" class="space-y-5">
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div class="space-y-1.5">
-            <label for="name" class="text-sm font-medium text-primary">Full Name</label>
-            <input type="text" id="name" name="name" required placeholder="Your name" />
-          </div>
-          <div class="space-y-1.5">
-            <label for="email" class="text-sm font-medium text-primary">Email Address</label>
-            <input type="email" id="email" name="email" required placeholder="you@company.com" />
-          </div>
-        </div>
-        <div class="space-y-1.5">
-          <label for="service" class="text-sm font-medium text-primary">Service Needed</label>
-          <select id="service" name="service">
-            <option value="">Select a service...</option>
-            <option value="ai-automation">AI Automation Workflows</option>
-            <option value="web-platform">Premium Web Platform</option>
-            <option value="chatbot">AI Conversational Bot</option>
-            <option value="seo">SEO Automation Engine</option>
-            <option value="other">Other / Not Sure</option>
-          </select>
-        </div>
-        <div class="space-y-1.5">
-          <label for="message" class="text-sm font-medium text-primary">Project Details</label>
-          <textarea id="message" name="message" rows={4} required placeholder="Tell us about your project, goals, and timeline..."></textarea>
-        </div>
-        <button type="submit" class="btn-primary w-full justify-center text-base py-3">
-          Send Proposal Request <ArrowRight class="w-4 h-4" />
-        </button>
-        <p class="text-xs text-muted text-center">
-          We respect your privacy. No spam, no sharing your info.
-        </p>
-      </form>
+      <p class="text-sm text-secondary max-w-xl mx-auto mb-8">
+        Book a free discovery call. We'll map your requirements, estimate delivery timeline, and provide a fixed-price quote — typically within 48 hours.
+      </p>
+      <div class="flex flex-col sm:flex-row justify-center gap-3">
+        <a href="/contact" class="btn-primary text-base min-h-[48px]">
+          Book a Free Call <ArrowRight class="w-4 h-4" />
+        </a>
+        <a href="/pricing" class="btn-secondary text-base min-h-[48px]">
+          View Pricing
+        </a>
+      </div>
     </div>
   </section>
 </Layout>
