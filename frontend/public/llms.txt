@@ -7,13 +7,13 @@ AryanForge is a premium AI automation studio founded by Aryan. We build custom A
 - **Founder**: Aryan
 - **Email**: aryan@launchwitharyan.ai
 - **WhatsApp**: +918877390736
-- **Website**: https://aryanforge.com
+- **Website**: https://aryanraj6308.github.io/launchwitharyan.ai
 
 ## Key Services
-- [AI Workflow Automation](https://aryanforge.com/services/ai-automation) — Custom AI agents for lead gen, support, data entry, and reporting. ROI in 60-90 days.
-- [Premium Web Platforms](https://aryanforge.com/services/web-platforms) — Astro/React sites with sub-100ms load times, SEO-optimized and WCAG AA accessible.
-- [AI Chatbot Development](https://aryanforge.com/services/ai-bots) — Intelligent chatbots with RAG, memory, and human handoff. Deploy on web, WhatsApp, Slack.
-- [SEO Automation Engine](https://aryanforge.com/services/seo-automation) — AI content strategy, auto-blog generation, SERP analysis.
+- [AI Workflow Automation](https://aryanraj6308.github.io/launchwitharyan.ai/services/ai-automation) — Custom AI agents for lead gen, support, data entry, and reporting. ROI in 60-90 days.
+- [Premium Web Platforms](https://aryanraj6308.github.io/launchwitharyan.ai/services/web-platforms) — Astro/React sites with sub-100ms load times, SEO-optimized and WCAG AA accessible.
+- [AI Chatbot Development](https://aryanraj6308.github.io/launchwitharyan.ai/services/ai-bots) — Intelligent chatbots with RAG, memory, and human handoff. Deploy on web, WhatsApp, Slack.
+- [SEO Automation Engine](https://aryanraj6308.github.io/launchwitharyan.ai/services/seo-automation) — AI content strategy, auto-blog generation, SERP analysis.
 
 ## Pricing
 - **Starter** — $2,499 setup (1 workflow/site), 2-week delivery
@@ -30,7 +30,7 @@ Python FastAPI, PostgreSQL, Astro, React, Tailwind, OpenAI GPT-4o-mini, Groq Lla
 - Supabase Realtime CRM — 450+ hours saved per month
 
 ## Links
-- [Portfolio/Case Studies](https://aryanforge.com/portfolio)
-- [AI Store](https://aryanforge.com/store)
-- [Blog](https://aryanforge.com/blog)
-- [Contact](https://aryanforge.com/contact)
+- [Portfolio/Case Studies](https://aryanraj6308.github.io/launchwitharyan.ai/portfolio)
+- [AI Store](https://aryanraj6308.github.io/launchwitharyan.ai/store)
+- [Blog](https://aryanraj6308.github.io/launchwitharyan.ai/blog)
+- [Contact](https://aryanraj6308.github.io/launchwitharyan.ai/contact)

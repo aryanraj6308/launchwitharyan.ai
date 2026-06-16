@@ -19,13 +19,15 @@ const {
   canonicalURL = Astro.url.href
 } = Astro.props as Props;
 
+const siteUrl = 'https://aryanraj6308.github.io/launchwitharyan.ai';
+
 const schemaMarkup = {
   "@context": "https://schema.org",
   "@type": "Organization",
   "name": "AryanForge",
-  "url": "https://aryanforge.com",
-  "logo": "https://aryanforge.com/logo.svg",
-  "image": ogImage.startsWith('http') ? ogImage : `https://aryanforge.com${ogImage}`,
+  "url": siteUrl,
+  "logo": `${siteUrl}/logo.svg`,
+  "image": ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`,
   "description": description,
   "foundingDate": "2025",
   "address": {
@@ -39,7 +41,7 @@ const schemaMarkup = {
     "availableLanguage": ["English"]
   },
   "sameAs": [
-    "https://aryanforge.com"
+    siteUrl
   ],
   "serviceType": [
     "AI Automation Services",
